@@ -30,8 +30,10 @@ if(is_admin()){
 	add_action('_admin_menu', 'UKMwpat_redirect_admin');
 
 	## CHANGE POSTS GUI
+/*
 	add_action( 'add_meta_boxes', 'ukmn_meta_box' );
 	add_action( 'save_post', 'ukmn_meta_box_save' );
+*/
 	add_action('init', 'UKMwpat_change_allowed_tags');
 
 	add_filter('manage_posts_columns', 'UKMwpat_custom_post_columns');
