@@ -34,18 +34,35 @@ function UKMwpat_tweak_menu_remove() {
 
 function UKMwpat_tweak_menu_separators() {
 	global $blog_id;
-	add_admin_menu_separator(399);
+	UKMWPat_add_admin_menu_separator(399);
 
 	if($blog_id == 1) {
-		add_admin_menu_separator(349);
-		add_admin_menu_separator(399);
-		add_admin_menu_separator(499);
-		add_admin_menu_separator(749);
-		add_admin_menu_separator(899);
+		UKMWPat_add_admin_menu_separator(349);
+		UKMWPat_add_admin_menu_separator(399);
+		UKMWPat_add_admin_menu_separator(499);
+		UKMWPat_add_admin_menu_separator(749);
+		UKMWPat_add_admin_menu_separator(899);
 	} else {
-		add_admin_menu_separator(199);
-		add_admin_menu_separator(299);
+		UKMWPat_add_admin_menu_separator(199);
+		UKMWPat_add_admin_menu_separator(299);
 	}
 }
-
+function UKMWPat_add_admin_menu_separator($position,$debug=false) {
+  global $menu;
+  if($debug) {
+	  echo '<pre>';
+	  var_dump($menu);
+	  echo '</pre>';
+  }
+  $index = 0;
+  $menu[$position+1] = $menu[$position];
+  foreach($menu as $offset => $section) {
+    if (substr($section[2],0,9)=='separator')
+      $index++;
+    if ($offset>=$position) {
+      $menu[$position] = array('','read',"separator{$index}",'','wp-menu-separator');
+      break;
+    }
+  }
+}
 ?>
