@@ -35,7 +35,7 @@ if(is_admin()){
 	add_action('init', 'UKMwpat_change_allowed_tags');
 
 	add_filter('manage_posts_columns', 'UKMwpat_custom_post_columns');
-	wp_enqueue_style('tablefooter_hide', dirname(__FILE__).'/css/tweak.tablefooter_hide.css');
+	wp_enqueue_style('tablefooter_hide', plugin_dir_url( __FILE__ ).'/css/tweak.tablefooter_hide.css');
 
 	## CHANGE UPLOAD / MEDIA GUI	
 	add_filter('attachment_fields_to_edit', 'UKMwpat_mediaform', 20);
