@@ -10,7 +10,6 @@ Author URI: http://www.ukm-norge.no
 
 
 if(is_admin()) {
-
 	require_once('tweak.admin_bar.php');
 	require_once('tweak.capabilities.php');
 	require_once('tweak.logon_redir.php');
