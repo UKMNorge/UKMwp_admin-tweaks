@@ -10,8 +10,6 @@ Author URI: http://www.ukm-norge.no
 
 
 if(is_admin()){
-	require_once('tweak.admin_bar.php');
-	require_once('tweak.capabilities.php');
 	require_once('tweak.logon_redir.php');
 	require_once('tweak.mediaform.php');
 	require_once('tweak.menu.php');
@@ -40,6 +38,9 @@ if(is_admin()){
 
 #	add_action('delete_post', 'UKMN_related_sync', 10);
 }
+
+require_once('tweak.admin_bar.php');
+require_once('tweak.capabilities.php');
 
 ## CHANGE ROLE NAMES
 add_action('init', 'UKMwpat_change_role_name');
