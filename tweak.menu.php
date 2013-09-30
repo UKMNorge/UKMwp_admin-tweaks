@@ -43,6 +43,7 @@ function UKMwpat_tweak_menu_separators() {
 		UKMWPat_add_admin_menu_separator(749);
 		UKMWPat_add_admin_menu_separator(899);
 	} else {
+		UKMWPat_add_admin_menu_separator(149);
 		UKMWPat_add_admin_menu_separator(199);
 		UKMWPat_add_admin_menu_separator(299);
 	}
