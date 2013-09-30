@@ -23,7 +23,7 @@ if(is_admin()){
 
 
 	## HOOK MENU
-	add_action('admin_menu', 'UKMwpat_tweak_menu_separators');
+	add_action('admin_menu', 'UKMwpat_tweak_menu_separators', 1500);
 	add_action('admin_menu', 'UKMwpat_tweak_menu_remove', 300);
 
 	## REDIRECT USER TO HIS/HERS ONE SITE/BLOG
