@@ -35,6 +35,7 @@ function UKMwpat_tweak_menu_remove() {
 function UKMwpat_tweak_menu_separators() {
 	global $blog_id;
 	UKMWPat_add_admin_menu_separator(399);
+	UKMWPat_add_admin_menu_separator(190);
 
 	if($blog_id == 1) {
 		UKMWPat_add_admin_menu_separator(349);
@@ -43,7 +44,6 @@ function UKMwpat_tweak_menu_separators() {
 		UKMWPat_add_admin_menu_separator(749);
 		UKMWPat_add_admin_menu_separator(899);
 	} else {
-		UKMWPat_add_admin_menu_separator(190);
 		UKMWPat_add_admin_menu_separator(299);
 	}
 }
