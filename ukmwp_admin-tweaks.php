@@ -17,11 +17,6 @@ if(is_admin()){
 	require_once('tweak.menu.php');
 	require_once('tweak.posts.php');
 
-	## CHANGE ROLE NAMES
-	add_action('init', 'UKMwpat_change_role_name');
-	add_action('wp_before_admin_bar_render','UKMwpat_modify_toolbar', 1000);
-
-
 	## HOOK MENU
 	add_action('admin_menu', 'UKMwpat_tweak_menu_separators', 1500);
 	add_action('admin_menu', 'UKMwpat_tweak_menu_remove', 300);
@@ -45,3 +40,7 @@ if(is_admin()){
 
 #	add_action('delete_post', 'UKMN_related_sync', 10);
 }
+
+## CHANGE ROLE NAMES
+add_action('init', 'UKMwpat_change_role_name');
+add_action('wp_before_admin_bar_render','UKMwpat_modify_toolbar', 1000);
