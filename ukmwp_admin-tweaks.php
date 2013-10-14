@@ -14,6 +14,7 @@ if(is_admin()){
 	require_once('tweak.mediaform.php');
 	require_once('tweak.menu.php');
 	require_once('tweak.posts.php');
+	require_once('tweak.post-meta.php');
 	require_once('tweak.update-services.php');
 
 	## ADD NETWORK UPDATE MENU
@@ -29,12 +30,12 @@ if(is_admin()){
 
 	## CHANGE POSTS GUI
 	add_action( 'admin_menu', 'UKMwpat_remove_posts_meta_boxes' );
-
-/*
-	add_action( 'add_meta_boxes', 'ukmn_meta_box' );
-	add_action( 'save_post', 'ukmn_meta_box_save' );
-*/
 	add_action('init', 'UKMwpat_change_allowed_tags');
+
+	add_action( 'add_meta_boxes', 'UKMwpat_add_tag_meta_box' );
+	add_action( 'save_post', 'ukmn_meta_box_save' );
+	add_action('delete_post', 'UKMwpat_related_delete', 10);
+
 
 	add_filter('manage_posts_columns', 'UKMwpat_custom_post_columns');
 	wp_enqueue_style('tablefooter_hide', plugin_dir_url( __FILE__ ).'/css/tweak.tablefooter_hide.css');
@@ -42,8 +43,6 @@ if(is_admin()){
 	## CHANGE UPLOAD / MEDIA GUI	
 	add_filter('attachment_fields_to_edit', 'UKMwpat_mediaform', 20);
 	add_filter('media_meta', 'UKMwpat_editmedia');
-
-#	add_action('delete_post', 'UKMN_related_sync', 10);
 }
 
 require_once('tweak.admin_bar.php');
