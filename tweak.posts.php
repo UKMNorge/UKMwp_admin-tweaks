@@ -1,5 +1,6 @@
 <?php
 function UKMwpat_custom_post_columns($defaults) {
+	var_dump($defaults);
   unset($defaults['categories']);
   unset($defaults['tags']);
   return $defaults;
