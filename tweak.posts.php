@@ -6,6 +6,10 @@ function UKMwpat_custom_post_columns($defaults) {
   return $defaults;
 }
 
+function UKMwpat_remove_posts_meta_boxes() {
+	remove_meta_box('tagsdiv-post_tag', 'post', 'normal');
+}
+
 function UKMwpat_change_allowed_tags() {
 	global $allowedposttags;
 	

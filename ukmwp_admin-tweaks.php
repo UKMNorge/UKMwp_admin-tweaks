@@ -14,6 +14,11 @@ if(is_admin()){
 	require_once('tweak.mediaform.php');
 	require_once('tweak.menu.php');
 	require_once('tweak.posts.php');
+	require_once('tweak.update-services.php');
+
+	## ADD NETWORK UPDATE MENU
+	add_action('init', 'ActivateUpdateServices_init');
+
 
 	## HOOK MENU
 	add_action('admin_menu', 'UKMwpat_tweak_menu_separators', 1500);
@@ -23,6 +28,8 @@ if(is_admin()){
 	add_action('_admin_menu', 'UKMwpat_redirect_admin');
 
 	## CHANGE POSTS GUI
+	add_action( 'admin_menu', 'UKMwpat_remove_posts_meta_boxes' );
+
 /*
 	add_action( 'add_meta_boxes', 'ukmn_meta_box' );
 	add_action( 'save_post', 'ukmn_meta_box_save' );
