@@ -19,7 +19,7 @@ function ukmn_meta_box_save( $post_id ) {
  	// OK, we're authenticated: we need to find and save the data
 	global $blog_id;
 	
-	if(empty($post->ID) || (int) $post->ID == 0)
+	if(empty($post->ID)||(int)$post->ID == 0)
 		return false;
 	if((int) $blog_id == 0)
 		return false;
