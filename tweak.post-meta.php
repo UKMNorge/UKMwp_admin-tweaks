@@ -66,7 +66,11 @@ function ukm_post_info() {
 		$those_tagged[] = $t['b_id'];
 
 	foreach($bands as $i => $band) {
-		echo '<input type="checkbox" name="ukmn_tagMe[]" '.(in_array($band['b_id'],$those_tagged)?'checked="checked"':'').' value="'.$band['b_id'].'" /> '.ucwords(shortString($band['b_name'], 30)).'<br />';
+		echo '<label>'
+			.'<input type="checkbox" name="ukmn_tagMe[]" '.(in_array($band['b_id'],$those_tagged)?'checked="checked"':'').' value="'.$band['b_id'].'" />'
+			. ucwords(shortString($band['b_name'], 30))
+			.'</label>'
+			.'<br />';
 	}
 }
 
