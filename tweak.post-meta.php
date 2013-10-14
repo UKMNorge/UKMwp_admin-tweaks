@@ -1,7 +1,7 @@
 <?php
 
 function UKMwpat_add_tag_meta_box() {
-	add_meta_box('ukm_post', 'UKM-innstillinger', 'ukm_post_info', 'post', 'side', 'low');
+	add_meta_box('ukm_post', 'Innlegget handler om', 'ukm_post_info', 'post', 'side', 'low');
 }
 
 ## HANDLE SAVE
@@ -50,7 +50,7 @@ function ukm_post_info() {
 	
 	echo '<label for="ukmn_b_id">'
 		.'Hvis innlegget handler om ett eller flere innslag i mønstringen kan du krysse av for dette her.'
-		.'<br />'
+		.'<br /><br />'
 		.'<strong>OBS: om innlegget er informasjon til deltakerne skal du IKKE krysse av her!</strong>'
 		.'</label>'
 		.'<br /><br />';
