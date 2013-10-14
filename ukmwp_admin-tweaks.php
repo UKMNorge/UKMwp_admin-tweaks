@@ -16,6 +16,8 @@ if(is_admin()){
 	require_once('tweak.posts.php');
 	require_once('tweak.post-meta.php');
 	require_once('tweak.update-services.php');
+	require_once('tweak.password-restrict.php');
+	require_once('tweak.user-fields.php');
 
 	## ADD NETWORK UPDATE MENU
 	add_action('init', 'ActivateUpdateServices_init');
@@ -43,6 +45,20 @@ if(is_admin()){
 	## CHANGE UPLOAD / MEDIA GUI	
 	add_filter('attachment_fields_to_edit', 'UKMwpat_mediaform', 20);
 	add_filter('media_meta', 'UKMwpat_editmedia');
+	
+	## USERS (EDIT FORM)
+	add_filter('user_contactmethods','UKMwpat_user_remove_controls',10,1);
+	add_action( 'admin_enqueue_scripts', 'UKMwpat_users_form' );
+
+	
+	## PASSWORDS
+	add_filter('show_password_fields', 'tr_restrict_password_changes');
+	add_action('edit_user_profile_update', 'tr_restrict_password_changes_prevent');
+	add_action('personal_options_update', 'tr_restrict_password_changes_prevent');
+	add_filter('allow_password_reset', 'tr_restrict_password_reset');
+	add_action('login_head', 'tr_remove_reset_link_init');
+	add_filter('login_errors', 'tr_remove_reset_link');
+
 }
 
 require_once('tweak.admin_bar.php');
