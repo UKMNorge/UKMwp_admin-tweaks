@@ -37,6 +37,7 @@ function UKMwpat_tweak_menu_separators() {
 	UKMWPat_add_admin_menu_separator(399);
 	UKMWPat_add_admin_menu_separator(190);
 	UKMWPat_add_admin_menu_separator(180);
+	UKMWPat_add_admin_menu_separator(300);
 
 	if($blog_id == 1) {
 		UKMWPat_add_admin_menu_separator(349);
