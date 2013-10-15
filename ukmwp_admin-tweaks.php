@@ -23,7 +23,7 @@ if(is_admin()){
 	add_action('init', 'ActivateUpdateServices_init');
 
 	## HOOK MENU
-	add_action('admin_menu', 'UKMwpat_tweak_menu_separators', 1500);
+	add_action('admin_menu', 'UKMwpat_tweak_menu_separators', 15000);
 	add_action('admin_menu', 'UKMwpat_tweak_menu_remove', 300);
 
 	## REDIRECT USER TO HIS/HERS ONE SITE/BLOG
@@ -62,4 +62,4 @@ require_once('tweak.capabilities.php');
 
 ## CHANGE ROLE NAMES
 add_action('init', 'UKMwpat_change_role_name');
-add_action('wp_before_admin_bar_render','UKMwpat_modify_toolbar', 100000);
+add_action('wp_before_admin_bar_render','UKMwpat_modify_toolbar', 10000);
