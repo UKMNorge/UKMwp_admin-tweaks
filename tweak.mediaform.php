@@ -50,11 +50,6 @@
 
 	function UKMwpat_upload_mimes( $existing_mimes=array() ) {
 
-		$existing_mimes['zip1'] = 'application/x-compressed';
-		$existing_mimes['zip2'] = 'application/x-zip-compressed';
-		$existing_mimes['zip3'] = 'application/zip';
-		$existing_mimes['zip4'] = 'application/x-zip';
-
 	    $existing_mimes['zip'] = 'application/zip';
 	    $existing_mimes['gz'] = 'application/x-gzip';
 
