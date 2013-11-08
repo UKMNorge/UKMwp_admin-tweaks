@@ -55,6 +55,9 @@
 		$existing_mimes['zip3'] = 'application/zip';
 		$existing_mimes['zip4'] = 'application/x-zip';
 
+	    $existing_mimes['zip'] = 'application/zip';
+	    $existing_mimes['gz'] = 'application/x-gzip';
+
 		$existing_mimes['pptx'] = 'application/vnd.openxmlformats-officedocument.presentationml.presentation';
 		$existing_mimes['ppt'] = 'application/vnd.ms-powerpoint';
 		$existing_mimes['doc'] = 'application/msword';
