@@ -46,3 +46,21 @@
 #		unset($content['image-size']);
 		return $content;
 	}
+	
+
+	function UKMwpat_upload_mimes( $existing_mimes=array() ) {
+
+		$existing_mimes['zip1'] = 'application/x-compressed';
+		$existing_mimes['zip2'] = 'application/x-zip-compressed';
+		$existing_mimes['zip3'] = 'application/zip';
+		$existing_mimes['zip4'] = 'application/x-zip';
+
+		$existing_mimes['pptx'] = 'application/vnd.openxmlformats-officedocument.presentationml.presentation';
+		$existing_mimes['ppt'] = 'application/vnd.ms-powerpoint';
+		$existing_mimes['doc'] = 'application/msword';
+		$existing_mimes['docx'] = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+		$existing_mimes['xls'] = 'application/vnd.ms-excel';
+		$existing_mimes['xlsx'] = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+
+		return $existing_mimes;
+	}

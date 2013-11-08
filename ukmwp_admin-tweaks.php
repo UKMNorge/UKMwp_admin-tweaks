@@ -44,6 +44,8 @@ if(is_admin()){
 	add_filter('attachment_fields_to_edit', 'UKMwpat_mediaform', 20);
 	add_filter('media_meta', 'UKMwpat_editmedia');
 	
+	add_filter('upload_mimes', 'UKMwpat_upload_mimes');
+	
 	## USERS (EDIT FORM)
 	add_filter('user_contactmethods','UKMwpat_user_remove_controls',10,1);
 	add_action( 'admin_enqueue_scripts', 'UKMwpat_users_form' );
