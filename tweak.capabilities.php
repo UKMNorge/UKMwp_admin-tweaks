@@ -19,18 +19,20 @@ function UKMwpat_change_role_name() {
     if ( ! isset( $wp_roles ) )
         $wp_roles = new WP_Roles();
 
+	UKMwpat_change_role_name_raw( $wp_roles );
 
         #remove_role( 'subscriber' );
     //You can list all currently available roles like this...
     //$roles = $wp_roles->get_names();
     //print_r($roles);
+}
 
-    //You can replace "administrator" with any other role "editor", "author", "contributor" or "subscriber"...
+UKMwpat_change_role_name_raw($wp_roles) {
     $wp_roles->roles['editor']['name'] = 'UKM-arrangør';
     $wp_roles->role_names['editor'] = 'UKM-arrangør';
     $wp_roles->roles['author']['name'] = 'UKM Nettredaktør';
     $wp_roles->role_names['author'] = 'UKM Nettredaktør';
     $wp_roles->roles['contributor']['name'] = 'UKM-journalist';
     $wp_roles->role_names['contributor'] = 'UKM-journalist';
-    
+	return $wp_roles;
 }
