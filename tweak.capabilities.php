@@ -1,18 +1,4 @@
 <?php
-// Do we now use plugin? (2013)
-/*
-
-function modify_capabilities(){
-  // get the role you want to change: editor, author, contributor, subscriber
-  $editor_role = get_role('editor');
-  $editor_role->remove_cap('publish_pages');
-  $editor_role->remove_cap('edit_pages');
-  $editor_role->remove_cap('edit_others_pages');
-  $editor_role->remove_cap('manage_links');
-  $editor_role->remove_cap('moderate_comments');
-}
-*/
-
 function UKMwpat_change_role_name() {
     global $wp_roles;
 
@@ -20,11 +6,6 @@ function UKMwpat_change_role_name() {
         $wp_roles = new WP_Roles();
 
 	UKMwpat_change_role_name_raw( $wp_roles );
-
-        #remove_role( 'subscriber' );
-    //You can list all currently available roles like this...
-    //$roles = $wp_roles->get_names();
-    //print_r($roles);
 }
 
 function UKMwpat_change_role_name_raw($wp_roles) {
@@ -36,3 +17,15 @@ function UKMwpat_change_role_name_raw($wp_roles) {
     $wp_roles->role_names['contributor'] = 'UKM-journalist';
 	return $wp_roles;
 }
+
+
+//// !!! !!! OBS: HACK !!! !!!
+/* For at det skal virke i network-admin, bytt ut følgende linje (omtrent 55):
+	
+	$editblog_roles = $wp_roles->roles;
+	
+	med:
+	
+	$editblog_roles = apply_filters('UKM_filter_roles', $wp_roles);
+	$editblog_roles = $wp_roles->roles;
+*/
