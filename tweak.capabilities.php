@@ -27,7 +27,7 @@ function UKMwpat_change_role_name() {
     //print_r($roles);
 }
 
-UKMwpat_change_role_name_raw($wp_roles) {
+function UKMwpat_change_role_name_raw($wp_roles) {
     $wp_roles->roles['editor']['name'] = 'UKM-arrangør';
     $wp_roles->role_names['editor'] = 'UKM-arrangør';
     $wp_roles->roles['author']['name'] = 'UKM Nettredaktør';
