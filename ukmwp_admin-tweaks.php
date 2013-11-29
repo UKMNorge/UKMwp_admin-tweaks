@@ -64,6 +64,6 @@ require_once('tweak.capabilities.php');
 
 ## CHANGE ROLE NAMES
 add_action('init', 'UKMwpat_change_role_name');
-add_action('wp_loaded', 'UKMwpat_change_role_name');
+add_action('current_screen', 'UKMwpat_change_role_name');
 add_action('UKM_filter_roles', 'UKMwpat_change_role_name_raw');
 add_action('wp_before_admin_bar_render','UKMwpat_modify_toolbar', 10000);
