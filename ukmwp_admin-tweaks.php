@@ -12,8 +12,8 @@ Author URI: http://www.ukm-norge.no
 if(is_admin()){
 	require_once('tweak.logon_redir.php');
 	require_once('tweak.mediaform.php');
-	require_once('tweak.adminmenu_build.php');
 	require_once('tweak.menu.php');
+	require_once('tweak.adminmenu_build.php');
 	require_once('tweak.posts.php');
 	require_once('tweak.post-meta.php');
 	require_once('tweak.update-services.php');

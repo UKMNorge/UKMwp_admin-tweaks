@@ -69,9 +69,10 @@ function UKMwpat_addSeparators() {
 		while(isset( $menu[$ID] )) {
 			$ID++;
 		}
-		
 		$menu[$ID] = array('','read',"separator{$ID}",'','wp-menu-separator');
 	}
+	
+	ksort($menu);
 }
 
 function UKMwpat_admin_menu_build() {

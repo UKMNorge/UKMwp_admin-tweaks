@@ -6,7 +6,7 @@ function UKMwpat_tweak_menu_remove() {
 	$menu[2][0] = 'Startside';
 	
 	// MOVE
-	$move = array(59 => 'separator2',
+	$move = array(#59 => 'separator2',
 				  60 => 'themes.php',
 				  65 => 'plugins.php',
 				  70 => 'users.php',
@@ -32,6 +32,8 @@ function UKMwpat_tweak_menu_remove() {
 		if( $menu[ $id ][2] == $file )
 			unset( $menu[ $id ] );	
 	}
+	
+	unset( $menu[59] );
 	
 	remove_submenu_page( 'edit.php', 'edit-tags.php?taxonomy=category' );
 	remove_submenu_page( 'edit.php', 'edit-tags.php?taxonomy=post_tag' );
