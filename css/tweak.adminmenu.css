@@ -1,0 +1,6 @@
+#adminmenu > li.wp-menu-separator {
+background: #99c8f0 !important;
+height: 1px !important;
+margin-top: 0px !important;
+margin-bottom: 0px !important;
+}

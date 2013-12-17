@@ -12,6 +12,7 @@ Author URI: http://www.ukm-norge.no
 if(is_admin()){
 	require_once('tweak.logon_redir.php');
 	require_once('tweak.mediaform.php');
+	require_once('tweak.adminmenu_build.php');
 	require_once('tweak.menu.php');
 	require_once('tweak.posts.php');
 	require_once('tweak.post-meta.php');
@@ -23,8 +24,11 @@ if(is_admin()){
 	add_action('init', 'ActivateUpdateServices_init');
 
 	## HOOK MENU
-	add_action('admin_menu', 'UKMwpat_tweak_menu_separators', 15000);
+//	add_action('admin_menu', 'UKMwpat_tweak_menu_separators', 15000);
 	add_action('admin_menu', 'UKMwpat_tweak_menu_remove', 300);
+	add_action('admin_menu', 'UKMwpat_admin_menu_build');
+	add_action('admin_menu', 'UKMwpat_addSeparators',10000);
+	wp_enqueue_style('tweak_adminmenu', plugin_dir_url( __FILE__ ).'css/tweak.adminmenu.css');
 
 	## REDIRECT USER TO HIS/HERS ONE SITE/BLOG
 	add_action('_admin_menu', 'UKMwpat_redirect_admin');
@@ -38,7 +42,7 @@ if(is_admin()){
 	add_action('delete_post', 'UKMwpat_related_delete', 10);
 
 	add_filter('manage_posts_columns', 'UKMwpat_custom_post_columns');
-	wp_enqueue_style('tablefooter_hide', plugin_dir_url( __FILE__ ).'/css/tweak.tablefooter_hide.css');
+	wp_enqueue_style('tablefooter_hide', plugin_dir_url( __FILE__ ).'css/tweak.tablefooter_hide.css');
 
 	## CHANGE UPLOAD / MEDIA GUI	
 	add_filter('attachment_fields_to_edit', 'UKMwpat_mediaform', 20);
