@@ -4,15 +4,6 @@
  * @author David M&aring;rtensson
  * @version 1.0.6
  */
-/*
-Plugin Name: Activate Update Services
-Plugin URI: http://www.feedmeastraycat.net/projects/random-wordpress-plugins/activate-update-services/
-Description: For some reason WordPress removes the Update Services ability (under Settings - Writing) when you create a network (aka enables WordPress MU/Multisite). Activate this plugin to get it back.
-Author: David M&aring;rtensson
-Version: 1.0.6
-Author URI: http://www.feedmeastraycat.net/
-*/
-
 
 /**
  * Init plugin
