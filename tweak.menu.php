@@ -31,6 +31,11 @@ function UKMwpat_tweak_menu_remove() {
 			unset($menu[$key]);
 		}
 	}
+	// For some users, they only see their own profile :)
+	if( $menu[70][2] == 'profile.php') {
+		$menu[1070] = $menu[70];
+		unset($menu[70]);
+	}
 	## IF USER IS A KOMMUNE-ADMIN
 	if(get_blog_option($current_user->primary_blog, 'site_type')=='kommune')
 		remove_submenu_page( 'index.php', 'my-sites.php' );
