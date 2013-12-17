@@ -31,9 +31,9 @@ function UKMwpat_tweak_menu_remove() {
 			unset($menu[$key]);
 		}
 	}
-	// For some users, they only see their own profile :)
+	
+	// Hide profile menu (use the right top corner instead)
 	if( $menu[70][2] == 'profile.php') {
-		$menu[1070] = $menu[70];
 		unset($menu[70]);
 	}
 	## IF USER IS A KOMMUNE-ADMIN
