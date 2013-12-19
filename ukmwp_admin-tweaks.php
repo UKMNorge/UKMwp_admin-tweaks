@@ -19,6 +19,10 @@ if(is_admin()){
 	require_once('tweak.update-services.php');
 	require_once('tweak.password-restrict.php');
 	require_once('tweak.user-fields.php');
+	require_once('tweak.logon.php');
+	
+	add_action( 'admin_init', 'UKMwpat_logon_check' );
+
 
 	## ADD NETWORK UPDATE MENU
 	add_action('init', 'ActivateUpdateServices_init');
