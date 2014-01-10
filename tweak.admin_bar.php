@@ -1,6 +1,9 @@
 <?php
 function UKMwpat_modify_toolbar() {
 	global $wp_admin_bar;
+
+	$wp_admin_bar->remove_menu('wp-logo');
+
 	
 	$remove = array(# Everthing child of WP ølogo
 					'about','wporg','documentation','support-forums','feedback',
@@ -40,4 +43,12 @@ function UKMwpat_modify_toolbar() {
 								   'href' => admin_url().'admin.php?page=UKM_videorep'
 								  )
 						   );
+						   
+	$wp_admin_bar->add_node( array(
+									'id'    => 'ukm_support',
+									'title' => '<img src="http://ico.ukm.no/support-16.png" id="UKMhelpicon" style=" margin-top: -4px;" /> Brukerstøtte',
+									'href'  => 'admin.php?page=UKMsupportInfo',
+									'parent'=>'top-secondary'
+								)
+							);
 }
