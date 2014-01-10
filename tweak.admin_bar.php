@@ -46,7 +46,7 @@ function UKMwpat_modify_toolbar() {
 	$wp_admin_bar->add_node( array(
 									'id'    => 'ukm_support',
 									'title' => '<img src="http://ico.ukm.no/support-16.png" id="UKMhelpicon" style=" margin-top: -4px;" /> Brukerstøtte',
-									'href'  => (is_admin() ? '' : 'wp-admin/').'admin.php?page=UKMwpd_support',
+									'href'  => admin_url().'admin.php?page=UKMwpd_support',
 									'parent'=>'top-secondary'
 								)
 							);
