@@ -23,11 +23,11 @@ function UKMwpat_tweak_menu_remove() {
 	// REMOVE
 	$remove = array(
 					15	=> 'edit-tags.php?taxonomy=link_category',
-					20	=> 'edit.php?post_type=page',
 					25	=> 'edit-comments.php',
 					);	
 	if( !is_super_admin() ) {
 		$remove[10]	= 'upload.php';
+		$remove[20]	= 'edit.php?post_type=page';
 		$remove[1075] = 'tools.php';
 	}
 	foreach( $remove as $id => $file) {

@@ -3,7 +3,6 @@ function UKMwpat_modify_toolbar() {
 	global $wp_admin_bar;
 
 	$wp_admin_bar->remove_menu('wp-logo');
-
 	
 	$remove = array(# Everthing child of WP ølogo
 					'about','wporg','documentation','support-forums','feedback',
@@ -12,8 +11,13 @@ function UKMwpat_modify_toolbar() {
 					# Comments
 					'comments',
 					# Add something
-					'new-media','new-page','new-user'
+					'new-media','new-page','new-user',
 					);
+	# Hide "edit this page"
+	if( !is_super_admin() ) {
+		$remove[] = 'edit';
+
+	}
 	
 	foreach($remove as $i => $id)
 		$wp_admin_bar->remove_node($id);
