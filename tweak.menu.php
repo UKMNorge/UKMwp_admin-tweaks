@@ -4,6 +4,10 @@ function UKMwpat_tweak_menu_remove() {
 
 	// RENAME
 	$menu[2][0] = 'Startside';
+
+	// MOVE POSTS WITHIN ARRAY, NOT MENU
+		$menu[9] = $menu[5];
+		unset( $menu[5] );
 	
 	// MOVE
 	$move = array(#59 => 'separator2',
@@ -47,5 +51,6 @@ function UKMwpat_tweak_menu_remove() {
 	## IF USER IS A KOMMUNE-ADMIN
 	if(get_blog_option($current_user->primary_blog, 'site_type')=='kommune')
 		remove_submenu_page( 'index.php', 'my-sites.php' );
+	
 }
 ?>

@@ -10,7 +10,7 @@ $_UKM_blocks = array( 'content' 	=> 30,
 					  'kommunikasjon'=>400,
 					  'intranett'	=> 500
 					);
-$_UKM_separators = array( 199, 299, 399, 499);						
+$_UKM_separators = array( 8,199, 299, 399, 499);						
 function UKM_add_menu_page( $block, $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position=90) {
 	global $_UKM_menu, $_UKM_blocks;
 	
