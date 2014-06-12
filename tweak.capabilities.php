@@ -1,5 +1,5 @@
 <?php
-
+/*
 // KOMMENTERES UT FOR Å ENDRE ROLES. 
 // FØRST MODIFISERT ER DET LAGRET, INGEN GRUNN TIL Å GJØRE DETTE HELE TIDEN
 add_action( 'admin_init', 'UKMwpat_modify_roles');
@@ -8,7 +8,7 @@ function UKMwpat_modify_roles() {
 	$author->add_cap('edit_pages');
 	$author->add_cap('edit_published_pages');
 }
-
+*/
 function UKMwpat_change_role_name() {
     global $wp_roles;
 
