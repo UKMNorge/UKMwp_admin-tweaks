@@ -14,7 +14,7 @@ function UKMwpat_modify_toolbar() {
 					'new-media','new-page','new-user',
 					);
 	# Hide "edit this page"
-	if( !is_super_admin() ) {
+	if( !is_super_admin() && !(get_option('site_type') == 'land' && current_user_can('author') ) ) {
 		$remove[] = 'edit';
 
 	}
