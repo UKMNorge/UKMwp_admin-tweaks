@@ -29,10 +29,12 @@ function UKMwpat_tweak_menu_remove() {
 					15	=> 'edit-tags.php?taxonomy=link_category',
 					25	=> 'edit-comments.php',
 					);
-	var_dump( current_user_can('author') );
-	if( !is_super_admin() || !(get_option('site_type') == 'land' && current_user_can('author') ) ) {
+	if( !(get_option('site_type') == 'land' && current_user_can('author') ) ) {
 		$remove[10]	= 'upload.php';
-		$remove[20]	= 'edit.php?post_type=page';
+		$remove[20]	= 'edit.php?post_type=page';		
+	}
+
+	if( !is_super_admin() ) {
 		$remove[1075] = 'tools.php';
 	}
 	foreach( $remove as $id => $file) {
