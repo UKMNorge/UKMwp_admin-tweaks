@@ -32,7 +32,6 @@ function UKMwpat_tweak_menu_remove() {
 	if( !(get_option('site_type') == 'land' && current_user_can('author') ) ) {
 		$remove[10]	= 'upload.php';
 		$remove[20]	= 'edit.php?post_type=page';
-		remove_submenu_page( 'upload.php', 'media-new.php' );
 	}
 
 	if( !is_super_admin() ) {
@@ -57,6 +56,7 @@ function UKMwpat_tweak_menu_remove() {
 	## IF USER IS A KOMMUNE-ADMIN
 	if(get_blog_option($current_user->primary_blog, 'site_type')=='kommune')
 		remove_submenu_page( 'index.php', 'my-sites.php' );
-	
+
+	remove_submenu_page( 'upload.php', 'media-new.php' );	
 }
 ?>
