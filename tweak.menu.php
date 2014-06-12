@@ -29,7 +29,7 @@ function UKMwpat_tweak_menu_remove() {
 					15	=> 'edit-tags.php?taxonomy=link_category',
 					25	=> 'edit-comments.php',
 					);
-	if( !(get_option('site_type') == 'land' && current_user_can('authored') ) ) {
+	if( !(get_option('site_type') == 'land' && current_user_can('author') ) ) {
 		$remove[10]	= 'upload.php';
 		$remove[20]	= 'edit.php?post_type=page';		
 	}
