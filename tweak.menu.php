@@ -31,7 +31,7 @@ function UKMwpat_tweak_menu_remove() {
 					);
 	if( !(get_option('site_type') == 'land' && current_user_can('author') ) ) {
 		$remove[10]	= 'upload.php';
-		$remove[20]	= 'edit.php?post_type=page';
+#		$remove[20]	= 'edit.php?post_type=page';
 	}
 
 	if( !is_super_admin() ) {
