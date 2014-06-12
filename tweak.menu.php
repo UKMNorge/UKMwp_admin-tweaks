@@ -1,9 +1,5 @@
 <?php
 function UKMwpat_tweak_menu_remove() {
-
-	if( $_SERVER['REMOTE_ADDR'] == '81.0.146.162') {
-		var_dump( get_role( 'author' ) );
-	}
 	global $current_user, $menu, $submenu;
 
 	// RENAME

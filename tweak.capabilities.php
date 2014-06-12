@@ -1,4 +1,16 @@
 <?php
+
+add_action( 'admin_init', 'UKMwpat_modify_roles');
+
+function UKMwpat_modify_roles() {
+	if( $_SERVER['REMOTE_ADDR'] == '81.0.146.162') {
+		$author = get_role( 'author' );
+		
+		$author->add_cap('edit_pages');
+	}
+
+}
+
 function UKMwpat_change_role_name() {
     global $wp_roles;
 
