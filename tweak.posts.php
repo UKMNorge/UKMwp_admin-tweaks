@@ -7,6 +7,13 @@ function UKMwpat_custom_post_columns($defaults) {
 }
 
 function UKMwpat_remove_posts_meta_boxes() {
+	
+	// SHOW EXCERPT-BOX BY DEFAULT
+	if( !is_super_admin() ) {
+		$user = wp_get_current_user();
+		update_user_option($user->ID, "metaboxhidden_post", array('commentstatusdiv','slugdiv','authordiv'), true);
+	}
+
 	remove_meta_box('tagsdiv-post_tag', 'post', 'normal');
 }
 
