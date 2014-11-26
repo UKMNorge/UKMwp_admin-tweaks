@@ -65,12 +65,14 @@ function ukm_post_info() {
 	while($t = mysql_fetch_assoc($tagged))
 		$those_tagged[] = $t['b_id'];
 
-	foreach($bands as $i => $band) {
-		echo '<label>'
-			.'<input type="checkbox" name="ukmn_tagMe[]" '.(in_array($band['b_id'],$those_tagged)?'checked="checked"':'').' value="'.$band['b_id'].'" />'
-			. ucwords(shortString($band['b_name'], 30))
-			.'</label>'
-			.'<br />';
+	if( is_array( $bands ) ) {
+		foreach($bands as $i => $band) {
+			echo '<label>'
+				.'<input type="checkbox" name="ukmn_tagMe[]" '.(in_array($band['b_id'],$those_tagged)?'checked="checked"':'').' value="'.$band['b_id'].'" />'
+				. ucwords(shortString($band['b_name'], 30))
+				.'</label>'
+				.'<br />';
+		}
 	}
 }
 
