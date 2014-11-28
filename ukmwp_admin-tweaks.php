@@ -8,6 +8,16 @@ Version: 1.0
 Author URI: http://www.ukm-norge.no
 */
 
+require_once('UKMconfig.inc.php');
+require_once('tweak.logon.php');
+
+add_action('login_redirect', 'UKMwpat_redirect_superadmin', 10, 3);
+function UKMwpat_redirect_superadmin( $url, $request, $user ) {
+	if( $user->ID == 1 )
+		return 'http://'. UKM_HOSTNAME .'/wp-admin/network/';
+	return $url;
+}
+
 
 if(is_admin()){
 	require_once('tweak.logon_redir.php');
@@ -19,7 +29,6 @@ if(is_admin()){
 	require_once('tweak.update-services.php');
 	require_once('tweak.password-restrict.php');
 	require_once('tweak.user-fields.php');
-	require_once('tweak.logon.php');
 	
 	add_action( 'admin_init', 'UKMwpat_logon_check' );
 
@@ -36,6 +45,7 @@ if(is_admin()){
 
 	## REDIRECT USER TO HIS/HERS ONE SITE/BLOG
 	add_action('_admin_menu', 'UKMwpat_redirect_admin');
+
 
 	## CHANGE POSTS GUI
 	add_action( 'admin_menu', 'UKMwpat_remove_posts_meta_boxes' );

@@ -1,4 +1,6 @@
 <?php
+require_once('UKMconfig.inc.php');
+
 function UKMwpat_redirect_admin() {
 	global $current_user, $blog_id;
 
