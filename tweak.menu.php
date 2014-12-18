@@ -59,4 +59,9 @@ function UKMwpat_tweak_menu_remove() {
 
 	remove_submenu_page( 'upload.php', 'media-new.php' );	
 }
+
+function UKMwpat_tweak_network_menu() {
+	global $menu;
+	$menu[2][0] = 'Startside';
+}
 ?>
