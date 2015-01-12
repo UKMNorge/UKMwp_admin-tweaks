@@ -62,9 +62,11 @@ function UKMwpat_modify_toolbar() {
 	function set_node_title($id, $new_title) {
 		global $wp_admin_bar;
 		$new_network_admin = $wp_admin_bar->get_node($id);
-		$new_network_admin->title = $new_title;
-		$wp_admin_bar->remove_node($id);
-		$wp_admin_bar->add_node($new_network_admin);
+		if( is_object( $new_network_admin ) ) {
+			$new_network_admin->title = $new_title;
+			$wp_admin_bar->remove_node($id);
+			$wp_admin_bar->add_node($new_network_admin);
+		}
 	}
 	function reset_node_position($id) {
 		global $wp_admin_bar;
