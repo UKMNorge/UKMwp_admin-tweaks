@@ -82,6 +82,9 @@ function UKMwpat_admin_menu_build() {
 	do_action('UKM_admin_menu');
 	
 	foreach( $_UKM_menu as $block => $menu_items ) {
+		if( !in_array( get_option('site_type'), array('kommune','fylke','land')) ) {
+			continue;
+		}
 		foreach( $menu_items as $position => $menu ) {
 			$page = add_menu_page( $menu['page_title'],
 								   $menu['menu_title'],# .'('.$position.')',
