@@ -2,6 +2,8 @@
 function UKMwpat_tweak_menu_remove() {
 	global $current_user, $menu, $submenu;
 
+	#var_dump( $menu );
+
 	// RENAME
 	$menu[2][0] = 'Startside';
 
@@ -11,10 +13,9 @@ function UKMwpat_tweak_menu_remove() {
 	
 	// MOVE
 	$move = array(#59 => 'separator2',
-				  60 => 'themes.php',
+				  #60 => 'themes.php',
 				  65 => 'plugins.php',
-				  70 => 'users.php',
-				  75 => 'tools.php',
+				  #70 => 'users.php',
 				  80 => 'options-general.php');
 
 	foreach( $move as $key => $file ) {
@@ -28,6 +29,10 @@ function UKMwpat_tweak_menu_remove() {
 	$remove = array(
 					15	=> 'edit-tags.php?taxonomy=link_category',
 					25	=> 'edit-comments.php',
+					60 => 'themes.php',
+					75 => 'tools.php',
+					70 => 'users.php',
+
 					);
 	if( !(get_option('site_type') == 'land' && current_user_can('author') ) && !is_super_admin() ) {
 		$remove[10]	= 'upload.php';
