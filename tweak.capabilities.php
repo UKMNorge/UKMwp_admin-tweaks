@@ -12,9 +12,13 @@ function UKMwpat_modify_roles() {
 function UKMwpat_change_role_name() {
     global $wp_roles;
 
+	UKMwpat_add_roles();
+
     if ( ! isset( $wp_roles ) )
         $wp_roles = new WP_Roles();
 
+	UKMwpat_add_capabilities($wp_roles);
+	
 	UKMwpat_change_role_name_raw( $wp_roles );
 }
 
@@ -28,6 +32,35 @@ function UKMwpat_change_role_name_raw($wp_roles) {
 	return $wp_roles;
 }
 
+
+function UKMwpat_add_roles() {
+	$capabilites = array('read','ukm_rapporter','ukm_playback');
+	add_role( 'ukm_produsent', 'UKM Produsent', $capabilities );
+	
+}
+
+function UKMwpat_add_capabilities($wp_roles) {
+	
+	$ukm_produsent = get_role('ukm_produsent');
+	$ukm_produsent->add_cap('read');
+	$ukm_produsent->add_cap('ukm_rapporter');	
+	$ukm_produsent->add_cap('ukm_playback');
+	
+	$contributor = get_role('contributor');
+	$contributor->remove_cap('edit_others_posts');
+	
+	$author = get_role('author');
+	$author->add_cap('edit_others_posts');
+	$author->add_cap('ukm_rapporter');
+	
+	$editor = get_role('editor');
+	$editor->add_cap('ukm_rapporter');
+	$editor->add_cap('ukm_playback');
+
+	$administrator = get_role('administrator');
+	$administrator->add_cap('ukm_rapporter');
+	$administrator->add_cap('ukm_playback');
+}
 
 //// !!! !!! OBS: HACK !!! !!!
 /* For at det skal virke i network-admin, bytt ut følgende linje (omtrent 55):
