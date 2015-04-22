@@ -11,19 +11,21 @@ function UKMwpat_tweak_menu_remove() {
 		$menu[9] = $menu[5];
 		unset( $menu[5] );
 	
-	// MOVE
-	$move = array(#59 => 'separator2',
-				  #60 => 'themes.php',
-				  65 => 'plugins.php',
-				  #70 => 'users.php',
-				  80 => 'options-general.php');
-
-	foreach( $move as $key => $file ) {
-		if($menu[$key][2] == $file) {
-			$menu[(1000+$key)] = $menu[$key];
-			unset($menu[$key]);
+	$move = array();
+	$move[] = (object) array('position'=> 9, 'id' => 'edit.php', 'offset' => 101);
+	$move[] = (object) array('position'=> 10, 'id' => 'upload.php', 'offset' => 110);
+	$move[] = (object) array('position'=> 20, 'id' => 'edit.php?post_type=page', 'offset' => 110);
+	
+	$move[] = (object) array('position'=> 65, 'id' => 'plugins.php', 'offset' => 1000);
+	$move[] = (object) array('position'=> 80, 'id' => 'options-general.php', 'offset' => 1000);
+	
+	foreach( $move as $data ) {
+		if( $menu[ $data->position ][2] == $data->id ) {
+			$menu[ ($data->offset+$data->position) ] = $menu[ $data->position ];
+			unset( $menu[ $data->position ] );
 		}
 	}
+
 	
 	// REMOVE
 	$remove = array(
@@ -35,8 +37,8 @@ function UKMwpat_tweak_menu_remove() {
 
 					);
 	if( !(get_option('site_type') == 'land' && current_user_can('author') ) && !is_super_admin() ) {
-		$remove[10]	= 'upload.php';
-		$remove[20]	= 'edit.php?post_type=page';
+		$remove[120]	= 'upload.php';
+		$remove[130]	= 'edit.php?post_type=page';
 	}
 
 	if( !is_super_admin() ) {

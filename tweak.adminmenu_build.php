@@ -3,15 +3,15 @@
 $_UKM_menu = array();
 $_UKM_submenu = array();
 $_UKM_scripts = array();
-$_UKM_blocks = array( 'content' 	=> 30,
-					  'resources' 	=> 100,
-					  'monstring'	=> 200,
-					  'norge'		=> 300,
-					  'festivalen'	=> 400,
-					  'kommunikasjon'=>500,
-					  'intranett'	=> 600
+$_UKM_blocks = array( 'content' 	=> 100,
+					  'resources' 	=> 200,
+					  'monstring'	=> 300,
+					  'norge'		=> 400,
+					  'festivalen'	=> 500,
+					  'kommunikasjon'=>600,
+					  'intranett'	=> 700
 					);
-$_UKM_separators = array( 8,199, 299, 399, 499,599);						
+$_UKM_separators = array( 99, 199, 299, 399, 499, 599, 699);						
 function UKM_add_menu_page( $block, $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position=90) {
 	global $_UKM_menu, $_UKM_blocks;
 	
@@ -74,6 +74,9 @@ function UKMwpat_addSeparators() {
 	}
 	
 	ksort($menu);
+	if( isset( $menu[103] ) && $menu[103][4] == 'wp-menu-separator' ) {
+		unset( $menu[103] );
+	}
 }
 
 function UKMwpat_admin_menu_build() {
