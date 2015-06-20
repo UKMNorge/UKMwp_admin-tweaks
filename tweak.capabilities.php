@@ -47,7 +47,7 @@ function UKMwpat_add_capabilities($wp_roles) {
 	$ukm_produsent->add_cap('ukm_playback');
 	
 	$contributor = get_role('contributor');
-	$contributor->remove_cap('edit_others_posts');
+	#$contributor->remove_cap('edit_others_posts');
 	
 	$author = get_role('author');
 	$author->add_cap('edit_others_posts');
