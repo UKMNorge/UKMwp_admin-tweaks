@@ -1,7 +1,9 @@
 <?php
 
 function UKMwpat_add_tag_meta_box() {
-	add_meta_box('ukm_post', 'Innlegget handler om', 'ukm_post_info', 'post', 'side', 'low');
+	if( in_array( get_option('site_type'), array('kommune','fylke','land') ) ) {
+		add_meta_box('ukm_post', 'Innlegget handler om', 'ukm_post_info', 'post', 'side', 'low');
+	}
 }
 
 ## HANDLE SAVE
