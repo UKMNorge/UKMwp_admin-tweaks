@@ -61,8 +61,8 @@ function UKMwpat_tweak_menu_remove() {
 		unset($menu[70]);
 	}
 	## IF USER IS A KOMMUNE-ADMIN
-	if(get_blog_option($current_user->primary_blog, 'site_type')=='kommune')
-		remove_submenu_page( 'index.php', 'my-sites.php' );
+	#if(get_blog_option($current_user->primary_blog, 'site_type')=='kommune')
+	remove_submenu_page( 'index.php', 'my-sites.php' );
 
 	remove_submenu_page( 'upload.php', 'media-new.php' );	
 }
