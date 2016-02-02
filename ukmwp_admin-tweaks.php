@@ -11,6 +11,11 @@ Author URI: http://www.ukm-norge.no
 require_once('UKMconfig.inc.php');
 require_once('tweak.logon.php');
 
+
+require_once('tweak.login.php');
+add_filter('login_head', 'UKMwpat_login');
+add_filter( 'lostpassword_url', 'UKMWpat_lostpassword', 10, 2 );
+
 add_action('login_redirect', 'UKMwpat_redirect_superadmin', 10, 3);
 function UKMwpat_redirect_superadmin( $url, $request, $user ) {
 	if( $user->ID == 1 )
