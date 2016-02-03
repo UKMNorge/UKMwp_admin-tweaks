@@ -35,6 +35,7 @@ if(is_admin()){
 	require_once('tweak.adminmenu_build.php');
 	require_once('tweak.posts.php');
 	require_once('tweak.post-meta.php');
+	require_once('tweak.post-layout.php');
 	require_once('tweak.update-services.php');
 	require_once('tweak.password-restrict.php');
 	require_once('tweak.user-fields.php');
@@ -63,6 +64,11 @@ if(is_admin()){
 	add_action( 'add_meta_boxes', 'UKMwpat_add_tag_meta_box' );
 	add_action( 'save_post', 'ukmn_meta_box_save' );
 	add_action('delete_post', 'UKMwpat_related_delete', 10);
+
+	// Layout for festival-lignende sider
+	add_action( 'add_meta_boxes', 'UKMwpat_add_layout_meta_box' );
+	add_action( 'save_post', 'ukm_post_layout_save' );
+
 
 	add_filter('manage_posts_columns', 'UKMwpat_custom_post_columns');
 	wp_enqueue_style('tablefooter_hide', plugin_dir_url( __FILE__ ).'css/tweak.tablefooter_hide.css');
