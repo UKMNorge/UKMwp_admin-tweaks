@@ -13,8 +13,12 @@ require_once('tweak.logon.php');
 
 
 require_once('tweak.login.php');
+
+// Bytt ut WP-logoen med UKM-logoen på innloggingsskjermen
 add_filter('login_head', 'UKMwpat_login');
-add_filter( 'lostpassword_url', 'UKMWpat_lostpassword', 10, 2 );
+// Bytt lost-password-lenken mot mailto:support@ukm.no
+add_action('lostpassword_url', 'UKMWpat_lostpassword' );
+
 
 add_action('login_redirect', 'UKMwpat_redirect_superadmin', 10, 3);
 function UKMwpat_redirect_superadmin( $url, $request, $user ) {
@@ -36,7 +40,6 @@ if(is_admin()){
 	require_once('tweak.user-fields.php');
 	
 	add_action( 'admin_init', 'UKMwpat_logon_check' );
-
 
 	## ADD NETWORK UPDATE MENU
 	add_action('init', 'ActivateUpdateServices_init');
