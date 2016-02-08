@@ -13,6 +13,7 @@ require_once('tweak.logon.php');
 
 
 require_once('tweak.login.php');
+require_once('tweak.video_on_top.php');
 
 // Bytt ut WP-logoen med UKM-logoen på innloggingsskjermen
 add_filter('login_head', 'UKMwpat_login');
@@ -26,6 +27,11 @@ function UKMwpat_redirect_superadmin( $url, $request, $user ) {
 		return 'http://'. UKM_HOSTNAME .'/wp-admin/network/';
 	return $url;
 }
+
+
+// Legg til video som toppbilde-boks
+add_action('add_meta_boxes', 'UKMwpat_add_video_box');
+add_action('save_post', 'ukm_top_video_save');
 
 
 if(is_admin()){
