@@ -51,13 +51,13 @@ function UKMwpat_modify_toolbar() {
 	$wp_admin_bar->add_menu( array('parent' => 'new-content',
 								   'id'		=> 'new-image',
 								   'title'	=> 'Bilder',
-								   'href' => admin_url().'admin.php?page=UKM_images'
+								   'href' => admin_url().'admin.php?page=UKMbilder'
 								  )
 						   );
 	$wp_admin_bar->add_menu( array('parent' => 'new-content',
 								   'id'		=> 'new-video',
 								   'title'	=> 'Video',
-								   'href' => admin_url().'admin.php?page=UKM_videorep'
+								   'href' => admin_url().'admin.php?page=UKMvideo'
 								  )
 						   );
 	$wp_admin_bar->add_node( array(
