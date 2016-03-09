@@ -35,17 +35,29 @@ function UKMwpat_modify_toolbar() {
 									'href'   => network_admin_url(),
 								) );
 								
+		// Legg til menyvalg for å redigere side mens vi ser på siden
+		// WP default er kun i admin
+		if(!is_admin()) {								
+			$wp_admin_bar->add_menu( array(
+				'parent' => 'site-name',
+				'id'     => 'edit-site',
+				'title'  => __( 'Edit Site' ),
+				'href'   => network_admin_url( 'site-info.php?id=' . get_current_blog_id() ),
+			) );
+		}
+
+								
 
 	$wp_admin_bar->add_menu( array('parent' => 'new-content',
 								   'id'		=> 'new-image',
 								   'title'	=> 'Bilder',
-								   'href' => admin_url().'admin.php?page=UKM_images'
+								   'href' => admin_url().'admin.php?page=UKMbilder'
 								  )
 						   );
 	$wp_admin_bar->add_menu( array('parent' => 'new-content',
 								   'id'		=> 'new-video',
 								   'title'	=> 'Video',
-								   'href' => admin_url().'admin.php?page=UKM_videorep'
+								   'href' => admin_url().'admin.php?page=UKMvideo'
 								  )
 						   );
 	$wp_admin_bar->add_node( array(
