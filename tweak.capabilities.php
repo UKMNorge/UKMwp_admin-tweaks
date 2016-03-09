@@ -41,26 +41,36 @@ function UKMwpat_add_roles() {
 
 function UKMwpat_add_capabilities($wp_roles) {
 	
+	# Rapport-bruker / Produsent
 	$ukm_produsent = get_role('ukm_produsent');
 	$ukm_produsent->add_cap('read');
 	$ukm_produsent->add_cap('ukm_rapporter');	
 	$ukm_produsent->add_cap('ukm_playback');
+	$ukm_produsent->add_cap('ukm_materiell');
 	
+	# UKM-journalist
 	$contributor = get_role('contributor');
 	$contributor->remove_cap('edit_others_posts');
 	$contributor->add_cap('upload_files');
-	
+	$contributor->add_cap('ukm_materiell');
+
+	# UKM-nettredaktør
 	$author = get_role('author');
 	$author->add_cap('edit_others_posts');
 	$author->add_cap('ukm_rapporter');
+	$author->add_cap('ukm_materiell');
 	
+	# UKM-arrangør
 	$editor = get_role('editor');
 	$editor->add_cap('ukm_rapporter');
 	$editor->add_cap('ukm_playback');
+	$editor->add_cap('ukm_materiell');
 
+	# Admin
 	$administrator = get_role('administrator');
 	$administrator->add_cap('ukm_rapporter');
 	$administrator->add_cap('ukm_playback');
+	$administrator->add_cap('ukm_materiell');
 }
 
 //// !!! !!! OBS: HACK !!! !!!
