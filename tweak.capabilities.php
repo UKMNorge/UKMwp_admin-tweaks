@@ -44,6 +44,7 @@ function UKMwpat_add_capabilities($wp_roles) {
 	# Rapport-bruker / Produsent
 	$ukm_produsent = get_role('ukm_produsent');
 	$ukm_produsent->add_cap('read');
+	$ukm_produsent->add_cap('upload_files');
 	$ukm_produsent->add_cap('ukm_rapporter');	
 	$ukm_produsent->add_cap('ukm_playback');
 	$ukm_produsent->add_cap('ukm_materiell');

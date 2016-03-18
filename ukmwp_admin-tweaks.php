@@ -11,6 +11,7 @@ Author URI: http://www.ukm-norge.no
 require_once('UKMconfig.inc.php');
 require_once('tweak.logon.php');
 
+#require_once('tweak.mail.php');
 
 require_once('tweak.login.php');
 require_once('tweak.video_on_top.php');
@@ -28,6 +29,9 @@ function UKMwpat_redirect_superadmin( $url, $request, $user ) {
 	return $url;
 }
 
+// Bytt ut avatarer
+require_once('tweak.avatars.php');
+add_filter( 'get_avatar' , 'ukm_avatar' , 1 , 5 );
 
 // Legg til video som toppbilde-boks
 add_action('add_meta_boxes', 'UKMwpat_add_video_box');
