@@ -33,35 +33,36 @@ function ukm_multiauthor() {
 	# Liste over alle bidragsytere som er med i artikkelen.
 	$old = get_post_meta($post->ID, 'ukm_ma', true);
 	#var_dump($old);
-	$old = json_decode($old, true);
+	if($old) {
+		$old = json_decode($old, true);
 
-	#var_dump($old);
-	foreach($old as $login => $role) {
-		// Get user
-		$user = get_user_by('login', $login);
-		#var_dump($user);
-		if(!$user) {
-			// Hvis vi ikke fant en bruker med denne innloggings-IDen.
-			#continue;
-		}
+		#var_dump($old);
+		foreach($old as $login => $role) {
+			// Get user
+			$user = get_user_by('login', $login);
+			#var_dump($user);
+			if(!$user) {
+				// Hvis vi ikke fant en bruker med denne innloggings-IDen.
+				#continue;
+			}
 
-		$args = '?';
-		foreach($_GET as $key => $val) {
-			$args .=  $key . '='.$val.'&';
+			$args = '?';
+			foreach($_GET as $key => $val) {
+				$args .=  $key . '='.$val.'&';
+			}
+			$args = rtrim($args, '&');
+			// List ut info:
+			echo '<div class="col-xs-8">';
+			echo '<span>'.$user->data->display_name.' ('.$role.')</span>';
+			echo '</div>';
+			echo '<div class="col-xs-1"></div>';
+			echo '<div class="col-xs-2">';
+			echo '<small><a href="'.$args.'&ukm_ma_fjern='.$user->data->user_login.'" class="btn btn-xs btn-danger">(fjern)</a></small>';
+			echo '</div>';
+			echo '<br><br>';
+			echo '<div class="clearfix"></div>';
 		}
-		$args = rtrim($args, '&');
-		// List ut info:
-		echo '<div class="col-xs-8">';
-		echo '<span>'.$user->data->display_name.' ('.$role.')</span>';
-		echo '</div>';
-		echo '<div class="col-xs-1"></div>';
-		echo '<div class="col-xs-2">';
-		echo '<small><a href="'.$args.'&ukm_ma_fjern='.$user->data->user_login.'" class="btn btn-xs btn-danger">(fjern)</a></small>';
-		echo '</div>';
-		echo '<br><br>';
-		echo '<div class="clearfix"></div>';
-	}
-		#echo '</div>';	
+	}		#echo '</div>';	
 
 
 	# Dropdown over alle med skriverettigheter til bloggen
