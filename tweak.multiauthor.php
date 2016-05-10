@@ -126,8 +126,8 @@ function UKMwpat_ma_save($post_id) {
 	$author = $_POST['ukm_ma_author'];
 	$role = $_POST['ukm_ma_role'];
 
-	var_dump($author);
-	var_dump($role);
+	#var_dump($author);
+	#var_dump($role);
 
 	// Liste over nåværende bidragsytere
 	$list = get_post_meta($post->ID, 'ukm_ma', true);
