@@ -169,7 +169,14 @@ function UKMwpat_ma_fjern($author) {
 
 	unset($list[$author]);
 
-	$save = json_encode($list);
-	update_post_meta($post->ID, 'ukm_ma', $save);
+	if (empty($list)) {
+		// Slett post_meta
+		delete_post_meta($post->ID, 'ukm_ma');
+	}
+	else {
+		$save = json_encode($list);
+		update_post_meta($post->ID, 'ukm_ma', $save);
+	}
+
 	return true;
 }
