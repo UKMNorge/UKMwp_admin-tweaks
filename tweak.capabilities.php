@@ -34,7 +34,7 @@ function UKMwpat_change_role_name_raw($wp_roles) {
 
 
 function UKMwpat_add_roles() {
-	$capabilites = array('read','ukm_rapporter','ukm_playback');
+	$capabilites = array('read','ukm_rapporter','ukm_playback', 'ukm_sms');
 	add_role( 'ukm_produsent', 'UKM Produsent', $capabilities );
 	
 }
@@ -48,30 +48,35 @@ function UKMwpat_add_capabilities($wp_roles) {
 	$ukm_produsent->add_cap('ukm_rapporter');	
 	$ukm_produsent->add_cap('ukm_playback');
 	$ukm_produsent->add_cap('ukm_materiell');
+	$ukm_produsent->add_cap('ukm_sms');
 	
 	# UKM-journalist
 	$contributor = get_role('contributor');
 	$contributor->remove_cap('edit_others_posts');
 	$contributor->add_cap('upload_files');
 	$contributor->add_cap('ukm_materiell');
+	$contributor->add_cap('ukm_sms');
 
 	# UKM-nettredaktør
 	$author = get_role('author');
 	$author->add_cap('edit_others_posts');
 	$author->add_cap('ukm_rapporter');
 	$author->add_cap('ukm_materiell');
+	$author->add_cap('ukm_sms');
 	
 	# UKM-arrangør
 	$editor = get_role('editor');
 	$editor->add_cap('ukm_rapporter');
 	$editor->add_cap('ukm_playback');
 	$editor->add_cap('ukm_materiell');
+	$editor->add_cap('ukm_sms');
 
 	# Admin
 	$administrator = get_role('administrator');
 	$administrator->add_cap('ukm_rapporter');
 	$administrator->add_cap('ukm_playback');
 	$administrator->add_cap('ukm_materiell');
+	$administrator->add_cap('ukm_sms');
 }
 
 //// !!! !!! OBS: HACK !!! !!!
