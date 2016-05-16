@@ -49,6 +49,7 @@ if(is_admin()){
 	require_once('tweak.update-services.php');
 	require_once('tweak.password-restrict.php');
 	require_once('tweak.user-fields.php');
+	require_once('tweak.multiauthor.php');
 	
 	add_action( 'admin_init', 'UKMwpat_logon_check' );
 
@@ -74,6 +75,9 @@ if(is_admin()){
 	add_action( 'add_meta_boxes', 'UKMwpat_add_tag_meta_box' );
 	add_action( 'save_post', 'ukmn_meta_box_save' );
 	add_action('delete_post', 'UKMwpat_related_delete', 10);
+
+	add_action('add_meta_boxes', 'UKMwpat_add_ma_box');
+	add_action( 'admin_enqueue_scripts', 'UKMwpat_add_ma_styles', 10000 );
 
 	// Layout for festival-lignende sider
 	add_action( 'add_meta_boxes', 'UKMwpat_add_layout_meta_box' );

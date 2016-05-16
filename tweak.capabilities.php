@@ -63,6 +63,7 @@ function UKMwpat_add_capabilities($wp_roles) {
 	$author->add_cap('ukm_rapporter');
 	$author->add_cap('ukm_materiell');
 	$author->add_cap('ukm_sms');
+	$author->add_cap('publish_posts');
 	
 	# UKM-arrangør
 	$editor = get_role('editor');
