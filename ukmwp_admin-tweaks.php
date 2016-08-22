@@ -50,6 +50,7 @@ if(is_admin()){
 	require_once('tweak.password-restrict.php');
 	require_once('tweak.user-fields.php');
 	require_once('tweak.multiauthor.php');
+	require_once('tweak.set-option.php');
 	
 	add_action( 'admin_init', 'UKMwpat_logon_check' );
 
@@ -59,6 +60,8 @@ if(is_admin()){
 	## HOOK MENU
 //	add_action('admin_menu', 'UKMwpat_tweak_menu_separators', 15000);
 	add_action('network_admin_menu', 'UKMwpat_tweak_network_menu', 300);
+	add_action( 'network_admin_menu', 'UKMwpat_set_option' );
+	
 	add_action('admin_menu', 'UKMwpat_tweak_menu_remove', 300);
 	add_action('admin_menu', 'UKMwpat_admin_menu_build');
 	add_action('admin_menu', 'UKMwpat_addSeparators',10000);
