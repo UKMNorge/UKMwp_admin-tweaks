@@ -99,6 +99,7 @@ if(is_admin()){
 	## USERS (EDIT FORM)
 	add_filter('user_contactmethods','UKMwpat_user_remove_controls',10,1);
 	add_action( 'admin_enqueue_scripts', 'UKMwpat_users_form' );
+	add_action('profile_update', 'UKMwpat_set_password');
 
 	## PASSWORDS
 	add_filter('show_password_fields', 'tr_restrict_password_changes');
