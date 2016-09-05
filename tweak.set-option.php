@@ -25,7 +25,7 @@ function UKMwpat_set_option_action() {
 			$options .= '<option value="'.$blog['blog_id'].'">'.get_blog_option($blog['blog_id'],'blogname').'</option>';
 	
 	
-		echo '<form action="'.$_SERVER['PHP_SELF'].'?page=UKMA_setOpt" method="POST">'
+		echo '<form action="'.$_SERVER['PHP_SELF'].'?page='.$_GET['page'].'" method="POST">'
 			.'<label>Velg side</label>'
 			.'<select name="site">'
 			. $options
