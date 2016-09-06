@@ -15,7 +15,6 @@ function ukm_top_video() {
 	global $post;
 	$selected = get_post_meta($post->ID, 'video_on_top', true);
 
-
 	require_once('UKM/sql.class.php');
 	require_once('UKM/tv.class.php');
 	require_once('UKM/tv_files.class.php');
@@ -27,7 +26,7 @@ function ukm_top_video() {
 				array('plid' => get_option('pl_id')));
 	$res = $sql->run();
 	echo 'Bruk denne videoen i stedet for topp-bilde:';
-	echo '<select name="video_on_top" class="form-control" style="width: 100%;">';
+	echo '<select name="video_on_top" class="form-control" style="width: 100%;" onChange="check(this);">';
 	echo '<option '.(!$selected ? 'selected' : '') .' value="delete">Ingen video</option>';
 	while( $r = mysql_fetch_assoc( $res )) {
 		$film = new SQL("SELECT *
@@ -43,8 +42,21 @@ function ukm_top_video() {
 			echo '<option disabled="disabled" value="'.$TV->id.'">'.$TV->title.' (Må konverteres ferdig først)</option>';
 		}
 	}
+	echo '<option value="egendefinert" '.($selected == 'egendefinert' ? 'selected' : '').'>Annen film</option>';
 	echo '</select><br />';
+	if($selected == 'egendefinert') {
+		$url = get_post_meta($post->ID, 'video_on_top_URL', true);
+		echo '<div id="egendefinertURLBox" style="">URL til UKM-TV-film:';
+		echo '<input type="text" class="form-control" name="egendefinertURL" id="egendefinertURL" value="'.$url.'">';	
+		echo '</div>';
+	} 
+	else {
+		echo '<div id="egendefinertURLBox" style="display:none;">URL til UKM-TV-film:';
+		echo '<input type="text" class="form-control" name="egendefinertURL" id="egendefinertURL">';
+		echo '</div>'; 
+	}
 	echo '<span style="font-style: italic;">OBS: Du må fortsatt velge et bilde i boksen over - dette vises på forsiden.</span>';
+	echo '<script>function check(elem) {if(elem.value == "egendefinert") { jQuery("#egendefinertURLBox").slideDown(); } else { jQuery("#egendefinertURLBox").slideUp();}}</script>';
 }
 
 function ukm_top_video_save() {
@@ -54,11 +66,20 @@ function ukm_top_video_save() {
 	#var_dump($_POST);
 	#var_dump($video_on_top);
 	if ($video_on_top != 'delete') {
+		if($video_on_top == 'egendefinert') {
+			if(!empty($_POST['egendefinertURL']))
+				update_post_meta($post->ID, 'video_on_top_URL', $_POST['egendefinertURL']);
+		}
+		else {
+			delete_post_meta($post->ID, 'video_on_top_URL');
+		}
 		// Do save
 		update_post_meta($post->ID, 'video_on_top', $video_on_top);
 	}
-	else
+	else {
 		delete_post_meta($post->ID, 'video_on_top');
+		delete_post_meta($post->ID, 'video_on_top_URL');
+	}
 
 	#var_dump(get_post_meta($post->ID, 'video_on_top'));
 	#var_dump($video_on_top);
