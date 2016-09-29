@@ -6,9 +6,9 @@ $_UKM_scripts = array();
 $_UKM_blocks = array( 'content' 	=> 100,
 					  'resources' 	=> 200,
 					  'monstring'	=> 300,
-					  'norge'		=> 400,
+					  'kommunikasjon'=>400,
+					  'norge'		=> 600,
 					  'festivalen'	=> 500,
-					  'kommunikasjon'=>600,
 					  'intranett'	=> 700
 					);
 $_UKM_separators = array( 99, 199, 299, 399, 499, 599, 699);						
