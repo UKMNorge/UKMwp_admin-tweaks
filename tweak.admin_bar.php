@@ -27,7 +27,7 @@ function UKMwpat_modify_toolbar() {
 								'id'=>'wp-logo',
 								'href'=>admin_url()
 							) );
-	if(is_super_admin())
+	if(is_super_admin()) {
 		$wp_admin_bar->add_menu( array(
 									'parent' => 'site-name',
 									'id'     => 'network-admin',
@@ -45,7 +45,7 @@ function UKMwpat_modify_toolbar() {
 				'href'   => network_admin_url( 'site-info.php?id=' . get_current_blog_id() ),
 			) );
 		}
-
+    }
 								
 
 	$wp_admin_bar->add_menu( array('parent' => 'new-content',
