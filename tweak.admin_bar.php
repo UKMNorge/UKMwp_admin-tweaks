@@ -17,7 +17,7 @@ function UKMwpat_modify_toolbar() {
 	# Hide "edit this page"
 	if( !is_super_admin() ) {
 		$remove[] = 'edit';
-
+		$remove[] = 'site-info';
 	}
 	
 	foreach($remove as $i => $id)
