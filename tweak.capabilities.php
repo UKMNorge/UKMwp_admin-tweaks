@@ -48,6 +48,7 @@ function UKMwpat_add_capabilities($wp_roles) {
 	$ukm_produsent->add_cap('ukm_rapporter');	
 	$ukm_produsent->add_cap('ukm_playback');
 	$ukm_produsent->add_cap('ukm_materiell');
+	$ukm_produsent->add_cap('ukm_idebank');
 	$ukm_produsent->add_cap('ukm_sms');
 	
 	# UKM-journalist
@@ -55,6 +56,7 @@ function UKMwpat_add_capabilities($wp_roles) {
 	$contributor->remove_cap('edit_others_posts');
 	$contributor->add_cap('upload_files');
 	$contributor->add_cap('ukm_materiell');
+	$contributor->add_cap('ukm_idebank');
 	$contributor->add_cap('ukm_sms');
 
 	# UKM-nettredaktør
@@ -62,6 +64,7 @@ function UKMwpat_add_capabilities($wp_roles) {
 	$author->add_cap('edit_others_posts');
 	$author->add_cap('ukm_rapporter');
 	$author->add_cap('ukm_materiell');
+	$author->add_cap('ukm_idebank');
 	$author->add_cap('ukm_sms');
 	$author->add_cap('publish_posts');
 	
@@ -70,6 +73,7 @@ function UKMwpat_add_capabilities($wp_roles) {
 	$editor->add_cap('ukm_rapporter');
 	$editor->add_cap('ukm_playback');
 	$editor->add_cap('ukm_materiell');
+	$editor->add_cap('ukm_idebank');
 	$editor->add_cap('ukm_sms');
 
 	# Admin
@@ -77,6 +81,7 @@ function UKMwpat_add_capabilities($wp_roles) {
 	$administrator->add_cap('ukm_rapporter');
 	$administrator->add_cap('ukm_playback');
 	$administrator->add_cap('ukm_materiell');
+	$administrator->add_cap('ukm_idebank');
 	$administrator->add_cap('ukm_sms');
 }
 
