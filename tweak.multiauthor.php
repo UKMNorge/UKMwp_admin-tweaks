@@ -68,6 +68,7 @@ function ukm_multiauthor() {
 	# Dropdown over alle med skriverettigheter til bloggen
 	#$authors = wp_list_authors(array('echo' => false, 'html' => false)); # Henter kun authors, tror jeg?
 
+	$admins = get_users(array('role' => 'administrator'));
 	$authors = get_users(array('role' => 'author'));
 	$editors = get_users(array('role' => 'editor'));
 	$contributors = get_users(array('role' => 'contributor'));
@@ -89,6 +90,9 @@ function ukm_multiauthor() {
 	}
 	foreach($producers as $producer) {
 		$list[] = $producer;
+	}
+	foreach($admins as $admin) {
+		$list[] = $admin;
 	}
 
 	echo '<label for="ukm_ma_author">Legg til / oppdater bidragsyter:</label>';
