@@ -36,6 +36,7 @@ add_filter( 'get_avatar' , 'ukm_avatar' , 1 , 5 );
 // Legg til video som toppbilde-boks
 add_action('add_meta_boxes', 'UKMwpat_add_video_box');
 add_action('save_post', 'ukm_top_video_save');
+add_action('save_post', 'UKMwpat_req_hook');
 
 
 if(is_admin()){
