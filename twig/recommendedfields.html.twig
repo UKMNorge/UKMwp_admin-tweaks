@@ -16,18 +16,28 @@
 <p class="lead">
 	Vi trenger kun litt mer informasjon for å gjøre saken din så bra som mulig.
 </p>
-
-{% if missingContributors %}
-	<h3>Bidragsytere</h3>
-{% endif %}
-
-{% if missingPostType %}
-	<h3>Hvilken type sak har du skrevet?</h3>
-{% endif %}
-
-{% if missingThumbnail %}
-	<h3>Forsidebilde</h3>
-{% endif %}
 <form action="" method="POST">
+	{% if missingContributors %}
+		<h3>Bidragsytere</h3>
+		<p>Vi ser at du ikke har valgt noen bidragsytere til saken din. Dette går helt fint dersom saken ikke blabla</p>
+		<p>Dersom en deltaker har tatt bilder, skrevet saken eller på annen måte bidratt, lønner det seg å velge de her. Da vil nettsiden presentere disse på en fin måte i saken.</p>
+	{% endif %}
+
+	{% if missingPostType %}
+		<h3>Hvilken type sak har du skrevet?</h3>
+		<div class="radio form-group">
+			<label><input type="radio" name="postType" class="form-control" value="news">Nyhetssak</label>
+			<label><input type="radio" name="postType" class="form-control" value="info">Informasjon til deltakere, presse eller publikum</label>
+			<label><input type="radio" name="postType" class="form-control" value="news">Omtale av deltakere</label>
+		</div>
+
+	{% endif %}
+
+	{% if missingThumbnail %}
+		<h3>Forsidebilde</h3>
+
+	{% endif %}
+
+
 	<button type="submit" class="btn btn-success btn-large">Oppdater & Publiser</button>
 </form>
