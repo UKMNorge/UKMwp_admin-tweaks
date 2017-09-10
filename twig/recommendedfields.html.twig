@@ -1,8 +1,8 @@
 <h1>Nesten ferdig!</h1>
-{% if saved is defined %}
-	{% for save in saved %}
+{% if success is defined %}
+	{% for s in success %}
 		<div class="alert alert-success">
-			{{ save }}
+			{{ s }}
 		</div>
 	{% endfor %}
 {% endif %}
@@ -16,3 +16,18 @@
 <p class="lead">
 	Vi trenger kun litt mer informasjon for å gjøre saken din så bra som mulig.
 </p>
+
+{% if missingContributors %}
+	<h3>Bidragsytere</h3>
+{% endif %}
+
+{% if missingPostType %}
+	<h3>Hvilken type sak har du skrevet?</h3>
+{% endif %}
+
+{% if missingThumbnail %}
+	<h3>Forsidebilde</h3>
+{% endif %}
+<form action="" method="POST">
+	<button type="submit" class="btn btn-success btn-large">Oppdater & Publiser</button>
+</form>

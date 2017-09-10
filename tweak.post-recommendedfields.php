@@ -34,7 +34,7 @@ function UKMwpat_req_hook( $ID, $post) {
 	if( !hasPostType($post->ID) ) {
 		$shouldRedirect = true;
 	}
-	
+
 	if ( $shouldRedirect ) {
 		$newURL = "admin.php?page=recommendedfields&id=".$post->ID;
 		header('Location: '. $newURL);
@@ -51,16 +51,22 @@ function UKMwpat_req_render() {
 		$saved = UKMwpat_req_save();
 		if ($saved) {
 			// Publish the post and redirect to editor.
+			var_dump("Publish and redir.");
+			die();
 		}
 		else {
 			// Output an error and show the page again.
+			var_dump("error.");
 		}
 	}
 
 	$post = get_post($_GET['id']);
 
+	// Hvilken type sak er dette?
+	$TWIGdata['missingPostType'] = !hasPostType($post->ID);
+
 	// Har du husket å legge inn forsidebilde?
-	$TWIGdata['hasPostThumbnail'] = has_post_thumbnail($post);
+	$TWIGdata['missingThumbnail'] = !has_post_thumbnail($post);
 
 	// Sjekk om vi mangler bidragsytere:
 	$TWIGdata['shouldHaveContributors'] = shouldHaveContributors();
@@ -74,6 +80,7 @@ function UKMwpat_req_render() {
 }
 
 function UKMwpat_req_save() {
+	$postID = $_GET['id'];
 	return false;
 }
 
