@@ -11,6 +11,10 @@ function UKMwpat_req_menu_hook() {
 	);	
 }
 
+function UKMwpat_req_script() {
+	wp_enqueue_script('bootstrap_js');
+	wp_enqueue_style('bootstrap_css');
+}
 
 // Denne funksjonen trigges første gang posten publiseres.
 // Skal sjekke om all informasjon vi vil ha er på plass, 
