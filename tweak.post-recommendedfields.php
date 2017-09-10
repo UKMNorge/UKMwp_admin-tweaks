@@ -2,12 +2,12 @@
 
 function UKMwpat_req_menu_hook() {
 	add_submenu_page( 
-		null,            			// -> Set to null - will hide menu link 
-		'Nesten ferdig',    		// -> Page Title
-		'Publiseringsinformasjon', 	// -> Title that would otherwise appear in the menu
-		'editor', 					// -> Capability level
-		'recommendedfields',   		// -> Still accessible via admin.php?page=menu_handle
-		'UKMwpat_req_render' 		// -> To render the page
+		null,            			// Satt til null vil dette skjule siden fra menyen
+		'Nesten ferdig',
+		'Publiseringsinformasjon',
+		'editor', 					
+		'recommendedfields',   		// Slug for å nå siden.
+		'UKMwpat_req_render'
 	);	
 }
 
@@ -81,6 +81,7 @@ function UKMwpat_req_render() {
 
 function UKMwpat_req_save() {
 	$postID = $_GET['id'];
+	
 	return false;
 }
 
