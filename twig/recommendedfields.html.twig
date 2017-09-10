@@ -1,43 +1,110 @@
 <h1>Nesten ferdig!</h1>
-{% if success is defined %}
-	{% for s in success %}
-		<div class="alert alert-success">
-			{{ s }}
-		</div>
-	{% endfor %}
-{% endif %}
-{% if errors is defined %}
-	{% for error in errors %}
-		<div class="alert alert-error">
-			{{ error }}
-		</div>
-	{% endfor %}
-{% endif %} 
-<p class="lead">
-	Vi trenger kun litt mer informasjon for å gjøre saken din så bra som mulig.
-</p>
-<form action="" method="POST">
-	{% if missingContributors %}
-		<h3>Bidragsytere</h3>
-		<p>Vi ser at du ikke har valgt noen bidragsytere til saken din. Dette går helt fint dersom saken ikke blabla</p>
-		<p>Dersom en deltaker har tatt bilder, skrevet saken eller på annen måte bidratt, lønner det seg å velge de her. Da vil nettsiden presentere disse på en fin måte i saken.</p>
-	{% endif %}
+<div class="container-fluid" style="padding-left: 0px !important;">
+	<div class="col-10">
+		{% if success is defined %}
+			{% for s in success %}
+				<div class="alert alert-success">
+					{{ s }}
+				</div>
+			{% endfor %}
+		{% endif %}
+		{% if errors is defined %}
+			{% for error in errors %}
+				<div class="alert alert-error">
+					{{ error }}
+				</div>
+			{% endfor %}
+		{% endif %} 
+		<p class="lead">
+			Vi trenger kun litt mer informasjon for å gjøre saken din så bra som mulig.
+		</p>
+		<form action="" method="POST">
+			
+			{% if missingContributors %}
+				<h3>Bidragsytere</h3>
+				<p>Vi ser at du ikke har valgt noen bidragsytere til saken din. Dette går helt fint dersom saken ikke er laget av deltakerne dine.</p>
+				<p>Dersom en deltaker har tatt bilder, skrevet saken eller på annen måte bidratt, er det fint om du velger de her. Da vil nettsiden presentere disse på en fin måte i artikkelen.</p>
+			{% endif %}
 
-	{% if missingPostType %}
-		<h3>Hvilken type sak har du skrevet?</h3>
-		<div class="radio form-group">
-			<label><input type="radio" name="postType" class="form-control" value="news">Nyhetssak</label>
-			<label><input type="radio" name="postType" class="form-control" value="info">Informasjon til deltakere, presse eller publikum</label>
-			<label><input type="radio" name="postType" class="form-control" value="news">Omtale av deltakere</label>
-		</div>
+			{% if missingPostType %}
+				<h3>Hvilken type sak har du skrevet?</h3>
+				<div id="postTypeValg" class="radio form-group">
+					<label><input type="radio" name="postType" class="form-control postTypeVelger" value="info">Informasjon til deltakere, presse eller publikum</label>
+					<label><input type="radio" name="postType" class="form-control postTypeVelger" value="news">Intervju med / Omtale av deltakere</label>
+				</div>
 
-	{% endif %}
+				<div class="col-xs-2 hidden" id="deltakerListe">
+					<div class="well">
+						<p class="lead">Velg hvilke deltakere som omtales i artikkelen:</p>
+						<p><strong>TODO: Legg inn quick-search.</strong></p>
+						{% for innslag in deltakerliste %}
+							<ul class="list-group">
+								<li class="list-group-item">
+									<label><input type="checkbox" name="{{ innslag.id }}" />&nbsp;{{ innslag.navn }}</label></li>
+								</li>
+							</ul>
+						{% endfor %}
+					</div>
+				</div>
+			{% endif %}
 
-	{% if missingThumbnail %}
-		<h3>Forsidebilde</h3>
+			{% if missingThumbnail %}
+				<h3>Forsidebilde</h3>
+				<p>Det er ikke valgt noe forsidebilde til saken din. Dette er bildet som dukker opp på forsiden og i nyhetsarkivet, og også på toppen av artikkelen. Bildet bør være i relativt god kvalitet, ettersom det vises i både små og store versjoner.</p>
+				<p><strong>Husk at også dersom du har valgt en video som topp-bilde bør du velge et bilde her - det vises på forsiden og i arkivet.</strong></p>
+				<div class='image-preview-wrapper'>
+					<img id='image-preview' src="{{ bildePreview }}" width="200">
+				</div>
+				<div class="form-inline">
+					<input type="text" name="file_name" id="file_name" disabled/>
+					<input id="lastOpp" type="button" class="btn btn-info" value="Velg bilde" />
+				</div>
+				<input type='hidden' name='upload_id' id='upload_id' value=''>
+			{% endif %}
 
-	{% endif %}
+			<p>&nbsp;</p>
+			<button type="submit" class="btn btn-success btn-large">Oppdater & Publiser</button>
+		</form>
+	</div>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	jQuery(".postTypeVelger").click(function(clicked) {
+		console.log(clicked.target.value);
+		if(clicked.target.value == "news") {
+			jQuery("#deltakerListe").slideDown();
+		} else {
+			jQuery("#deltakerListe").slideUp();
+		}
+	});
+});
 
+</script>
+<script>
+var media_uploader = null;
 
-	<button type="submit" class="btn btn-success btn-large">Oppdater & Publiser</button>
-</form>
+jQuery("#lastOpp").click(function(knapp) {
+	knapp.preventDefault();
+	open_media_uploader();
+});
+
+function open_media_uploader()
+{
+    media_uploader = wp.media({
+        frame:    "post", 
+        state:    "insert", 
+        multiple: false
+    });
+
+    media_uploader.on("insert", function(){
+        var json = media_uploader.state().get("selection").first().toJSON();
+
+        console.log(json);
+        jQuery("#image-preview").attr("src",json.url);
+        jQuery("#upload_id").val(json.id);
+        jQuery("#file_name").val(json.filename);
+    });
+
+    media_uploader.open();
+}
+</script>

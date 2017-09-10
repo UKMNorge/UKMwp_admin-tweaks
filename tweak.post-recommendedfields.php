@@ -14,6 +14,7 @@ function UKMwpat_req_menu_hook() {
 function UKMwpat_req_script() {
 	wp_enqueue_script('bootstrap_js');
 	wp_enqueue_style('bootstrap_css');
+	wp_enqueue_media();
 }
 
 // Denne funksjonen trigges første gang posten publiseres.
@@ -49,12 +50,13 @@ function UKMwpat_req_hook( $ID, $post) {
 function UKMwpat_req_render() {
 	if("POST" == $_SERVER['REQUEST_METHOD']) {
 		$saved = UKMwpat_req_save();
-		if ($saved) {
+		if ( empty($saved['errors']) && false != $saved ) {
 			// Publish the post and redirect to editor.
 			var_dump("Publish and redir.");
-			die();
+			#die();
 		}
 		else {
+			$TWIGdata['errors'] = $saved['errors'];
 			// Output an error and show the page again.
 			var_dump("error.");
 		}
@@ -64,9 +66,13 @@ function UKMwpat_req_render() {
 
 	// Hvilken type sak er dette?
 	$TWIGdata['missingPostType'] = !hasPostType($post->ID);
+	$monstring = new monstring_v2(get_option('pl_id'));
+	$TWIGdata['deltakerliste'] = $monstring->getInnslag()->getAll();
+	#var_dump($TWIGdata['deltakerliste'][0]);
 
 	// Har du husket å legge inn forsidebilde?
 	$TWIGdata['missingThumbnail'] = !has_post_thumbnail($post);
+	$TWIGdata['bildePreview'] = '';
 
 	// Sjekk om vi mangler bidragsytere:
 	$TWIGdata['shouldHaveContributors'] = shouldHaveContributors();
@@ -81,8 +87,22 @@ function UKMwpat_req_render() {
 
 function UKMwpat_req_save() {
 	$postID = $_GET['id'];
+	$thumbnailID = $_POST['upload_id'];
+
+	// TODO: Contributors - ukm_ma-fancy stuff
 	
-	return false;
+	// Save thumbnail:
+	$savedThumbnail = set_post_thumbnail($postID, 23);
+	$output = false;
+	var_dump($savedThumbnail);
+	if ( false == $savedThumbnail ) {
+		$output['errors'][] = "Klarte ikke å lagre framsidebildet!";
+	} else {
+		$output['success'][] = "Lagret forsidebildet.";
+	}
+
+
+	return $output;
 }
 
 function shouldHaveContributors() {
@@ -102,6 +122,7 @@ function missingContributors ($postID) {
 	if (empty($ukm_ma) ) {
 		return true;
 	} elseif ( NULL == $ukm_ma[0] ) {
+		// Workaround for bug med at tom bidragsyter-liste blir et array med et tomt element. Bør fikses.
 		return true;
 	} else {
 		return false;
