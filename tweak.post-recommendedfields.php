@@ -24,19 +24,11 @@ function UKMwpat_req_hook( $ID, $post) {
 	$user = wp_get_current_user();
 
 	$shouldRedirect = false;
-	if ( shouldHaveContributors() && missingContributors() ) {
-		$shouldRedirect = true;
-	}
-
- 	if ( !has_post_thumbnail($post) ) {
- 		$shouldRedirect = true;
- 	}
-
-	if( !hasPostType($post->ID) ) {
-		$shouldRedirect = true;
-	}
-
-	if ( $shouldRedirect ) {
+	if ( shouldHaveContributors() && missingContributors()
+		|| !has_post_thumbnail($post)
+		|| !hasPostType($post->ID) )
+	{
+		
 		$newURL = "admin.php?page=recommendedfields&id=".$post->ID;
 		header('Location: '. $newURL);
 		die();
