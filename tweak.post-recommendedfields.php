@@ -23,12 +23,10 @@ function UKMwpat_req_script() {
 function UKMwpat_req_hook( $ID, $post) {
 	$user = wp_get_current_user();
 
-	$shouldRedirect = false;
 	if ( shouldHaveContributors() && missingContributors()
 		|| !has_post_thumbnail($post)
 		|| !hasPostType($post->ID) )
 	{
-		
 		$newURL = "admin.php?page=recommendedfields&id=".$post->ID;
 		header('Location: '. $newURL);
 		die();
