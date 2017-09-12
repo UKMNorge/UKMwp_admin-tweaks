@@ -47,18 +47,21 @@
 					<label><input type="radio" name="postType" class="form-control postTypeVelger" value="news">Intervju med / Omtale av deltakere</label>
 				</div>
 
-				<div class="col-xs-2 hidden" id="deltakerListe">
+				<div class="col-xs-12 hidden" id="deltakerListe">
 					<div class="well">
 						<p class="lead">Velg hvilke deltakere som omtales i artikkelen:</p>
-						<p><strong>TODO: Legg inn quick-search.</strong></p>
-						{% for innslag in deltakerliste %}
-							<ul class="list-group">
-								<li class="list-group-item">
+						<p><strong>Skriv navnet på deltakeren her for å søke i listen.</strong></p>
+						<input type="text" name="filtrer" id="filterMentions" placeholder="Skriv navnet her for å filtrere listen...." class="form-control" />
+						
+						<ul class="list-group list-unstyled" id="mentionsList">
+							{% for innslag in deltakerliste %}
+								<li filter="{{ innslag.navn }}" class="list-group-item mentionSok">
 									<label><input type="checkbox" name="mentions[]" value="{{ innslag.id }}" />&nbsp;{{ innslag.navn }}</label></li>
 								</li>
-							</ul>
-						{% endfor %}
+							{% endfor %}
+						</ul>
 					</div>
+					<div class="clearfix"></div>
 				</div>
 			{% endif %}
 
@@ -108,12 +111,16 @@ jQuery("#leggtilbidragsyter").click(function(knapp) {
 	console.log(person);
 	console.log(loginName);*/
 
-	var nr = jQuery("#bidragsyterListe .bidragsyter").length +1;
-	var display = jQuery('<div class="bidragsyter"><input type="text" name="rolle[]" value="'+rolle+'"/><input type="text" name="person[]" value="'+person+'"><input type="hidden" name="loginName[]" value="'+loginName+'"></div>');
-
-	// console.log(display);
+	var display = jQuery('<div class="bidragsyter"><input type="text" name="rolle[]" value="'+rolle+'"/><div id="personPlaceholder"></div><input type="hidden" name="loginName[]" value="'+loginName+'"></div>');
+	
 	jQuery("#bidragsyterListe").append(display);
-
+	var select = jQuery("#nyPerson").clone();
+	select = select.attr('name', 'person[]');
+	select = select.removeAttr('id');
+	select.find('option[value="'+loginName+'"]').prop('selected', true);
+	jQuery("#personPlaceholder").replaceWith(select);
+	
+	// Nullstill Legg til-bolken.
 	jQuery("#nyRolle").val("");
 	jQuery("#nyPerson").val("");
 	jQuery("#nyPerson option:first").prop('selected', true);
@@ -146,4 +153,12 @@ function open_media_uploader()
 
     media_uploader.open();
 }
+</script>
+<script>
+jQuery(document).ready(function() {
+	jQuery('#filterMentions').fastLiveFilter('#mentionsList', function(numShown){
+
+	});
+	jQuery('#filterMentions').change();
+});
 </script>

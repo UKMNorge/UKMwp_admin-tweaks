@@ -21,7 +21,7 @@ function UKMwpat_req_script() {
 // Denne funksjonen trigges første gang posten publiseres.
 // Skal sjekke om all informasjon vi vil ha er på plass, 
 // og hvis ikke redirecte oss til en ny side der vi kan fylle inn den manglende informasjonen.
-function UKMwpat_req_hook( $ID, $post) {
+function UKMwpat_req_hook( $ID, $post ) {
 	$user = wp_get_current_user();
 
 	if ( shouldHaveContributors() && missingContributors()
@@ -39,23 +39,22 @@ function UKMwpat_req_hook( $ID, $post) {
 
 ## Renders the actual input-page.
 function UKMwpat_req_render() {
-
+	$post = get_post($_GET['id']);
 	if("POST" == $_SERVER['REQUEST_METHOD']) {
 		$saved = UKMwpat_req_save();
+		// Redirect to editor.
 		if ( empty($saved['errors']) && false != $saved ) {
-			// Publish the post and redirect to editor.
-			var_dump("Publish and redir.");
+			
+			echo ("<script>location.href='post.php?post=".$post->ID."&action=edit'</script>");
+			die();
 			$TWIGdata = $saved;
-			#die();
 		}
 		else {
+			echo ("<script>location.href='post.php?post=".$post->ID."&action=edit'</script>");
+			die();
 			$TWIGdata = $saved;
-			// Output an error and show the page again.
-			var_dump("error.");
 		}
 	}
-
-	$post = get_post($_GET['id']);
 
 	// Hvilken type sak er dette?
 	$TWIGdata['missingPostType'] = !hasPostType($post->ID);
@@ -70,6 +69,7 @@ function UKMwpat_req_render() {
 	$TWIGdata['shouldHaveContributors'] = shouldHaveContributors();
 	$TWIGdata['missingContributors'] = missingContributors($post->ID);
 	$TWIGdata['contributorList'] = getPossibleContributors();
+
 	// Ta med oss de vi har av contributors dersom det er noen.
 	if ( $TWIGdata['shouldHaveContributors'] && !$TWIGdata['missingContributors'] ) {
 		$TWIGdata['contributors'] = $getContributors();
@@ -106,11 +106,10 @@ function UKMwpat_req_save() {
 				$output['success'][] = "Lagret omtale-informasjon.";
 			}		
 		}
-	
 	}
 
 	// Contributors - ukm_ma-fancy stuff
-	if ( in_array("bidragsytere", $fields) ) {
+	if ( in_array("bidragsytere", $fields) && !empty($_POST['rolle']) ) {
 		$roller = $_POST['rolle'];
 		$loginNames = $_POST['loginName'];
 		$ukm_ma = array_fill_keys($loginNames, $roller);
@@ -124,7 +123,7 @@ function UKMwpat_req_save() {
 	}
 
 	// Save thumbnail:
-	if ( in_array("forsidebilde", $fields) ) {
+	if ( in_array("forsidebilde", $fields) && null != $_POST['upload_id'] ) {
 		$thumbnailID = $_POST['upload_id'];
 		$savedThumbnail = set_post_thumbnail($postID, $thumbnailID);
 		if ( false == $savedThumbnail ) {
@@ -237,6 +236,19 @@ function savePostType($postID, $postType) {
 	return (bool)$saved;
 }
 
+function getMentions($postID) {
+	require_once('UKM/related.class.php');
+	throw new Exception("Not implemented");
+}
+
 function saveMentions($postID, $mentions) {
-	throw new Exception("Ikke implementert");
+	require_once('UKM/related.class.php');
+
+	$post = get_post($postID);
+	foreach($mentions as $bid) {
+		$relate = new related($bid);
+		$relate->set($postID, 'post', array('title'=>base64_encode($post->post_title),'link'=>$post->guid) );
+	}
+	
+	return true;
 }
