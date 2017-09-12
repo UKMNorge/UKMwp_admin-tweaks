@@ -38,6 +38,7 @@ function UKMwpat_req_hook( $ID, $post) {
 
 ## Renders the actual input-page.
 function UKMwpat_req_render() {
+
 	if("POST" == $_SERVER['REQUEST_METHOD']) {
 		$saved = UKMwpat_req_save();
 		if ( empty($saved['errors']) && false != $saved ) {
@@ -122,7 +123,7 @@ function UKMwpat_req_save() {
 	}
 
 	// Save thumbnail:
-	if ( in_array("bidragsytere", $fields) ) {
+	if ( in_array("forsidebilde", $fields) ) {
 		$thumbnailID = $_POST['upload_id'];
 		$savedThumbnail = set_post_thumbnail($postID, $thumbnailID);
 		if ( false == $savedThumbnail ) {
