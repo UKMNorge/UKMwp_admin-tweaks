@@ -47,12 +47,11 @@
 					<label><input type="radio" name="postType" class="form-control postTypeVelger" value="news">Intervju med / Omtale av deltakere</label>
 				</div>
 
-				<div class="col-xs-12 hidden" id="deltakerListe">
+				<div class="hidden" id="deltakerListe">
 					<div class="well">
 						<p class="lead">Velg hvilke deltakere som omtales i artikkelen:</p>
 						<p><strong>Skriv navnet på deltakeren her for å søke i listen.</strong></p>
-						<input type="text" name="filtrer" id="filterMentions" placeholder="Skriv navnet her for å filtrere listen...." class="form-control" />
-						
+						<input type="text" name="filtrer" style="width:90%;" id="filterMentions" placeholder="Skriv navnet her for å filtrere listen...." class="form-control block" />
 						<ul class="list-group list-unstyled" id="mentionsList">
 							{% for innslag in deltakerliste %}
 								<li filter="{{ innslag.navn }}" class="list-group-item mentionSok">
