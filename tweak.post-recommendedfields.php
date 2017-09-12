@@ -15,6 +15,7 @@ function UKMwpat_req_script() {
 	wp_enqueue_script('bootstrap_js');
 	wp_enqueue_style('bootstrap_css');
 	wp_enqueue_media();
+	wp_enqueue_script( 'UKMwpat_fastlivefilterjs', plugin_dir_url( __FILE__ ) . "js/fastlivefilter.jquery.js");
 }
 
 // Denne funksjonen trigges første gang posten publiseres.
