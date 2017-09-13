@@ -44,7 +44,6 @@ function UKMwpat_req_render() {
 		$saved = UKMwpat_req_save();
 		// Redirect to editor.
 		if ( empty($saved['errors']) && false != $saved ) {
-			
 			echo ("<script>location.href='post.php?post=".$post->ID."&action=edit'</script>");
 			die();
 			$TWIGdata = $saved;
@@ -56,6 +55,9 @@ function UKMwpat_req_render() {
 		}
 	}
 
+	require_once('class/Bidragsytere.php');
+	$bidragsytere = new Bidragsytere($post->ID);
+
 	// Hvilken type sak er dette?
 	$TWIGdata['missingPostType'] = !hasPostType($post->ID);
 	$monstring = new monstring_v2(get_option('pl_id'));
@@ -66,13 +68,14 @@ function UKMwpat_req_render() {
 	$TWIGdata['bildePreview'] = '';
 
 	// Sjekk om vi mangler bidragsytere:
-	$TWIGdata['shouldHaveContributors'] = shouldHaveContributors();
-	$TWIGdata['missingContributors'] = missingContributors($post->ID);
-	$TWIGdata['contributorList'] = getPossibleContributors();
+
+	$TWIGdata['shouldHaveContributors'] = $bidragsytere->burdeHa();
+	$TWIGdata['missingContributors'] = $bidragsytere->harIkke();
+	$TWIGdata['contributorList'] = $bidragsytere->alleMulige();
 
 	// Ta med oss de vi har av contributors dersom det er noen.
 	if ( $TWIGdata['shouldHaveContributors'] && !$TWIGdata['missingContributors'] ) {
-		$TWIGdata['contributors'] = $getContributors();
+		$TWIGdata['contributors'] = $bidragsytere->alle();
 	}
 
 	echo TWIG('recommendedfields.html.twig', $TWIGdata, dirname(__FILE__) );
@@ -110,11 +113,19 @@ function UKMwpat_req_save() {
 
 	// Contributors - ukm_ma-fancy stuff
 	if ( in_array("bidragsytere", $fields) && !empty($_POST['rolle']) ) {
+		require_once('class/Bidragsytere.php');
+		$bidragsytere = new Bidragsytere($postID);
+
 		$roller = $_POST['rolle'];
 		$loginNames = $_POST['loginName'];
-		$ukm_ma = array_fill_keys($loginNames, $roller);
 
-		$savedContributors = saveContributors($postID, $ukm_ma);
+		for($i = 0; $i < sizeof($roller); $i++) {
+			$bidragsytere->leggTil($loginNames[$i], $roller[$i]);
+		}
+		$saveContributors = $bidragsytere->lagre();
+
+		#$ukm_ma = array_fill_keys($loginNames, $roller);
+		#$savedContributors = saveContributors($postID, $ukm_ma);
 		if ( false == $savedContributors ) {
 			$output['errors'][] = "Klarte ikke å lagre bidragsytere!";
 		} else {
