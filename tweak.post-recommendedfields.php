@@ -22,9 +22,10 @@ function UKMwpat_req_script() {
 // Skal sjekke om all informasjon vi vil ha er på plass, 
 // og hvis ikke redirecte oss til en ny side der vi kan fylle inn den manglende informasjonen.
 function UKMwpat_req_hook( $ID, $post ) {
+	require_once('class/Bidragsytere.php');
 	$user = wp_get_current_user();
-
-	if ( shouldHaveContributors() && missingContributors()
+	$bidragsytere = new Bidragsytere($post->ID);
+	if ( $bidragsytere->burdeHa() && $bidragsytere->harIkke() 
 		|| !has_post_thumbnail($post->ID)
 		|| !hasPostType($post->ID) )
 	{
@@ -145,86 +146,6 @@ function UKMwpat_req_save() {
 	}
 
 	return $output;
-}
-
-function shouldHaveContributors() {
-	$user = wp_get_current_user();
-	// Fylkessider og kommunesider skal kun ha bidragsyter dersom brukernavnet har et punktum i seg, altså en redaksjonsbruker.
-	if ( 'fylke' == get_option('site_type') || 'kommune' == get_option('site_type') ) {
-		if ( strpos($user->user_login, '.') === FALSE ) {
-			return false;
-		}
-	}
-	// Alle andre skal ha bidragsytere
-	return true;
-}
-
-function missingContributors ($postID) {
-	$ukm_ma = getContributors($postID);
-	if (empty($ukm_ma) ) {
-		return true;
-	} elseif ( NULL == reset($ukm_ma) ) {
-		// Workaround for bug med at tom bidragsyter-liste blir et array med et tomt element. Bør fikses.
-		return true;
-	} else {
-		return false;
-	}
-}
-
-function getContributors($postID) {
-	$list = get_post_meta($postID, 'ukm_ma', true);
-	$ukm_ma = json_decode($list, true);
-	return $ukm_ma;
-}
-
-function getPossibleContributors() {
-	$admins = get_users(array('role' => 'administrator'));
-	$authors = get_users(array('role' => 'author'));
-	$editors = get_users(array('role' => 'editor'));
-	$contributors = get_users(array('role' => 'contributor'));
-	$producers = get_users(array('role' => 'ukm_produsent'));
-
-	foreach($authors as $author) {
-		$list[] = $author;
-		#var_dump($author);
-		#echo $author->data->display_name;
-	}
-	foreach($editors as $editor) {
-		$list[] = $editor;
-		#var_dump($editor);
-		#echo $editor->data->display_name;
-	}
-	foreach($contributors as $contributor) {
-		$list[] = $contributor;
-		#echo $contributor->data->display_name;
-	}
-	foreach($producers as $producer) {
-		$list[] = $producer;
-	}
-	foreach($admins as $admin) {
-		$list[] = $admin;
-	}
-	return $list;
-}
-
-function saveContributors($postID, $list) {
-	// LIST = $list[$author] = $role. $author = String, brukernavn (innlogging). $role = String, rollebeskrivelse.
-	if(!is_array($list))
-		return false;
-
-	foreach($list as $key => $val) {
-		if ( is_array($val) )
-			$list[$key] = implode(', ', $val);
-	}
-
-	$encodedList = json_encode($list);
-
-	// Hvis vi prøver å lagre akkurat det som er lagret vil update_post_meta returnere false, derfor slutter vi tidlig hvis det er ingen endringer.
-	if ( get_post_meta($postID, 'ukm_ma', true) == $encodedList )
-		return true;
-	$saved = update_post_meta($postID, 'ukm_ma', $encodedList);
-	return (bool)$saved;
-
 }
 
 function hasPostType($postID) {
