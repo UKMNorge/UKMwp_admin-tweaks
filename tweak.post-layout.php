@@ -27,7 +27,6 @@ function ukm_post_layout() {
 	$ukm_image_md = $ukm_image_md[0];
 	$ukm_image_lg = get_post_meta($post->ID, 'image_lg');
 	$ukm_image_lg = $ukm_image_lg[0];
-	#var_dump($meta);
 
 	echo '<div class="form-group">';
 	$select .= '<select name="ukm_post_layout_style" id="ukm_post_layout_style" class="form-control">';
@@ -75,7 +74,7 @@ function ukm_post_layout_imageButton() {
 function ukm_post_layout_selectMenu($currentKey, $visible) {
 	$menyer = get_registered_nav_menus();
 	if (empty($menyer)) {
-		echo '<span id="menuSelect" class="">Det finnes ingen menyer du kan velge.</span>';
+		echo '<span id="menuSelect" class="'.($visible ? '' : 'hidden').'">Det finnes ingen menyer du kan velge.</span>';
 		return;
 	}
 	echo "<br />";
@@ -142,8 +141,6 @@ function ukm_post_layout_save() {
 
 		delete_post_meta($post->ID, "UKM_nav_menu");
 
-		#var_dump($att);
-		#throw new Exception("Staahp");
 		$image_xs = wp_get_attachment_url($att, 'thumbnail');
 		$image_sm = wp_get_attachment_url($att, 'medium');
 		$image_md = wp_get_attachment_url($att, 'large');
