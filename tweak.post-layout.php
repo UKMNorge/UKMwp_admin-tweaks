@@ -27,10 +27,11 @@ function ukm_post_layout() {
 	$ukm_image_md = $ukm_image_md[0];
 	$ukm_image_lg = get_post_meta($post->ID, 'image_lg');
 	$ukm_image_lg = $ukm_image_lg[0];
-	#var_dump($meta);
-		
-	$select .= '<select name="ukm_post_layout_style" style="width: 100%;">';
+
+	echo '<div class="form-group">';
+	$select .= '<select name="ukm_post_layout_style" id="ukm_post_layout_style" class="form-control">';
 	$select .= '<option value="delete">Ingen mal</option>';
+	$select .= '<option '. ($meta == 'sidemedmeny' ? 'selected' : '').' value="sidemedmeny">Side med meny</option>';
 	$select .= '<option '. ($meta == 'image_left' ? 'selected' : '').' value="image_left">Bilde til venstre</option>';
 	$select .= '<option '. ($meta == 'image_right' ? 'selected' : '').' value="image_right">Bilde til høyre</option>';
 	$select .= '<option '. ($meta == 'lead' ? 'selected' : '').' value="lead">Tekst til venstre</option>';
@@ -38,9 +39,23 @@ function ukm_post_layout() {
 	$select .= '';
 	$select .= '</select>';
 
-
 	echo $select;	
 
+	$key = get_post_meta($post->ID, "UKM_nav_menu", true);
+	ukm_post_layout_selectMenu($key, $meta == "sidemedmeny");
+	ukm_post_layout_imageButton();
+	
+	$text = '<br><span style="font-style: italic;">';
+	$text .= 'Lagre innlegget for å oppdatere stilen.';
+	$text .= '</span>';
+	echo $text;
+	echo '</div>';
+
+	return $select;
+}
+
+function ukm_post_layout_imageButton() {
+	echo '<div id="imageStuff" class="hidden">';
 	$img = '<img style="width: 100%;" id="ukm_post_layout_image" src="'. ( $ukm_image_lg ? $ukm_image_lg : '').'">';
 	#$imgURL = '<input type="hidden" id="ukm_post_layout_image_url" value="'. ( $ukm_image_lg ? $ukm_image_lg : '' ).'">';
 	$att = '<input type="hidden" name="ukm_post_layout_attachment" id="ukm_post_layout_attachment" value="'. ($att ? $att : '').'">';
@@ -48,16 +63,32 @@ function ukm_post_layout() {
 	#echo $imgURL;
 	echo $att;
 	wp_enqueue_script('UKMMonstring_script',  plugin_dir_url( __FILE__ )  . 'js/monstring.script.js' );
+	wp_enqueue_script('UKMtemplate_script',  plugin_dir_url( __FILE__ )  . 'js/templateSelect.script.js' );
 
 	$btn = '<input class="button button-primary button-large" style="margin-top: 8px;" id="imageedit" type="button" value="Velg bilde">';	
 	echo $btn;
 
-	$text = '<br><span style="font-style: italic;">';
-	$text .= 'Lagre innlegget for å oppdatere stilen.';
-	$text .= '</span>';
-	echo $text;
+	echo '</div>';
+}
 
-	return $select;
+function ukm_post_layout_selectMenu($currentKey, $visible) {
+	$menyer = wp_get_nav_menus();
+	if (empty($menyer)) {
+		echo '<span id="menuSelect" class="'.($visible ? '' : 'hidden').'">Det finnes ingen menyer du kan velge.</span>';
+		return;
+	}
+	echo "<br />";
+	$select = '<select name="menuSelect" id="menuSelect" class="'.($visible ? '' : 'hidden').' form-control">';
+	$select .= '<option value="blank">Ingen meny valgt</option>';
+
+	foreach($menyer as $index => $meny) {
+		$select .= '<option '.($currentKey == $meny->term_id ? 'selected' : '').' value="'.$meny->term_id.'">'.$meny->name.'</option>';	
+	}
+	$select .= '</select>';
+	echo $select;
+	
+	echo '<p style="margin-top:1em;"><a href="nav-menus.php" target="_blank" class="button">Rediger menyer</a></p>';
+	
 }
 
 // Trigges når man lagrer posten
@@ -72,57 +103,79 @@ function ukm_post_layout_save() {
 
 	$style = $_POST['ukm_post_layout_style'];
 
+	## SKAL VI SLETTE?
 	if ($style == 'delete') {
 		// Fjern UKM_block-meta-tagger
-		if (get_post_meta($post->ID, 'UKM_block'))
+		if (get_post_meta($post->ID, 'UKM_block')) {
 			delete_post_meta($post->ID, 'UKM_block');
+			delete_post_meta($post->ID, "UKM_nav_menu");
+		}
 
 		return false;
 	}
 
-	if (get_post_meta($post->ID, 'UKM_block'))
+	### LAGRE TEMPLATE
+	if (get_post_meta($post->ID, 'UKM_block')) {
 		update_post_meta($post->ID, 'UKM_block', $style);
-	else 
+	}
+	else {
 		add_post_meta($post->ID, 'UKM_block', $style);
-
-	$att = $_POST['ukm_post_layout_attachment'];
-
-	if (!is_numeric($att)) {
-		return false;
 	}
 
-	#var_dump($att);
-	#throw new Exception("Staahp");
-	$image_xs = wp_get_attachment_url($att, 'thumbnail');
-	$image_sm = wp_get_attachment_url($att, 'medium');
-	$image_md = wp_get_attachment_url($att, 'large');
-	$image_lg = wp_get_attachment_url($att, 'full');
+	### LAGRE ENTEN MENYVALG ELLER BILDEDETALJER
+	if( "sidemedmeny" == $style) {
+		update_post_meta($post->ID, "UKM_nav_menu", $_POST['menuSelect']);
 
-	## DO SAVE
-	if (get_post_meta($post->ID, 'UKM_att'))
-		update_post_meta($post->ID, 'UKM_att', $att);
-	else
-		add_post_meta($post->ID, 'UKM_att', $att);
+		// Slett bildedetaljer?
+		delete_post_meta($post->ID, "UKM_att");
+		delete_post_meta($post->ID, "image_xs");
+		delete_post_meta($post->ID, "image_sm");
+		delete_post_meta($post->ID, "image_md");
+		delete_post_meta($post->ID, "image_lg");
+	}
+	else {
 
-	if (get_post_meta($post->ID, 'image_xs'))
-		update_post_meta($post->ID, 'image_xs', $image_xs);
-	else 
-		add_post_meta($post->ID, 'image_xs', $image_xs);
+		$att = $_POST['ukm_post_layout_attachment'];
+
+		if (!is_numeric($att)) {
+			return false;
+		}
+
+		delete_post_meta($post->ID, "UKM_nav_menu");
+
+		$image_xs = wp_get_attachment_url($att, 'thumbnail');
+		$image_sm = wp_get_attachment_url($att, 'medium');
+		$image_md = wp_get_attachment_url($att, 'large');
+		$image_lg = wp_get_attachment_url($att, 'full');
+
+		## DO SAVE
+		if (get_post_meta($post->ID, 'UKM_att'))
+			update_post_meta($post->ID, 'UKM_att', $att);
+		else
+			add_post_meta($post->ID, 'UKM_att', $att);
+
+		if (get_post_meta($post->ID, 'image_xs'))
+			update_post_meta($post->ID, 'image_xs', $image_xs);
+		else 
+			add_post_meta($post->ID, 'image_xs', $image_xs);
+		
+		if (get_post_meta($post->ID, 'image_sm'))
+			update_post_meta($post->ID, 'image_sm', $image_sm);
+		else 
+			add_post_meta($post->ID, 'image_sm', $image_sm);
+
+		if (get_post_meta($post->ID, 'image_md'))
+			update_post_meta($post->ID, 'image_md', $image_md);
+		else 
+			add_post_meta($post->ID, 'image_md', $image_md);
+		
+		if (get_post_meta($post->ID, 'image_lg'))
+			update_post_meta($post->ID, 'image_lg', $image_lg);
+		else 
+			add_post_meta($post->ID, 'image_lg', $image_lg);
+	}
+
 	
-	if (get_post_meta($post->ID, 'image_sm'))
-		update_post_meta($post->ID, 'image_sm', $image_sm);
-	else 
-		add_post_meta($post->ID, 'image_sm', $image_sm);
-
-	if (get_post_meta($post->ID, 'image_md'))
-		update_post_meta($post->ID, 'image_md', $image_md);
-	else 
-		add_post_meta($post->ID, 'image_md', $image_md);
-	
-	if (get_post_meta($post->ID, 'image_lg'))
-		update_post_meta($post->ID, 'image_lg', $image_lg);
-	else 
-		add_post_meta($post->ID, 'image_lg', $image_lg);
 	
 	return true;
 }
