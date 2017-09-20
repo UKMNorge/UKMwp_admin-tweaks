@@ -107,6 +107,7 @@ function ukm_post_layout_save() {
 		// Fjern UKM_block-meta-tagger
 		if (get_post_meta($post->ID, 'UKM_block')) {
 			delete_post_meta($post->ID, 'UKM_block');
+			delete_post_meta($post->ID, "UKM_nav_menu");
 		}
 
 		return false;
