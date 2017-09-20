@@ -72,7 +72,7 @@ function ukm_post_layout_imageButton() {
 }
 
 function ukm_post_layout_selectMenu($currentKey, $visible) {
-	$menyer = get_registered_nav_menus();
+	$menyer = wp_get_nav_menus();
 	if (empty($menyer)) {
 		echo '<span id="menuSelect" class="'.($visible ? '' : 'hidden').'">Det finnes ingen menyer du kan velge.</span>';
 		return;
@@ -82,7 +82,7 @@ function ukm_post_layout_selectMenu($currentKey, $visible) {
 	$select .= '<option value="blank">Ingen meny valgt</option>';
 
 	foreach($menyer as $index => $meny) {
-		$select .= '<option '.($currentKey == $index ? 'selected' : '').' value="'.$index.'">'.$meny.'</option>';	
+		$select .= '<option '.($currentKey == $meny->term_id ? 'selected' : '').' value="'.$meny->term_id.'">'.$meny->name.'</option>';	
 	}
 	$select .= '</select>';
 	echo $select;
