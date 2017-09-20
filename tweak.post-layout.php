@@ -49,6 +49,8 @@ function ukm_post_layout() {
 	$text .= 'Lagre innlegget for å oppdatere stilen.';
 	$text .= '</span>';
 	echo $text;
+	echo '<p style="margin-top:1em; float:right;"><a href="nav-menus.php" target="_blank" class="button">Rediger menyer</a></p>';
+	echo '<div class="clearfix"></div>';
 	echo '</div>';
 
 	return $select;
@@ -85,10 +87,7 @@ function ukm_post_layout_selectMenu($currentKey, $visible) {
 		$select .= '<option '.($currentKey == $meny->term_id ? 'selected' : '').' value="'.$meny->term_id.'">'.$meny->name.'</option>';	
 	}
 	$select .= '</select>';
-	echo $select;
-	
-	echo '<p style="margin-top:1em;"><a href="nav-menus.php" target="_blank" class="button">Rediger menyer</a></p>';
-	
+	echo $select;	
 }
 
 // Trigges når man lagrer posten
