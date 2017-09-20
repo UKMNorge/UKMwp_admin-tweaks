@@ -87,6 +87,8 @@ function ukm_post_layout_selectMenu($currentKey, $visible) {
 	$select .= '</select>';
 	echo $select;
 	
+	echo '<p style="margin-top:1em;"><a href="nav-menus.php" target="_blank" class="button">Rediger menyer</a></p>';
+	
 }
 
 // Trigges når man lagrer posten
