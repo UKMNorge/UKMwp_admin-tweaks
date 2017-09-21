@@ -59,10 +59,12 @@ function UKMwpat_req_render() {
 	require_once('class/Bidragsytere.php');
 	$bidragsytere = new Bidragsytere($post->ID);
 
-	// Hvilken type sak er dette?
-	$TWIGdata['missingPostType'] = !hasPostType($post->ID);
-	$monstring = new monstring_v2(get_option('pl_id'));
-	$TWIGdata['deltakerliste'] = $monstring->getInnslag()->getAll();
+	if( in_array( get_option('site_type'), array('kommune','fylke','land') ) ) {
+		// Hvilken type sak er dette?
+		$TWIGdata['missingPostType'] = !hasPostType($post->ID);
+		$monstring = new monstring_v2(get_option('pl_id'));
+		$TWIGdata['deltakerliste'] = $monstring->getInnslag()->getAll();
+	}
 
 	// Har du husket å legge inn forsidebilde?
 	$TWIGdata['missingThumbnail'] = !has_post_thumbnail($post->ID);
