@@ -37,7 +37,6 @@ add_filter( 'get_avatar' , 'ukm_avatar' , 1 , 5 );
 add_action('add_meta_boxes', 'UKMwpat_add_video_box');
 add_action('save_post', 'ukm_top_video_save');
 
-
 if(is_admin()){
 	require_once('tweak.logon_redir.php');
 	require_once('tweak.mediaform.php');
@@ -51,6 +50,8 @@ if(is_admin()){
 	require_once('tweak.user-fields.php');
 	require_once('tweak.multiauthor.php');
 	require_once('tweak.set-option.php');
+	require_once('tweak.post-recommendedfields.php');
+
 	
 	add_action( 'admin_init', 'UKMwpat_logon_check' );
 
@@ -81,6 +82,12 @@ if(is_admin()){
 
 	add_action('add_meta_boxes', 'UKMwpat_add_ma_box');
 	add_action( 'admin_enqueue_scripts', 'UKMwpat_add_ma_styles', 10000 );
+
+	// Stopp publisering og vis spørsmål om vi mangler info
+	add_action('admin_menu', 'UKMwpat_req_menu_hook');
+	add_action('publish_post', 'UKMwpat_req_hook', 10, 2);
+	add_action('admin_enqueue_scripts', 'UKMwpat_req_script', 10000 );
+	
 
 	// Layout for festival-lignende sider
 	add_action( 'add_meta_boxes', 'UKMwpat_add_layout_meta_box' );
