@@ -22,7 +22,7 @@ function UKMwpat_req_script() {
 // Skal sjekke om all informasjon vi vil ha er på plass, 
 // og hvis ikke redirecte oss til en ny side der vi kan fylle inn den manglende informasjonen.
 function UKMwpat_req_hook( $ID, $post ) {
-	// Skip if the post is not a post.
+	// Kun gjør noe om dette er en post.
 	if ('post' != get_post_type($post)) {
 		return;
 	}
