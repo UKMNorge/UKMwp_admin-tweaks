@@ -25,7 +25,7 @@ add_action('lostpassword_url', 'UKMWpat_lostpassword' );
 add_action('login_redirect', 'UKMwpat_redirect_superadmin', 10, 3);
 function UKMwpat_redirect_superadmin( $url, $request, $user ) {
 	if( $user->ID == 1 )
-		return 'http://'. UKM_HOSTNAME .'/wp-admin/network/';
+		return 'https://'. UKM_HOSTNAME .'/wp-admin/network/';
 	return $url;
 }
 
