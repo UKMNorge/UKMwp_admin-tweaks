@@ -79,12 +79,13 @@ function UKMwpat_ma_save($post_id) {
     	return $post_id;
 
 	global $post;
-
-	require_once('class/Bidragsytere.php');
-	$bidragsytere = new Bidragsytere($post->ID);
-
-	$bidragsytere->leggTil($_POST['ukm_ma_author'], $_POST['ukm_ma_role']);
-	$bidragsytere->lagre();
+	if( isset( $_POST['ukm_ma_author'] ) ) {
+		require_once('class/Bidragsytere.php');
+		$bidragsytere = new Bidragsytere($post->ID);
+	
+		$bidragsytere->leggTil($_POST['ukm_ma_author'], $_POST['ukm_ma_role']);
+		$bidragsytere->lagre();
+	}
 	return true;
 }
 

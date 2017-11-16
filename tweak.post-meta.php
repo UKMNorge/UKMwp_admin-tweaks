@@ -11,6 +11,7 @@ function ukmn_meta_box_save( $post_id ) {
 	global $post;
 	// verify if this is an auto save routine.  // If it is our form has not been submitted, so we dont want to do anything
 	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+	if( !isset( $_POST['post_type'] ) ) return; // programmatisk oppretting av innhold har ikke denne
 	// Check permissions
 	if ( 'page' == $_POST['post_type'] ){ if ( !current_user_can( 'edit_page', $post_id ) ) return;  } 
 	else { if ( !current_user_can( 'edit_post', $post_id ) ) return; }
