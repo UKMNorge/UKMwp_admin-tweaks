@@ -20,7 +20,10 @@ class Bidragsytere {
 			return false;
 
 		// Dersom keyen finnes slår vi sammen teksten
-		if ( null != $this->bidragsyterListe[$loginName] && $append) {
+		if ( null != $this->bidragsyterListe[$loginName] 
+			&& $append 
+			&& $role != $this->bidragsyterListe[$loginName] 
+		) {
 			$role = $this->bidragsyterListe[$loginName].', '.$role;
 		}
 		$this->bidragsyterListe[$loginName] = $role;
