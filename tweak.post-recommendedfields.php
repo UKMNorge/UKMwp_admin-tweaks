@@ -118,7 +118,12 @@ function UKMwpat_req_save() {
 	}
 
 	// Contributors - ukm_ma-fancy stuff
-	if ( in_array("bidragsytere", $fields) && !empty($_POST['rolle']) ) {
+	if ( 
+		in_array("bidragsytere", $fields) 
+		&& !empty($_POST['rolle']) 
+		&& !empty($_POST['loginName']) 
+		&& $_POST['loginName'] != "disabled" ) 
+	{
 		require_once('class/Bidragsytere.php');
 		$bidragsytere = new Bidragsytere($postID);
 

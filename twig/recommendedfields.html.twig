@@ -30,7 +30,7 @@
 				<div class="" id="bidragsyterListe"></div>
 				<div class="form-inline">
 					<select id="nyPerson" class="form-control">
-						<option disabled selected value="">Velg bidragsyter</option>
+						<option disabled selected value="disabled">Velg bidragsyter</option>
 						{% for bidragsyter in contributorList %}
 							<option value="{{ bidragsyter.data.user_login }}">{{ bidragsyter.data.user_nicename }}</option>
 						{% endfor %}
@@ -111,15 +111,15 @@ jQuery("#leggtilbidragsyter").click(function(knapp) {
 	}
 	/*console.log(rolle);
 	console.log(person);
-	console.log(loginName);*/
+	console.log('login: ' + loginName);*/
 
-	var display = jQuery('<div class="bidragsyter"><div id="personPlaceholder"></div><input type="hidden" name="loginName[]" value="'+loginName+'"><input type="text" name="rolle[]" value="'+rolle+'"/></div>');
+	var display = jQuery('<div class="bidragsyter"><div id="personPlaceholder"></div><input type="hidden" name="loginName[]" value="'+person+'"><input type="text" name="rolle[]" value="'+rolle+'"/></div>');
 	
 	jQuery("#bidragsyterListe").append(display);
 	var select = jQuery("#nyPerson").clone();
 	select = select.attr('name', 'person[]');
 	select = select.removeAttr('id');
-	select.find('option[value="'+loginName+'"]').prop('selected', true);
+	select.find('option[value="'+person+'"]').prop('selected', true);
 	jQuery("#personPlaceholder").replaceWith(select);
 	
 	// Nullstill Legg til-bolken.
