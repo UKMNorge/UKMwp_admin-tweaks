@@ -70,7 +70,6 @@ function UKMwpat_add_capabilities($wp_roles) {
 	
 	# UKM-arrangør
 	$editor = get_role('editor');
-	$editor->add_cap('edit_pages');
 	$editor->add_cap('ukm_rapporter');
 	$editor->add_cap('ukm_playback');
 	$editor->add_cap('ukm_materiell');
