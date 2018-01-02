@@ -38,8 +38,18 @@ function UKMwpat_tweak_menu_remove() {
 					);
 	if( !(get_option('site_type') == 'land' && current_user_can('author') ) && !is_super_admin() ) {
 		$remove[120]	= 'upload.php';
+	}
+	
+	## spesial_meny er en setting som gir utvalgte sites tilgang til sider-modulen
+	# funksjonen er innført i 2018, med Sogn og Fjordane + Østfold som testfylker
+	# Innstillingen brukes av 
+	# - UKMresponsive (Wordpress/Controller/monstring/fylke.controller.php
+	# - UKMnettside (controller/forside.controller.php og ukmnettside.php)
+	if( is_super_admin() || get_option('spesial_meny') ) {
+	} else {
 		$remove[130]	= 'edit.php?post_type=page';
 	}
+
 
 	if( !is_super_admin() ) {
 		$remove[1075] = 'tools.php';
