@@ -22,13 +22,17 @@ function UKMwpat_req_script() {
 // Skal sjekke om all informasjon vi vil ha er på plass, 
 // og hvis ikke redirecte oss til en ny side der vi kan fylle inn den manglende informasjonen.
 function UKMwpat_req_hook( $ID, $post ) {
+	// Kun gjør noe om dette er en post.
+	if ('post' != get_post_type($post) || 'publish' != get_post_status($post->ID)) {
+		return;
+	}
 	require_once('class/Bidragsytere.php');
 	$user = wp_get_current_user();
 	$bidragsytere = new Bidragsytere($post->ID);
 	if ( $bidragsytere->burdeHa() && $bidragsytere->harIkke() 
 		|| !has_post_thumbnail($post->ID)
-		|| !hasPostType($post->ID) )
-	{
+		|| (!hasPostType($post->ID) && shouldHavePostTypeAndMentions())
+	) {
 		$newURL = "admin.php?page=recommendedfields&id=".$post->ID;
 		header('Location: '. $newURL);
 		die();
@@ -71,7 +75,6 @@ function UKMwpat_req_render() {
 	$TWIGdata['bildePreview'] = '';
 
 	// Sjekk om vi mangler bidragsytere:
-
 	$TWIGdata['shouldHaveContributors'] = $bidragsytere->burdeHa();
 	$TWIGdata['missingContributors'] = $bidragsytere->harIkke();
 	$TWIGdata['contributorList'] = $bidragsytere->alleMulige();
@@ -115,7 +118,12 @@ function UKMwpat_req_save() {
 	}
 
 	// Contributors - ukm_ma-fancy stuff
-	if ( in_array("bidragsytere", $fields) && !empty($_POST['rolle']) ) {
+	if ( 
+		in_array("bidragsytere", $fields) 
+		&& !empty($_POST['rolle']) 
+		&& !empty($_POST['loginName']) 
+		&& $_POST['loginName'] != "disabled" ) 
+	{
 		require_once('class/Bidragsytere.php');
 		$bidragsytere = new Bidragsytere($postID);
 
@@ -148,6 +156,14 @@ function UKMwpat_req_save() {
 	}
 
 	return $output;
+}
+
+// Skal ikke ha posttype eller artistnavn på nasjonal-side.
+function shouldHavePostTypeAndMentions() {
+	if( false != get_option('site_type') ) {
+		return true;
+	}
+	return false;
 }
 
 function hasPostType($postID) {

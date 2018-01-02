@@ -28,6 +28,7 @@ function ukm_multiauthor() {
 	// Hvis dette er en slett-request
 	if(isset($_GET['ukm_ma_fjern'])) {
 		$bidragsytere->fjern($_GET['ukm_ma_fjern']);
+		$bidragsytere->lagre();
 	}
 
 	if($bidragsytere->har()) {
@@ -86,14 +87,5 @@ function UKMwpat_ma_save($post_id) {
 		$bidragsytere->leggTil($_POST['ukm_ma_author'], $_POST['ukm_ma_role']);
 		$bidragsytere->lagre();
 	}
-	return true;
-}
-
-function UKMwpat_ma_fjern($author) {
-	global $post;
-
-	$bidragsytere = new Bidragsytere($post->ID);
-	$bidragsytere->fjern($author);
-
 	return true;
 }

@@ -11,7 +11,6 @@ function UKMwpat_add_layout_meta_box() {
 function ukm_post_layout() {
 	require_once('UKM/form.class.php');
 	global $post;
-	#var_dump($post);
 
 	// Finn current meta-tag
 	$meta = get_post_meta($post->ID, 'UKM_block');
@@ -41,6 +40,11 @@ function ukm_post_layout() {
 
 	echo $select;	
 
+	// Hvis vi har et bilde, vis det her
+	if( in_array($meta, array("image_left", "image_right", "lead", "lead_center")) ) {
+		echo '<image src="'.$ukm_image_xs.'" id="ukm_post_layout_image" style="width: 100%"/>';
+	}
+
 	$key = get_post_meta($post->ID, "UKM_nav_menu", true);
 	ukm_post_layout_selectMenu($key, $meta == "sidemedmeny");
 	ukm_post_layout_imageButton();
@@ -53,17 +57,18 @@ function ukm_post_layout() {
 	echo '<div class="clearfix"></div>';
 	echo '</div>';
 
+	echo '<script>jQuery( window ).on( "load", function() { jQuery("#ukm_post_layout_style").change() });</script>';
+
 	return $select;
 }
 
 function ukm_post_layout_imageButton() {
 	echo '<div id="imageStuff" class="hidden">';
 	$img = '<img style="width: 100%;" id="ukm_post_layout_image" src="'. ( $ukm_image_lg ? $ukm_image_lg : '').'">';
-	#$imgURL = '<input type="hidden" id="ukm_post_layout_image_url" value="'. ( $ukm_image_lg ? $ukm_image_lg : '' ).'">';
 	$att = '<input type="hidden" name="ukm_post_layout_attachment" id="ukm_post_layout_attachment" value="'. ($att ? $att : '').'">';
 	echo $img;
-	#echo $imgURL;
 	echo $att;
+	
 	wp_enqueue_script('UKMMonstring_script',  plugin_dir_url( __FILE__ )  . 'js/monstring.script.js' );
 	wp_enqueue_script('UKMtemplate_script',  plugin_dir_url( __FILE__ )  . 'js/templateSelect.script.js' );
 

@@ -83,11 +83,11 @@ if(is_admin()){
 	add_action('add_meta_boxes', 'UKMwpat_add_ma_box');
 	add_action( 'admin_enqueue_scripts', 'UKMwpat_add_ma_styles', 10000 );
 
+	
 	// Stopp publisering og vis spørsmål om vi mangler info
 	add_action('admin_menu', 'UKMwpat_req_menu_hook');
-	add_action('publish_post', 'UKMwpat_req_hook', 10, 2);
+	add_action('save_post', 'UKMwpat_req_hook', 10002, 2);
 	add_action('admin_enqueue_scripts', 'UKMwpat_req_script', 10000 );
-	
 
 	// Layout for festival-lignende sider
 	add_action( 'add_meta_boxes', 'UKMwpat_add_layout_meta_box' );
