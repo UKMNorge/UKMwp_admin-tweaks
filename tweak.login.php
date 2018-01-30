@@ -9,14 +9,5 @@ function UKMwpat_login() {
 }
 
 function UKMwpat_lostpassword() {
-	// Echo noe
-	$user_login = $_POST['log'];
-	#var_dump($_POST);
-
-	// TODO: Denne dumpes ut hvis det er feil passord, det skal den ikke gjøre (d'oh)
-	$string = 'mailto:support@ukm.no';
-	if ($user_login) 
-		$string .= '?subject=Glemt arrangørpassord&body=Auto-epost fra systemet: Jeg har glemt passordet mitt! Brukernavn: '.$user_login.'. Kan dere hjelpe meg?';
-
-	return htmlentities($string);
+	return '//'.UKM_HOSTNAME.'/glemt-passord/';
 }
