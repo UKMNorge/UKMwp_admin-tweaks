@@ -48,16 +48,26 @@ function UKM_add_submenu_page( $parent_slug, $page_title, $menu_title, $capabili
 
 function UKM_add_scripts_and_styles($function, $sns_function) {
 	global $_UKM_scripts;
+
+	if( is_array( $function ) ) {
+		$function = implode('_', $function);
+	}
+
 	$_UKM_scripts[ $function ][] = $sns_function;
 }
 
 function UKMwpat_addSnS($function, $page) {
 	global $_UKM_scripts;
 	
+	if( is_array( $function ) ) {
+		$function = implode('_', $function);
+	}
+
 	if( isset( $_UKM_scripts[ $function ] ) ) {
 		if( is_array( $_UKM_scripts[ $function ] ) ) {
 			foreach( $_UKM_scripts[ $function ] as $sns_function ) {
-				add_action( 'admin_print_styles-' . $page, $sns_function );					
+				#echo 'add_action( \'admin_print_styles-\' . '. $page.', '. $sns_function .' ); <br />';
+				add_action( 'admin_print_styles-' . $page, $sns_function );
 			}
 		}
 	}
