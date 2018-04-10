@@ -36,7 +36,9 @@ function UKMwpat_change_role_name_raw($wp_roles) {
 function UKMwpat_add_roles() {
 	$capabilites = array('read','ukm_rapporter','ukm_playback', 'ukm_sms');
 	add_role( 'ukm_produsent', 'UKM Produsent', $capabilities );
-	
+
+	$capabilites = array('read','ukm_nominasjon', 'ukm_sms');
+	add_role( 'ukm_nominasjon', 'UKM Nominasjon', $capabilities );	
 }
 
 function UKMwpat_add_capabilities($wp_roles) {
@@ -75,6 +77,7 @@ function UKMwpat_add_capabilities($wp_roles) {
 	$editor->add_cap('ukm_materiell');
 	$editor->add_cap('ukm_idebank');
 	$editor->add_cap('ukm_sms');
+	$editor->add_cap('ukm_nominasjon');
 
 	# Admin
 	$administrator = get_role('administrator');
@@ -83,6 +86,7 @@ function UKMwpat_add_capabilities($wp_roles) {
 	$administrator->add_cap('ukm_materiell');
 	$administrator->add_cap('ukm_idebank');
 	$administrator->add_cap('ukm_sms');
+	$administrator->add_cap('ukm_nominasjon');
 }
 
 //// !!! !!! OBS: HACK !!! !!!
