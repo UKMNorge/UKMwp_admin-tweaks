@@ -43,6 +43,12 @@ function UKMwpat_add_roles() {
 
 function UKMwpat_add_capabilities($wp_roles) {
 	
+	# Nominasjon-bruker
+	$ukm_nominasjon = get_role('ukm_nominasjon');
+	$ukm_nominasjon->add_cap('read');
+#	$ukm_nominasjon->add_cap('upload_files');
+	$ukm_nominasjon->add_cap('ukm_sms');
+	
 	# Rapport-bruker / Produsent
 	$ukm_produsent = get_role('ukm_produsent');
 	$ukm_produsent->add_cap('read');
