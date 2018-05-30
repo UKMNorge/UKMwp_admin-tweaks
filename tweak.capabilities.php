@@ -39,9 +39,18 @@ function UKMwpat_add_roles() {
 
 	$capabilites = array('read','ukm_nominasjon', 'ukm_sms');
 	add_role( 'ukm_nominasjon', 'UKM Nominasjon', $capabilities );	
+	
+	$capabilites = array('read', 'ukmrfid_reports', 'ukm_sms');
+	add_role( 'ukm_rfid', 'UKM RFID Rapport', $capabilites);
 }
 
 function UKMwpat_add_capabilities($wp_roles) {
+	
+	# RFID rapport-bruker
+	$ukm_rfid = get_role('ukm_rfid');
+	$ukm_rfid->add_cap('read');
+	$ukm_rfid->add_cap('ukmrfid_reports');
+	$ukm_rfid->add_cap('ukm_sms');
 	
 	# Nominasjon-bruker
 	$ukm_nominasjon = get_role('ukm_nominasjon');

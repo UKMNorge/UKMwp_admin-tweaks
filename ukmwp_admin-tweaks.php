@@ -37,8 +37,10 @@ add_filter( 'get_avatar' , 'ukm_avatar' , 1 , 5 );
 add_action('add_meta_boxes', 'UKMwpat_add_video_box');
 add_action('save_post', 'ukm_top_video_save');
 
+require_once('tweak.logon_redir.php');
+add_filter( 'login_redirect', 'UKMwpat_login_rfid', 10, 3);
+
 if(is_admin()){
-	require_once('tweak.logon_redir.php');
 	require_once('tweak.mediaform.php');
 	require_once('tweak.menu.php');
 	require_once('tweak.adminmenu_build.php');
@@ -51,7 +53,6 @@ if(is_admin()){
 	require_once('tweak.multiauthor.php');
 	require_once('tweak.set-option.php');
 	require_once('tweak.post-recommendedfields.php');
-
 	
 	add_action( 'admin_init', 'UKMwpat_logon_check' );
 
