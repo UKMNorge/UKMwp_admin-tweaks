@@ -65,7 +65,7 @@ function ukm_post_info() {
 						array('id'=>$post->ID));
 	$tagged = $tagged->run();
 
-	while($t = mysql_fetch_assoc($tagged))
+	while($t = SQL::fetch($tagged))
 		$those_tagged[] = $t['b_id'];
 
 	if( is_array( $bands ) ) {

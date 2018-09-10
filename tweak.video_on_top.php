@@ -28,7 +28,7 @@ function ukm_top_video() {
 	echo 'Bruk denne videoen i stedet for topp-bilde:';
 	echo '<select name="video_on_top" class="form-control" style="width: 100%;" onChange="check(this);">';
 	echo '<option '.(!$selected ? 'selected' : '') .' value="delete">Ingen video</option>';
-	while( $r = mysql_fetch_assoc( $res )) {
+	while( $r = SQL::fetch( $res )) {
 		$film = new SQL("SELECT *
 						FROM `ukm_standalone_video` 
 						WHERE `cron_id` = '#cron_id'",
