@@ -14,7 +14,7 @@ function UKMwpat_redirect_admin() {
 }
 
 function UKMwpat_login_rfid( $redirect_to, $request, $user ) {
-	if( sizeof( $user->roles ) == 1 && $user->roles[0] == 'ukm_rfid' ) {
+	if( is_array( $user ) && is_array( $user->roles ) && sizeof( $user->roles ) == 1 && $user->roles[0] == 'ukm_rfid' ) {
 		$redirect_to = 'https://ukm.no/wp-admin/admin.php?page=RFIDreports';
 	}
 	return $redirect_to;
