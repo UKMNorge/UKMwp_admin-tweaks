@@ -1,4 +1,95 @@
 <?php
+require_once('UKM/monstring.class.php');
+
+class UKMmenu_conditions {
+	
+	static $conditions = null;
+	static $monstring = null;
+	
+	static $test_har_deltakere = null;
+	static $test_er_registrert = null;
+	static $test_er_startet = null;
+	
+	public static function setConditions( $conditions ) {
+		if( is_array( $conditions ) ) {
+			self::$conditions = $conditions;
+			return;
+		}
+		self::$conditions = [];
+	}
+	
+	public static function assert( $slug ) {
+		if( isset( $_GET['debug'] ) ) {
+			return true;
+		}
+		// Hvis ingen conditions definert, legg til
+		if( !isset( self::$conditions[ $slug ] ) ) {
+			return true;
+		}
+
+		// Sjekk conditions og test
+		switch( self::$conditions[ $slug ] ) {
+			case 'monstring_har_deltakere':
+				return self::_getMonstring()->erRegistrert();
+			
+			case 'monstring_er_registrert':
+				return self::_testErRegistrert();
+				
+			case 'monstring_er_startet':
+				return self::_testErStartet();
+		}
+		
+		// Ingen conditions har feilet, legg til
+		return true;
+	}
+	
+	private static function _getMonstring() {
+		if( self::$monstring == null ) {
+			self::$monstring = new monstring_v2( get_option('pl_id') );
+		}
+		return self::$monstring;
+	}
+
+	private static function _testErStartet() {
+		if( self::$test_er_startet !== null ) {
+			return self::$test_er_startet;
+		}
+		
+		if( !self::_testErRegistrert() ) {
+			self::$test_er_startet = false;
+			return self::$test_er_startet;
+		}
+		
+		self::$test_er_startet = self::_getMonstring()->erStartet();
+		return self::$test_er_startet;
+	}
+
+	private static function _testErRegistrert() {
+		if( self::$test_er_registrert !== null ) {
+			return self::$test_er_registrert;
+		}
+		
+		self::$test_er_registrert = self::_getMonstring()->erRegistrert();
+		return self::$test_er_registrert;
+	}
+	
+	private static function _testHarDeltakere() {
+		// Returner allerede beregnet svar
+		if( self::$test_har_deltakere !== null ) {
+			return self::$test_har_deltakere;
+		}
+		
+		// Ikke registrert mønstring = 0 deltakere
+		if( !self::testErRegistrert() ) {
+			self::$test_har_deltakere = false;
+			return false;
+		}
+		
+		self::$test_har_deltakere = self::_getMonstring()->getInnslag()->harInnslag();
+
+		return self::$test_har_deltakere;
+	}
+}
 
 $_UKM_menu = array();
 $_UKM_submenu = array();
@@ -91,14 +182,20 @@ function UKMwpat_addSeparators() {
 
 function UKMwpat_admin_menu_build() {
 	global $_UKM_menu, $_UKM_scripts, $_UKM_blocks, $_UKM_submenu;
-	
+		
 	do_action('UKM_admin_menu');
-	
+	UKMmenu_conditions::setConditions( apply_filters('UKM_admin_menu_conditions', []) );
+		
 	foreach( $_UKM_menu as $block => $menu_items ) {
 		if( !in_array( get_option('site_type'), array('kommune','fylke','land')) && $block != 'content') {
 			continue;
 		}
 		foreach( $menu_items as $position => $menu ) {
+			
+			if( !UKMmenu_conditions::assert( $menu['menu_slug'] ) ) {
+				continue;
+			}
+			
 			$page = add_menu_page( $menu['page_title'],
 								   $menu['menu_title'],# .'('.$position.')',
 								   $menu['capability'],

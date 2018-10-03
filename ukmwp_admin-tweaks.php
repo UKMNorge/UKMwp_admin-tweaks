@@ -29,6 +29,17 @@ function UKMwpat_redirect_superadmin( $url, $request, $user ) {
 	return $url;
 }
 
+
+add_action('load-profile.php', 'UKMdeactivate_profile');
+function UKMdeactivate_profile() {
+	exit( wp_safe_redirect( admin_url() ) );
+}
+
+add_filter('screen_options_show_screen', 'UKMdeactivate_screen_options');
+function UKMdeactivate_screen_options() { 
+	return false;
+}
+
 // Bytt ut avatarer
 require_once('tweak.avatars.php');
 add_filter( 'get_avatar' , 'ukm_avatar' , 1 , 5 );

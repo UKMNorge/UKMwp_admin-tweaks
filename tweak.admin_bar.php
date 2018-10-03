@@ -3,6 +3,7 @@ function UKMwpat_modify_toolbar() {
 	/* @var $wp_admin_bar WP_Admin_Bar */
 	global $wp_admin_bar;
 
+
 	$wp_admin_bar->remove_menu('wp-logo');
 	
 	$remove = array(# Everthing child of WP logo
@@ -62,12 +63,18 @@ function UKMwpat_modify_toolbar() {
 						   );
 	$wp_admin_bar->add_node( array(
 									'id'    => 'ukm_support',
-									'title' => '<img src="//ico.ukm.no/support-16.png" id="UKMhelpicon" style=" margin-top: -4px;" /> Brukerstøtte',
+									'title' => '<span class="ab-icon dashicons dashicons-sos" style="margin-top: .1em;"></span> Brukerstøtte',
 									'href'  => admin_url().'admin.php?page=UKMwpd_support',
 									'parent'=>'top-secondary'
 								)
 							);
-
+	$wp_admin_bar->add_node(
+		[
+			'id'		=> 'logout', // id of the existing child node (New > Post)
+			'title'		=> '<span class="ab-icon dashicons dashicons-no-alt" style="margin-top: .13em;"></span> Logg ut &nbsp;',
+			'parent'	=> 'top-secondary',
+		]
+	);
 
 
 	// TODO: should be moved to a class
@@ -99,6 +106,10 @@ function UKMwpat_modify_toolbar() {
 	$wp_admin_bar->remove_node("network-admin-p");
 	$wp_admin_bar->remove_node("network-admin-d");
 	$wp_admin_bar->remove_node("network-admin-t");
+
+#	$wp_admin_bar->remove_menu('edit-profile');
+    $wp_admin_bar->remove_node( 'my-account' );
+
 
 //	set_node_title("network-admin-d", __("Startside", "UKM"));
 //	var_dump($wp_admin_bar);
