@@ -30,17 +30,26 @@ class UKMmenu_conditions {
 		// Sjekk conditions og test
 		switch( self::$conditions[ $slug ] ) {
 			case 'monstring_har_deltakere':
-				return self::_getMonstring()->erRegistrert();
-			
+				if( self::_harMonstring() ) {
+					return self::_getMonstring()->erRegistrert();
+				}
 			case 'monstring_er_registrert':
-				return self::_testErRegistrert();
+				if( self::_harMonstring() ) {
+					return self::_testErRegistrert();
+				}
 				
 			case 'monstring_er_startet':
-				return self::_testErStartet();
+				if( self::_harMonstring() ) {
+					return self::_testErStartet();
+				}
 		}
 		
 		// Ingen conditions har feilet, legg til
 		return true;
+	}
+	
+	private static function _harMonstring() {
+		return is_numeric( get_option('pl_id') );
 	}
 	
 	private static function _getMonstring() {
