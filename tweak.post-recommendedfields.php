@@ -5,7 +5,7 @@ function UKMwpat_req_menu_hook() {
 		null,            			// Satt til null vil dette skjule siden fra menyen
 		'Nesten ferdig',
 		'Publiseringsinformasjon',
-		'editor', 					
+		'publish_posts', 					
 		'recommendedfields',   		// Slug for å nå siden.
 		'UKMwpat_req_render'
 	);	
