@@ -15,35 +15,32 @@ function ukm_top_video() {
 	global $post;
 	$selected = get_post_meta($post->ID, 'video_on_top', true);
 
-	require_once('UKM/sql.class.php');
-	require_once('UKM/tv.class.php');
-	require_once('UKM/tv_files.class.php');
-	require_once('UKM/monstring.class.php');
-	///////////////////////////////////////////////////////////////
-	$sql = new SQL("SELECT `cron_id` FROM `ukm_standalone_video` 
-				WHERE `pl_id` = '#plid'
-				ORDER BY `video_name` ASC",
-				array('plid' => get_option('pl_id')));
-	$res = $sql->run();
-	echo 'Bruk denne videoen i stedet for topp-bilde:';
-	echo '<select name="video_on_top" class="form-control" style="width: 100%;" onChange="check(this);">';
-	echo '<option '.(!$selected ? 'selected' : '') .' value="delete">Ingen video</option>';
-	while( $r = SQL::fetch( $res )) {
-		$film = new SQL("SELECT *
-						FROM `ukm_standalone_video` 
-						WHERE `cron_id` = '#cron_id'",
-					array('cron_id' => $r['cron_id']));
-		$film = $film->run('array');
-		
-		$TV = new tv(false, $film['cron_id']);
-		if($TV->id) {
-			echo '<option '. ($selected == $TV->id ? 'selected' : '').' value="'.$TV->id.'">'.$TV->title.'</option>';
-		} else {
-			echo '<option disabled="disabled" value="'.$TV->id.'">'.$TV->title.' (Må konverteres ferdig først)</option>';
-		}
-	}
-	echo '<option value="egendefinert" '.($selected == 'egendefinert' ? 'selected' : '').'>Annen film</option>';
-	echo '</select><br />';
+    echo 'Bruk denne videoen i stedet for topp-bilde:';
+
+    if( get_option('pl_id') ) {
+        require_once('UKM/sql.class.php');
+        require_once('UKM/tv.class.php');
+        require_once('UKM/tv_files.class.php');
+
+        $sql = new SQL("SELECT * FROM `ukm_standalone_video` 
+                    WHERE `pl_id` = '#plid'
+                    ORDER BY `video_name` ASC",
+                    array('plid' => get_option('pl_id')));
+        $res = $sql->run();
+        echo '<select name="video_on_top" class="form-control" style="width: 100%;" onChange="check(this);">';
+        echo '<option '.(!$selected ? 'selected' : '') .' value="delete">Ingen video</option>';
+        while( $film = SQL::fetch( $res )) {
+            $TV = new tv(false, $film['cron_id']);
+            if($TV->id) {
+                echo '<option '. ($selected == $TV->id ? 'selected' : '').' value="'.$TV->id.'">'.$TV->title.'</option>';
+            } else {
+                echo '<option disabled="disabled" value="'.$TV->id.'">'.$TV->title.' (Må konverteres ferdig først)</option>';
+            }
+        }
+        echo '<option value="egendefinert" '.($selected == 'egendefinert' ? 'selected' : '').'>Annen film</option>';
+        echo '</select><br />';
+    }
+
 	if($selected == 'egendefinert') {
 		$url = get_post_meta($post->ID, 'video_on_top_URL', true);
 		echo '<div id="egendefinertURLBox" style="">URL til UKM-TV-film:';
@@ -51,12 +48,15 @@ function ukm_top_video() {
 		echo '</div>';
 	} 
 	else {
-		echo '<div id="egendefinertURLBox" style="display:none;">URL til UKM-TV-film:';
+		echo '<div id="egendefinertURLBox" '. (get_option('pl_id') ? 'style="display:none;"' : '') .'>URL til UKM-TV-film:';
 		echo '<input type="text" class="form-control" name="egendefinertURL" id="egendefinertURL">';
 		echo '</div>'; 
 	}
 	echo '<span style="font-style: italic;">OBS: Du må fortsatt velge et bilde i boksen over - dette vises på forsiden.</span>';
-	echo '<script>function check(elem) {if(elem.value == "egendefinert") { jQuery("#egendefinertURLBox").slideDown(); } else { jQuery("#egendefinertURLBox").slideUp();}}</script>';
+
+    if( get_option('pl_id') ) {
+        echo '<script>function check(elem) {if(elem.value == "egendefinert") { jQuery("#egendefinertURLBox").slideDown(); } else { jQuery("#egendefinertURLBox").slideUp();}}</script>';
+    }
 }
 
 function ukm_top_video_save() {
