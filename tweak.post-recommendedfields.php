@@ -25,7 +25,10 @@ function UKMwpat_req_hook( $ID, $post ) {
 	// Kun gjør noe om dette er en post.
 	if ('post' != get_post_type($post) || 'publish' != get_post_status($post->ID)) {
 		return;
-	}
+    }
+    if( defined('UKMwpat_ignore' ) ) {
+        return;
+    }
 	require_once('class/Bidragsytere.php');
 	$user = wp_get_current_user();
 	$bidragsytere = new Bidragsytere($post->ID);
