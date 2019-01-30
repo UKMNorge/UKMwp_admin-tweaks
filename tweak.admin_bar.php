@@ -2,7 +2,7 @@
 function UKMwpat_modify_toolbar() {
 	/* @var $wp_admin_bar WP_Admin_Bar */
 	global $wp_admin_bar;
-
+    var_dump( $wp_admin_bar );
 
 	$wp_admin_bar->remove_menu('wp-logo');
 	
@@ -13,7 +13,9 @@ function UKMwpat_modify_toolbar() {
 					# Comments
 					'comments',
 					# Add something
-					'new-media','new-page','new-user',
+                    'new-media','new-page','new-user',
+                    # Customize
+                    'customize'
 					);
 	# Hide "edit this page"
 	if( !is_super_admin() ) {
@@ -110,6 +112,10 @@ function UKMwpat_modify_toolbar() {
 #	$wp_admin_bar->remove_menu('edit-profile');
     $wp_admin_bar->remove_node( 'my-account' );
 
+    $wp_admin_bar->remove_node( 'themes' );
+    $wp_admin_bar->remove_node( 'menus' );
+    $wp_admin_bar->remove_node('search');
+    $wp_admin_bar->remove_node('updates');
 
 //	set_node_title("network-admin-d", __("Startside", "UKM"));
 //	var_dump($wp_admin_bar);
