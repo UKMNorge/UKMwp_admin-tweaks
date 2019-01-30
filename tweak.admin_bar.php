@@ -2,7 +2,6 @@
 function UKMwpat_modify_toolbar() {
 	/* @var $wp_admin_bar WP_Admin_Bar */
 	global $wp_admin_bar;
-    var_dump( $wp_admin_bar );
 
 	$wp_admin_bar->remove_menu('wp-logo');
 	
