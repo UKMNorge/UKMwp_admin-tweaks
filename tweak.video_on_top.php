@@ -39,6 +39,8 @@ function ukm_top_video() {
         }
         echo '<option value="egendefinert" '.($selected == 'egendefinert' ? 'selected' : '').'>Annen film</option>';
         echo '</select><br />';
+    } else {
+        echo '<input name="video_on_top" type="hidden" value="egendefinert" />';
     }
 
 	if($selected == 'egendefinert') {
