@@ -74,11 +74,10 @@ function ukm_top_video_save() {
                 update_post_meta($post->ID, 'video_on_top_URL', $_POST['egendefinertURL']);
             }
             // Vi har en film valgt fra dropdown
-			else {
+			elseif( $video_on_top != 'egendefinert' ) {
                 update_post_meta($post->ID, 'video_on_top', $video_on_top);
 				delete_post_meta($post->ID, 'video_on_top_URL');
-			}
-			
+            }
 		}
 		else {
 			delete_post_meta($post->ID, 'video_on_top');
