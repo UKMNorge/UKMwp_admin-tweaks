@@ -68,17 +68,17 @@ function ukm_top_video_save() {
 		#var_dump($_POST);
 		#var_dump($video_on_top);
 		if ($video_on_top != 'delete') {
-			if($video_on_top == 'egendefinert') {
-				if(!empty($_POST['egendefinertURL']))
-					update_post_meta($post->ID, 'video_on_top_URL', $_POST['egendefinertURL']);
-			}
+            // Vi har en egendefinert URL
+			if($video_on_top == 'egendefinert' && !empty($_POST['egendefinertURL']) ) {
+                update_post_meta($post->ID, 'video_on_top', 'egendefinert');
+                update_post_meta($post->ID, 'video_on_top_URL', $_POST['egendefinertURL']);
+            }
+            // Vi har en film valgt fra dropdown
 			else {
+                update_post_meta($post->ID, 'video_on_top', $video_on_top);
 				delete_post_meta($post->ID, 'video_on_top_URL');
 			}
-            // Do save
-            if( !empty( $video_on_top ) ) {
-                update_post_meta($post->ID, 'video_on_top', $video_on_top);
-            }
+			
 		}
 		else {
 			delete_post_meta($post->ID, 'video_on_top');
