@@ -75,8 +75,10 @@ function ukm_top_video_save() {
 			else {
 				delete_post_meta($post->ID, 'video_on_top_URL');
 			}
-			// Do save
-			update_post_meta($post->ID, 'video_on_top', $video_on_top);
+            // Do save
+            if( !empty( $video_on_top ) ) {
+                update_post_meta($post->ID, 'video_on_top', $video_on_top);
+            }
 		}
 		else {
 			delete_post_meta($post->ID, 'video_on_top');
