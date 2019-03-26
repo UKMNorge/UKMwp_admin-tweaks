@@ -18,7 +18,9 @@ $_UKM_separators = array( 99, 199, 299, 399, 499, 599, 699);
 function UKM_add_menu_page( $block, $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position=90) {
 	global $_UKM_menu, $_UKM_blocks;
 	
-	$position = $position + $_UKM_blocks[ $block ];
+	if( isset( $_UKM_blocks[ $block ] ) ) {
+		$position = $position + $_UKM_blocks[ $block ];
+	}
 	
 	while( isset( $_UKM_menu[$block][$position] ) ) {
 		$position++;

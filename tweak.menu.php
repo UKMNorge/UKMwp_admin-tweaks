@@ -55,7 +55,7 @@ function UKMwpat_tweak_menu_remove() {
 		$remove[1075] = 'tools.php';
 	}
 	foreach( $remove as $id => $file) {
-		if( $menu[ $id ][2] == $file )
+		if( isset( $menu[ $id ] ) && $menu[ $id ][2] == $file )
 			unset( $menu[ $id ] );	
 	}
 	

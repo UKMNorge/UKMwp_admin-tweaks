@@ -34,14 +34,14 @@ function UKMwpat_change_role_name_raw($wp_roles) {
 
 
 function UKMwpat_add_roles() {
-	$capabilites = array('read','ukm_rapporter','ukm_playback', 'ukm_sms');
+	$capabilities = array('read','ukm_rapporter','ukm_playback', 'ukm_sms');
 	add_role( 'ukm_produsent', 'UKM Produsent', $capabilities );
 
-	$capabilites = array('read','ukm_nominasjon', 'ukm_sms');
+	$capabilities = array('read','ukm_nominasjon', 'ukm_sms');
 	add_role( 'ukm_nominasjon', 'UKM Nominasjon', $capabilities );	
 	
-	$capabilites = array('read', 'ukmrfid_reports', 'ukm_sms');
-	add_role( 'ukm_rfid', 'UKM RFID Rapport', $capabilites);
+	$capabilities = array('read', 'ukmrfid_reports', 'ukm_sms');
+	add_role( 'ukm_rfid', 'UKM RFID Rapport', $capabilities);
 }
 
 function UKMwpat_add_capabilities($wp_roles) {
