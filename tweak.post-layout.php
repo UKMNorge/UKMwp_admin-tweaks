@@ -35,6 +35,7 @@ function ukm_post_layout() {
 	$select .= '<option '. ($meta == 'image_right' ? 'selected' : '').' value="image_right">Bilde til høyre</option>';
 	$select .= '<option '. ($meta == 'lead' ? 'selected' : '').' value="lead">Tekst til venstre</option>';
 	$select .= '<option '. ($meta == 'lead_center' ? 'selected' : '').' value="lead_center">Tekst sentrert</option>';
+	$select .= '<option '. ($meta == 'list' ? 'selected' : '').' value="list">Liste med undersider</option>';
 	$select .= '';
 	$select .= '</select>';
 

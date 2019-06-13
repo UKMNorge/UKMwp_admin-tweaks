@@ -1,7 +1,7 @@
 jQuery(document).ready(function() { 
 	jQuery("#ukm_post_layout_style").change(function(clicked) { 
 		console.log(jQuery("#ukm_post_layout_style").val());
-		if (jQuery("#ukm_post_layout_style").val() == "sidemedmeny") { 
+		if (jQuery("#ukm_post_layout_style").val() == "sidemedmeny" || jQuery('#ukm_post_layout_style').val() == 'list') { 
 			jQuery("#imageStuff").addClass("hidden");
 			jQuery("#menuSelect").removeClass("hidden");
 		} else if (jQuery("#ukm_post_layout_style").val() == "delete") {
