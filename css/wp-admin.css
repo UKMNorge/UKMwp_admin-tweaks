@@ -1,0 +1,90 @@
+html,
+html.wp-toolbar {
+	font-size: 16px !important;
+}
+
+html #wpadminbar {
+	background: linear-gradient( 45deg, #fff056, #ff128b);
+	height: 3.5rem;
+}
+html.wp-toolbar {
+	padding-top: 3.5rem;
+}
+@media screen and (max-width: 600px) {
+	html.wp-toolbar {
+		padding-top: .5rem;
+	}
+	html #wpadminbar {
+		margin-top: -.5rem;
+	}
+	
+	html #wpwrap.wp-responsive-open {
+		padding-top: .5rem;
+		margin-top: -.5rem;
+	}
+}
+
+html #wpadminbar #wp-admin-bar-wp-logo a,
+html #wpadminbar #wp-admin-bar-top-secondary {
+	height: 1.9em !important;
+	line-height: 1.9em;
+	vertical-align: center;
+	padding-top: .8em;
+	padding-bottom: 1em;
+}
+html #wpadminbar #wp-admin-bar-top-secondary {
+	margin-top: 0em;
+}
+
+html #wpadminbar #wp-admin-bar-wp-logo a {
+	font-size: 1.6em;
+	text-transform: uppercase;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+	font-weight: 200;
+}
+
+#wpadminbar #UKMlogo {
+	height: 2.1em;
+	margin-right: .5em;
+	margin-top: -1em;
+}
+
+#wpadminbar #wp-admin-bar-wp-logo>.ab-item {
+	padding: .6rem .6rem .4rem .6rem;
+}
+
+#wpadminbar .ab-icon, 
+#wpadminbar .ab-icon:before,
+#wpadminbar .ab-item:after, 
+#wpadminbar .ab-item:before,
+#wpadminbar .ab-item:active,
+#wpadminbar .ab-item:focus,
+#wpadminbar .ab-item:visited,
+#wpadminbar .ab-item:hover {
+   color: #000 !important;
+}
+
+.wp-responsive-open #wpadminbar #wp-admin-bar-menu-toggle a,
+.wp-responsive-open #wpadminbar #wp-admin-bar-menu-toggle .ab-icon:before {
+    background:none !important;
+    color: #fff !important;
+}
+
+#wpadminbar a,
+#wpadminbar .ab-icon,
+#wpadminbar a:hover,
+#wpadminbar a:visited,
+#wpadminbar a:focus {
+    color: #000;
+}
+
+@media screen and (max-width: 782px) {
+	#wpadminbar li#wp-admin-bar-menu-toggle {
+		float:right;
+		margin-top: .3em;
+	}
+
+	#wpadminbar li#wp-admin-bar-wp-logo {
+		display: block;
+	}
+}

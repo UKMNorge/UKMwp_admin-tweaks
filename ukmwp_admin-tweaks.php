@@ -137,3 +137,6 @@ add_action('init', 'UKMwpat_change_role_name');
 add_action('current_screen', 'UKMwpat_change_role_name');
 add_action('UKM_filter_roles', 'UKMwpat_change_role_name_raw');
 add_action('wp_before_admin_bar_render','UKMwpat_modify_toolbar', 10000);
+
+
+wp_enqueue_style('tweak_wp_admin', plugin_dir_url( __FILE__ ).'css/wp-admin.css', 100000);

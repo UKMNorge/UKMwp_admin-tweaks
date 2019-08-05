@@ -3,40 +3,86 @@ function UKMwpat_modify_toolbar() {
 	/* @var $wp_admin_bar WP_Admin_Bar */
 	global $wp_admin_bar;
 
-	$wp_admin_bar->remove_menu('wp-logo');
-	
-	$remove = array(# Everthing child of WP logo
-					'about','wporg','documentation','support-forums','feedback',
-					# My sites
-					'my-sites',
-					# Comments
-					'comments',
-					# Add something
-                    'new-media','new-page','new-user',
-                    # Customize
-                    'customize'
-					);
-	# Hide "edit this page"
-	if( !is_super_admin() ) {
-		$remove[] = 'edit';
-		$remove[] = 'site-info';
+	$nodes = [
+		# Everthing child of WP logo
+		'about','wporg','documentation','support-forums','feedback',
+		# My sites
+		'my-sites',
+		# Comments
+		'comments',
+		# Add something
+		'new-media',
+		'new-page',
+		'new-user',
+		'new-post',
+		'new-content',
+		'archive',
+
+		# Customize
+		'customize',
+		# ?
+#'wp-logo',
+		'wp-logo-external',
+		'my-sites-list',
+
+		# Vis min side
+		'view-site',
+		'site-info',
+		'site-name',
+		'edit-site',
+
+		# Network admin
+		'network-admin',
+		'network-admin-s',
+		'network-admin-u',
+		'network-admin-p',
+		'network-admin-d',
+		'network-admin-t',
+		'network-admin-o',
+		
+		# Super admin
+		'my-sites-super-admin',
+
+		# Min profil
+		'edit-profile',
+		'my-account',
+		'user-actions',
+		'user-info',
+		
+		# Div
+		'themes',
+		'menus',
+		'search',
+		'updates',
+
+		# Edit this page
+		'edit',
+	];
+
+	foreach( $nodes as $node ) {
+		$wp_admin_bar->remove_node( $node );
 	}
 	
-	foreach($remove as $i => $id)
-		$wp_admin_bar->remove_node($id);
-		
-	$wp_admin_bar->add_node(array(
-								'id'=>'wp-logo',
-								'href'=>admin_url()
-							) );
+	if(is_network_admin()) {
+		$wp_admin_bar->add_node(
+			[
+				'id'=>'wp-logo',
+				'title' => '<img src="//grafikk.ukm.no/profil/logoer/UKM_logo_sort_0100.png" id="UKMlogo" />'.
+					'UKM Norge-admin',
+				'href'=>network_admin_url()
+			]
+		);
+	} else {
+		$wp_admin_bar->add_node(
+			[
+				'id'=>'wp-logo',
+				'title' => '<img src="//grafikk.ukm.no/profil/logoer/UKM_logo_sort_0100.png" id="UKMlogo" />'.
+					get_bloginfo('name'),
+				'href'=> admin_url()
+			]
+		);
+	}
 	if(is_super_admin()) {
-		$wp_admin_bar->add_menu( array(
-									'parent' => 'site-name',
-									'id'     => 'network-admin',
-									'title'  => __('Network Admin'),
-									'href'   => network_admin_url(),
-								) );
-								
 		// Legg til menyvalg for å redigere side mens vi ser på siden
 		// WP default er kun i admin
 		if(!is_admin()) {								
@@ -50,18 +96,6 @@ function UKMwpat_modify_toolbar() {
     }
 								
 
-	$wp_admin_bar->add_menu( array('parent' => 'new-content',
-								   'id'		=> 'new-image',
-								   'title'	=> 'Bilder',
-								   'href' => admin_url().'admin.php?page=UKMbilder'
-								  )
-						   );
-	$wp_admin_bar->add_menu( array('parent' => 'new-content',
-								   'id'		=> 'new-video',
-								   'title'	=> 'Video',
-								   'href' => admin_url().'admin.php?page=UKMvideo'
-								  )
-						   );
 	$wp_admin_bar->add_node( array(
 									'id'    => 'ukm_support',
 									'title' => '<span class="ab-icon dashicons dashicons-sos" style="margin-top: .1em;"></span> Brukerstøtte',
@@ -71,7 +105,7 @@ function UKMwpat_modify_toolbar() {
 							);
 	$wp_admin_bar->add_node(
 		[
-			'id'		=> 'logout', // id of the existing child node (New > Post)
+			'id'		=> 'logout', // id of the existing child node
 			'title'		=> '<span class="ab-icon dashicons dashicons-no-alt" style="margin-top: .13em;"></span> Logg ut &nbsp;',
 			'parent'	=> 'top-secondary',
 		]
@@ -95,27 +129,6 @@ function UKMwpat_modify_toolbar() {
 		$wp_admin_bar->add_node($new_network_admin);
 	}
 
-	set_node_title("network-admin", __("UKM Norge-admin", "UKM"));
-	if (is_network_admin())
-		set_node_title("site-name", sprintf( __("UKM Norge-admin: %s", "UKM"), get_current_site()->site_name ));
 	reset_node_position("updates");
 	reset_node_position("new-content");
-
-	$wp_admin_bar->remove_node("wp-logo");
-	$wp_admin_bar->remove_node("network-admin-s");
-	$wp_admin_bar->remove_node("network-admin-u");
-	$wp_admin_bar->remove_node("network-admin-p");
-	$wp_admin_bar->remove_node("network-admin-d");
-	$wp_admin_bar->remove_node("network-admin-t");
-
-#	$wp_admin_bar->remove_menu('edit-profile');
-    $wp_admin_bar->remove_node( 'my-account' );
-
-    $wp_admin_bar->remove_node( 'themes' );
-    $wp_admin_bar->remove_node( 'menus' );
-    $wp_admin_bar->remove_node('search');
-    $wp_admin_bar->remove_node('updates');
-
-//	set_node_title("network-admin-d", __("Startside", "UKM"));
-//	var_dump($wp_admin_bar);
 }
