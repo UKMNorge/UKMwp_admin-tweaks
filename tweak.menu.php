@@ -5,7 +5,7 @@ function UKMwpat_tweak_menu_remove() {
 	#var_dump( $menu );
 
 	// RENAME
-	$menu[2][0] = 'Startside';
+	$menu[2][0] = 'Nettverket';
 
 	// MOVE POSTS WITHIN ARRAY, NOT MENU
 		$menu[9] = $menu[5];
@@ -79,6 +79,6 @@ function UKMwpat_tweak_menu_remove() {
 
 function UKMwpat_tweak_network_menu() {
 	global $menu;
-	$menu[2][0] = 'Startside';
+	$menu[2][0] = 'Nettverket';
 }
 ?>

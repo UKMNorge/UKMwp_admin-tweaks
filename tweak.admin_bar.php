@@ -62,8 +62,16 @@ function UKMwpat_modify_toolbar() {
 	foreach( $nodes as $node ) {
 		$wp_admin_bar->remove_node( $node );
 	}
-	
-	if(is_network_admin()) {
+	if(is_user_admin()) {
+		$wp_admin_bar->add_node(
+			[
+				'id'=>'wp-logo',
+				'title' => '<img src="//grafikk.ukm.no/profil/logoer/UKM_logo_sort_0100.png" id="UKMlogo" />'.
+					'Din profil',
+				'href'=>user_admin_url()
+			]
+		);
+	}elseif(is_network_admin()) {
 		$wp_admin_bar->add_node(
 			[
 				'id'=>'wp-logo',

@@ -29,12 +29,6 @@ function UKMwpat_redirect_superadmin( $url, $request, $user ) {
 	return $url;
 }
 
-
-add_action('load-profile.php', 'UKMdeactivate_profile');
-function UKMdeactivate_profile() {
-	exit( wp_safe_redirect( admin_url() ) );
-}
-
 add_filter('screen_options_show_screen', 'UKMdeactivate_screen_options');
 function UKMdeactivate_screen_options() { 
 	return false;
@@ -138,5 +132,13 @@ add_action('current_screen', 'UKMwpat_change_role_name');
 add_action('UKM_filter_roles', 'UKMwpat_change_role_name_raw');
 add_action('wp_before_admin_bar_render','UKMwpat_modify_toolbar', 10000);
 
+## Admin favicon
+add_action( 'admin_head', 'UKMwpat_favicon' );
+
 
 wp_enqueue_style('tweak_wp_admin', plugin_dir_url( __FILE__ ).'css/wp-admin.css', 100000);
+
+
+function UKMwpat_favicon() {
+	echo '<link rel="shortcut icon" href="//ico.ukm.no/wp-admin_favicon.ico" />';
+}
