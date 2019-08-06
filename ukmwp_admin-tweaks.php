@@ -8,6 +8,7 @@ Version: 1.0
 Author URI: http://www.ukm-norge.no
 */
 
+
 require_once('UKMconfig.inc.php');
 require_once('tweak.logon.php');
 
@@ -48,7 +49,7 @@ add_filter( 'login_redirect', 'UKMwpat_login_rfid', 10, 3);
 if(is_admin()){
 	require_once('tweak.mediaform.php');
 	require_once('tweak.menu.php');
-	require_once('tweak.adminmenu_build.php');
+	#require_once('tweak.adminmenu_build.php');
 	require_once('tweak.posts.php');
 	require_once('tweak.post-meta.php');
 	require_once('tweak.post-layout.php');
@@ -66,12 +67,13 @@ if(is_admin()){
 
 	## HOOK MENU
 //	add_action('admin_menu', 'UKMwpat_tweak_menu_separators', 15000);
+	add_filter('parent_file', 'UKMwpat_tweak_menu_filter');
 	add_action('network_admin_menu', 'UKMwpat_tweak_network_menu', 300);
 	add_action( 'network_admin_menu', 'UKMwpat_set_option' );
 	
 	add_action('admin_menu', 'UKMwpat_tweak_menu_remove', 300);
-	add_action('admin_menu', 'UKMwpat_admin_menu_build');
-	add_action('admin_menu', 'UKMwpat_addSeparators',10000);
+	#add_action('admin_menu', 'UKMwpat_admin_menu_build');
+	#add_action('admin_menu', 'UKMwpat_addSeparators',10000);
 	wp_enqueue_style('tweak_adminmenu', plugin_dir_url( __FILE__ ).'css/tweak.adminmenu.css');
 
 	## REDIRECT USER TO HIS/HERS ONE SITE/BLOG
