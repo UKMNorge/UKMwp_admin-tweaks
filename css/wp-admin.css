@@ -1,3 +1,6 @@
+
+/* ADMIN BAR */
+
 html,
 html.wp-toolbar {
 	font-size: 16px !important;
@@ -86,5 +89,42 @@ html #wpadminbar #wp-admin-bar-wp-logo a {
 
 	#wpadminbar li#wp-admin-bar-wp-logo {
 		display: block;
+	}
+}
+
+
+
+/* ADMIN MENU */
+html #adminmenu a:hover, 
+html #adminmenu li.menu-top:hover,
+html #adminmenu li.opensub>a.menu-top,
+#adminmenu li>a.menu-top:focus {
+	background-color: #428bca;
+	color: #fff;
+}
+#adminmenu, #adminmenuback, #adminmenuwrap {
+	background-color: #e8e8e8;
+}
+html #adminmenu li.wp-has-current-submenu a.wp-has-current-submenu {
+	background-color: #5bc0de;
+}
+
+ul#adminmenu a.wp-has-current-submenu:after, ul#adminmenu>li.current>a.current:after {
+	display: none;
+}
+
+@media screen and (min-width: 960px) {
+	#adminmenu div.wp-menu-image {
+		float: none;
+		width: 100%;
+		height: auto;
+		text-align: center;
+	}
+	#adminmenu div.wp-menu-image img {
+		width: 2em;
+	}
+	#adminmenu div.wp-menu-name {
+		padding: .4em 0 .4em 0;
+		text-align: center;
 	}
 }
