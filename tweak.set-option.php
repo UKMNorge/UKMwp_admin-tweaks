@@ -6,7 +6,7 @@
 */
 	
 function UKMwpat_set_option() {
-	add_submenu_page( 'sites.php', 'Oppdater/sett blog option', 'Set option', 'superadministrator', 'UKMwpat_set_option_action', 'UKMwpat_set_option_action' );	
+	add_submenu_page( 'settings.php', 'Oppdater/sett blog option', 'Set option', 'superadministrator', 'UKMwpat_set_option_action', 'UKMwpat_set_option_action' );	
 }
 
 function UKMwpat_set_option_action() {

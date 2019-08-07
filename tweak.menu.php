@@ -1,7 +1,13 @@
 <?php
 function UKMwpat_tweak_menu_filter( $current_parent_file ) {
+	if( isset( $_GET['debug'] ) ) {
+		echo 'CURRENT_PARENT_FILE: '. $current_parent_file;
+	}
 	if( $current_parent_file == 'upload.php' ) {
 		return 'edit.php';
+	}
+	if( in_array($current_parent_file, ['site-new.php', 'user-new.php', 'sites.php'])) {
+		return 'index.php';
 	}
 	return $current_parent_file;
 }
@@ -11,13 +17,13 @@ function UKMwpat_tweak_menu_remove() {
 
 	// RENAME
 	$menu[2][0] = 'Startsiden';
-	$menu[2][6] = 'https://ico.ukm.no/avis-menu.png';
+	$menu[2][6] = 'dashicons-admin-home';#'https://ico.ukm.no/avis-menu.png';
 
 
 	## ENDRE HOVEDMENY FRA WP
 	# POSTS = Nettside
 	$menu[5][0] = 'Nettside';
-	$menu[5][6] = 'https://ico.ukm.no/hus-menu.png';
+	$menu[5][6] = 'dashicons-desktop';#'https://ico.ukm.no/hus-menu.png';
 	$submenu['edit.php'][5][0] = 'Nyheter';
 	remove_submenu_page('edit.php', 'post-new.php');
 
@@ -74,7 +80,49 @@ function UKMwpat_tweak_menu_remove() {
 }
 
 function UKMwpat_tweak_network_menu() {
-	global $menu;
-	$menu[2][0] = 'Nettverket';
+	global $menu, $submenu;
+
+	$_title = 0;
+	$_icon = 6;
+
+	$menu[2][$_title] = 'Nettverket';
+	$menu[2][$_icon] = 'dashicons-rest-api';#https://ico.ukm.no/map-menu.png';
+
+	$menu[25][$_title] = 'Wordpress';
+	$menu[25][$_icon] = 'dashicons-wordpress';
+
+	// Flytt "nettsteder"
+	unset( $menu[5] ); 
+	add_submenu_page('settings.php', 'Nettsteder', 'Nettsteder', 'manage_sites', 'sites.php');
+
+	// Flytt "brukere"
+	unset( $menu[10] );
+	add_submenu_page('settings.php', 'Brukere','Brukere','manage_network_users','users.php');
+
+	// Flytt "utvidelser"
+	unset( $menu[20] );
+	add_submenu_page('settings.php', 'Utvidelser', 'Utvidelser', 'manage_network_plugins', 'plugins.php');
+
+	// Fjernet "tema"
+	unset( $menu[15]);
+
+
+	// Flyttet "oppdateringer"
+	if( isset( $submenu['index.php'][10] ) ) {
+		$submenu['settings.php'][] = $submenu['index.php'][10];
+		unset( $submenu['index.php'][10] );
+	}
+	// Flyttet "oppgrader nettverk"
+	if( isset( $submenu['index.php'][15] ) ) {
+		$submenu['settings.php'][] = $submenu['index.php'][15];
+		unset( $submenu['index.php'][15] );
+	}
+
+	/*
+	echo "\n\r\n\r  -- MENU -- \n\r\n\r ";
+	var_dump( $menu );
+	echo "\n\r\n\r  -- SUBMENU -- \n\r\n\r ";
+	var_dump( $submenu );
+	*/
 }
 ?>

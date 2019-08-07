@@ -67,7 +67,7 @@ if(is_admin()){
 
 	## HOOK MENU
 //	add_action('admin_menu', 'UKMwpat_tweak_menu_separators', 15000);
-	add_filter('parent_file', 'UKMwpat_tweak_menu_filter');
+	add_filter('parent_file', 'UKMwpat_tweak_menu_filter',-15000);
 	add_action('network_admin_menu', 'UKMwpat_tweak_network_menu', 300);
 	add_action( 'network_admin_menu', 'UKMwpat_set_option' );
 	

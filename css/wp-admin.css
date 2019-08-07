@@ -2,8 +2,10 @@
 /* ADMIN BAR */
 
 html,
-html.wp-toolbar {
-	font-size: 16px !important;
+html.wp-toolbar, 
+body,
+body.wp-admin {
+	font-size: 13px !important;
 }
 
 html #wpadminbar {
@@ -93,38 +95,58 @@ html #wpadminbar #wp-admin-bar-wp-logo a {
 }
 
 
+/* ADMIN MENY */
 
-/* ADMIN MENU */
-html #adminmenu a:hover, 
-html #adminmenu li.menu-top:hover,
-html #adminmenu li.opensub>a.menu-top,
-#adminmenu li>a.menu-top:focus {
-	background-color: #428bca;
-	color: #fff;
+/* MENYELEMENTER */
+html #adminmenu li.menu-top.current > a, /* første element */
+html #adminmenu li.menu-top.wp-menu-open > a {
+		background-color: #428bca;
 }
-#adminmenu, #adminmenuback, #adminmenuwrap {
-	background-color: #e8e8e8;
-}
-html #adminmenu li.wp-has-current-submenu a.wp-has-current-submenu {
+html #adminmenu li.menu-top > a:hover {
 	background-color: #5bc0de;
 }
 
-ul#adminmenu a.wp-has-current-submenu:after, ul#adminmenu>li.current>a.current:after {
-	display: none;
+/* IKONER */
+/* inaktive */
+html #adminmenu li.menu-top div.wp-menu-image::before {
+	color: #428bca;
+}
+html #adminmenu li.menu-top > a:hover div.wp-menu-image::before,
+html #adminmenu li.menu-top:hover div.wp-menu-image::before,
+html #adminmenu li.menu-top:focus div.wp-menu-image::before {
+	color: #fff;
+}
+/* aktive */
+html #adminmenu li.menu-top.current > a div.wp-menu-image::before, /* første element */
+html #adminmenu li.menu-top.wp-menu-open div.wp-menu-image::before {
+	color: #fff;
 }
 
+/* POSISJONERING OG STØRRELSE PÅ DESKTOP */
 @media screen and (min-width: 960px) {
 	#adminmenu div.wp-menu-image {
 		float: none;
 		width: 100%;
-		height: auto;
+		height: 3em;
 		text-align: center;
+	}
+	#adminmenu div.wp-menu-image::before {
+		font-size: 2em;
+		margin-top: .4em;
+		margin-bottom: .6em;
+		margin-left: -.4em;
 	}
 	#adminmenu div.wp-menu-image img {
 		width: 2em;
 	}
+	
 	#adminmenu div.wp-menu-name {
-		padding: .4em 0 .4em 0;
+		padding: .5em 0 1.2em 0;
 		text-align: center;
 	}
+}
+
+/* Skjul pilen */
+ul#adminmenu a.wp-has-current-submenu:after, ul#adminmenu>li.current>a.current:after {
+	display: none;
 }
