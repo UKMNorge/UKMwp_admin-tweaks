@@ -23,12 +23,7 @@ add_filter('login_head', 'UKMwpat_login');
 add_action('lostpassword_url', 'UKMWpat_lostpassword' );
 
 
-add_action('login_redirect', 'UKMwpat_redirect_superadmin', 10, 3);
-function UKMwpat_redirect_superadmin( $url, $request, $user ) {
-	if( $user->ID == 1 )
-		return 'https://'. UKM_HOSTNAME .'/wp-admin/network/';
-	return $url;
-}
+add_action('wp_login', 'UKMwpat_login_redirect', 10, 2);
 
 add_filter('screen_options_show_screen', 'UKMdeactivate_screen_options');
 function UKMdeactivate_screen_options() { 

@@ -1,9 +1,6 @@
 <?php
 require_once('UKMconfig.inc.php');
 
-
-add_action('wp_login', 'UKMwpat_login_redirect', 10, 2);
-
 function UKMwpat_login_redirect( $user_login, $user ) {
     if( is_super_admin($user->ID) ) {
         header("Location: ". get_blogaddress_by_id(1) . 'wp-admin/network/');
