@@ -45,7 +45,7 @@ function UKMwpat_tweak_menu_remove() {
 					60 => 'themes.php',
 					75 => 'tools.php',
 					70 => 'users.php',
-					//70 => 'profile.php',
+					70 => 'profile.php',
 					);
 	if( !(get_option('site_type') == 'land' && current_user_can('author') ) && !is_super_admin() ) {
 		$remove[120]	= 'upload.php';

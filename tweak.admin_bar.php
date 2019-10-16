@@ -103,6 +103,25 @@ function UKMwpat_modify_toolbar() {
 		}
     }
 								
+    $wp_admin_bar->add_node(
+        [
+            'id'    => 'user',
+            'title' => '<span class="ab-icon dashicons dashicons-admin-users" style="margin-top: .1em;"></span> Din profil',
+            'href'  => admin_url().'/user/',
+            'parent'=>'top-secondary'
+        ]
+    );
+
+    if( is_super_admin() ) {
+        $wp_admin_bar->add_node(
+            [
+                'id'    => 'ukmnorge',
+                'title' => '<span class="ab-icon dashicons dashicons-rest-api" style="margin-top: .1em;"></span> UKM Norge-admin',
+                'href'  => admin_url().'wp-admin/network/',
+                'parent'=>'top-secondary'
+            ]
+        );
+    }
 
 	$wp_admin_bar->add_node( array(
 									'id'    => 'ukm_support',
