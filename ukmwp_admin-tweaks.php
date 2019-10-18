@@ -118,6 +118,8 @@ if(is_admin()){
 	add_filter('allow_password_reset', 'tr_restrict_password_reset');
 	add_action('login_head', 'tr_remove_reset_link_init');
 	add_filter('login_errors', 'tr_remove_reset_link');
+    
+    wp_enqueue_style('tweak_wp_admin', plugin_dir_url( __FILE__ ).'css/wp-admin.css', 100000);
 }
 
 require_once('tweak.admin_bar.php');
@@ -133,7 +135,6 @@ add_action('wp_before_admin_bar_render','UKMwpat_modify_toolbar', 10000);
 add_action( 'admin_head', 'UKMwpat_favicon' );
 
 
-wp_enqueue_style('tweak_wp_admin', plugin_dir_url( __FILE__ ).'css/wp-admin.css', 100000);
 
 
 function UKMwpat_favicon() {
