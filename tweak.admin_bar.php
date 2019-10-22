@@ -80,16 +80,25 @@ function UKMwpat_modify_toolbar() {
 				'href'=>network_admin_url()
 			]
 		);
-	} else {
+	} elseif( is_admin() ) {
 		$wp_admin_bar->add_node(
 			[
 				'id'=>'wp-logo',
-				'title' => '<img src="//grafikk.ukm.no/profil/logoer/UKM_logo_sort_0100.png" id="UKMlogo" />'.
+				'title' => '<img src="//grafikk.ukm.no/profil/logoer/UKM_logo_sort_0100.png" id="UKMlogo"  />'.
 					get_bloginfo('name'),
 				'href'=> admin_url()
 			]
 		);
-	}
+	} else {
+        $wp_admin_bar->add_node(
+			[
+				'id'=>'wp-logo',
+				'title' => '<img src="//grafikk.ukm.no/profil/logoer/UKM_logo_hvit_0100.png" id="UKMlogo" style="width: 2.7em;margin-top: -.4em;margin-right: .5em;" />'.
+					get_bloginfo('name'),
+				'href'=> admin_url()
+			]
+		);
+    }
 	if(is_super_admin()) {
 		// Legg til menyvalg for å redigere side mens vi ser på siden
 		// WP default er kun i admin
