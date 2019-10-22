@@ -47,9 +47,9 @@ function UKMwpat_tweak_menu_remove() {
 					70 => 'users.php',
 					70 => 'profile.php',
 					);
-	if( !(get_option('site_type') == 'land' && current_user_can('author') ) && !is_super_admin() ) {
-		$remove[120]	= 'upload.php';
-	}
+    if( !is_super_admin() ){
+        $remove[120]	= 'upload.php';
+    }
 	
 	## spesial_meny er en setting som gir utvalgte sites tilgang til sider-modulen
 	# funksjonen er innført i 2018, med Sogn og Fjordane + Østfold som testfylker
