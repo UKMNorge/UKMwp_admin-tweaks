@@ -9,7 +9,6 @@ function UKMwpat_add_layout_meta_box() {
 }
 
 function ukm_post_layout() {
-	require_once('UKM/form.class.php');
 	global $post;
 
 	// Finn current meta-tag
