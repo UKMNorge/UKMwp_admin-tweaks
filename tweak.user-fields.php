@@ -1,4 +1,9 @@
 <?php
+
+use UKMNorge\Wordpress\User;
+
+require_once('UKM/Autoloader.php');
+
 // REMOVE CONTACT FIELDS
 function UKMwpat_user_remove_controls( $contactmethods ) {
   unset($contactmethods['aim']);
@@ -8,6 +13,11 @@ function UKMwpat_user_remove_controls( $contactmethods ) {
 }
 
 
+function UKMwpat_profile_deactivated_warning( $user ) {
+    if( !User::erAktiv($user->ID) ) {
+        echo '<div class="alert alert-danger notice notice-danger"><b>OBS:</b> Brukeren er deaktivert</div>';
+    }
+}
 
 function UKMwpat_users_form($hook) {
     if( 'profile.php' != $hook )

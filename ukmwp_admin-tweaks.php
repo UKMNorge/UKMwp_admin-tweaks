@@ -22,8 +22,13 @@ add_filter('login_head', 'UKMwpat_login');
 // Bytt lost-password-lenken mot mailto:support@ukm.no
 add_action('lostpassword_url', 'UKMWpat_lostpassword' );
 
-
 add_action('wp_login', 'UKMwpat_login_redirect', 10, 2);
+add_filter('login_message', 'UKMwpat_login_message');
+add_filter('login_redirect', 'UKMwpat_login_rfid', 10, 3);
+add_action('show_user_profile', 'UKMwpat_profile_deactivated_warning');
+add_action('edit_user_profile', 'UKMwpat_profile_deactivated_warning');
+
+
 
 add_filter('screen_options_show_screen', 'UKMdeactivate_screen_options');
 function UKMdeactivate_screen_options() { 
@@ -37,9 +42,6 @@ add_filter( 'get_avatar' , 'ukm_avatar' , 1 , 5 );
 // Legg til video som toppbilde-boks
 add_action('add_meta_boxes', 'UKMwpat_add_video_box');
 add_action('save_post', 'ukm_top_video_save');
-
-require_once('tweak.logon_redir.php');
-add_filter( 'login_redirect', 'UKMwpat_login_rfid', 10, 3);
 
 if(is_admin()){
 	require_once('tweak.mediaform.php');
@@ -70,10 +72,6 @@ if(is_admin()){
 	#add_action('admin_menu', 'UKMwpat_admin_menu_build');
 	#add_action('admin_menu', 'UKMwpat_addSeparators',10000);
 	wp_enqueue_style('tweak_adminmenu', plugin_dir_url( __FILE__ ).'css/tweak.adminmenu.css');
-
-	## REDIRECT USER TO HIS/HERS ONE SITE/BLOG
-	add_action('_admin_menu', 'UKMwpat_redirect_admin');
-
 
 	## CHANGE POSTS GUI
 	add_action( 'admin_menu', 'UKMwpat_remove_posts_meta_boxes' );
