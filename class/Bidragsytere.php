@@ -55,7 +55,9 @@ class Bidragsytere {
 	 * Sjekker om denne bloggen skal ha spørsmål om bidragsytere.
 	 */
 	public function burdeHa() {
-		$user = wp_get_current_user();
+        return true; // 2019-10-20: La alle få spørsmålet nå, og fjern om det blir slitsomt (#conditioned-todo)
+        /*
+        $user = wp_get_current_user();
 		// Fylkessider og kommunesider skal kun ha bidragsyter dersom brukernavnet har et punktum i seg, altså en redaksjonsbruker.
 		if ( 'fylke' == get_option('site_type') || 'kommune' == get_option('site_type') ) {
 			if ( strpos($user->user_login, '.') === FALSE ) {
@@ -63,7 +65,8 @@ class Bidragsytere {
 			}
 		}
 		// Alle andre skal ha bidragsytere pdd.
-		return true;
+        return true;
+        */
 	}
 
 	public function har() {

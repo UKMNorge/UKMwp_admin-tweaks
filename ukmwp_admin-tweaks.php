@@ -8,6 +8,7 @@ Version: 1.0
 Author URI: http://www.ukm-norge.no
 */
 
+
 require_once('UKMconfig.inc.php');
 require_once('tweak.logon.php');
 
@@ -21,19 +22,13 @@ add_filter('login_head', 'UKMwpat_login');
 // Bytt lost-password-lenken mot mailto:support@ukm.no
 add_action('lostpassword_url', 'UKMWpat_lostpassword' );
 
-
-add_action('login_redirect', 'UKMwpat_redirect_superadmin', 10, 3);
-function UKMwpat_redirect_superadmin( $url, $request, $user ) {
-	if( $user->ID == 1 )
-		return 'https://'. UKM_HOSTNAME .'/wp-admin/network/';
-	return $url;
-}
+add_action('wp_login', 'UKMwpat_login_redirect', 10, 2);
+add_filter('login_message', 'UKMwpat_login_message');
+add_filter('login_redirect', 'UKMwpat_login_rfid', 10, 3);
+add_action('show_user_profile', 'UKMwpat_profile_deactivated_warning');
+add_action('edit_user_profile', 'UKMwpat_profile_deactivated_warning');
 
 
-add_action('load-profile.php', 'UKMdeactivate_profile');
-function UKMdeactivate_profile() {
-	exit( wp_safe_redirect( admin_url() ) );
-}
 
 add_filter('screen_options_show_screen', 'UKMdeactivate_screen_options');
 function UKMdeactivate_screen_options() { 
@@ -48,13 +43,10 @@ add_filter( 'get_avatar' , 'ukm_avatar' , 1 , 5 );
 add_action('add_meta_boxes', 'UKMwpat_add_video_box');
 add_action('save_post', 'ukm_top_video_save');
 
-require_once('tweak.logon_redir.php');
-add_filter( 'login_redirect', 'UKMwpat_login_rfid', 10, 3);
-
 if(is_admin()){
 	require_once('tweak.mediaform.php');
 	require_once('tweak.menu.php');
-	require_once('tweak.adminmenu_build.php');
+	#require_once('tweak.adminmenu_build.php');
 	require_once('tweak.posts.php');
 	require_once('tweak.post-meta.php');
 	require_once('tweak.post-layout.php');
@@ -72,17 +64,14 @@ if(is_admin()){
 
 	## HOOK MENU
 //	add_action('admin_menu', 'UKMwpat_tweak_menu_separators', 15000);
+	add_filter('parent_file', 'UKMwpat_tweak_menu_filter',-15000);
 	add_action('network_admin_menu', 'UKMwpat_tweak_network_menu', 300);
 	add_action( 'network_admin_menu', 'UKMwpat_set_option' );
 	
 	add_action('admin_menu', 'UKMwpat_tweak_menu_remove', 300);
-	add_action('admin_menu', 'UKMwpat_admin_menu_build');
-	add_action('admin_menu', 'UKMwpat_addSeparators',10000);
+	#add_action('admin_menu', 'UKMwpat_admin_menu_build');
+	#add_action('admin_menu', 'UKMwpat_addSeparators',10000);
 	wp_enqueue_style('tweak_adminmenu', plugin_dir_url( __FILE__ ).'css/tweak.adminmenu.css');
-
-	## REDIRECT USER TO HIS/HERS ONE SITE/BLOG
-	add_action('_admin_menu', 'UKMwpat_redirect_admin');
-
 
 	## CHANGE POSTS GUI
 	add_action( 'admin_menu', 'UKMwpat_remove_posts_meta_boxes' );
@@ -127,6 +116,8 @@ if(is_admin()){
 	add_filter('allow_password_reset', 'tr_restrict_password_reset');
 	add_action('login_head', 'tr_remove_reset_link_init');
 	add_filter('login_errors', 'tr_remove_reset_link');
+    
+    wp_enqueue_style('tweak_wp_admin', plugin_dir_url( __FILE__ ).'css/wp-admin.css', 100000);
 }
 
 require_once('tweak.admin_bar.php');
@@ -137,3 +128,13 @@ add_action('init', 'UKMwpat_change_role_name');
 add_action('current_screen', 'UKMwpat_change_role_name');
 add_action('UKM_filter_roles', 'UKMwpat_change_role_name_raw');
 add_action('wp_before_admin_bar_render','UKMwpat_modify_toolbar', 10000);
+
+## Admin favicon
+add_action( 'admin_head', 'UKMwpat_favicon' );
+
+
+
+
+function UKMwpat_favicon() {
+	echo '<link rel="shortcut icon" href="//ico.ukm.no/wp-admin_favicon.ico" />';
+}

@@ -101,7 +101,7 @@ function UKMwpat_admin_menu_build() {
 	UKMmenu_conditions::setConditions( apply_filters('UKM_admin_menu_conditions', []) );
 		
 	foreach( $_UKM_menu as $block => $menu_items ) {
-		if( !in_array( get_option('site_type'), array('kommune','fylke','land')) && $block != 'content') {
+		if( !get_option('pl_id') && $block != 'content') {
 			continue;
 		}
 		foreach( $menu_items as $position => $menu ) {

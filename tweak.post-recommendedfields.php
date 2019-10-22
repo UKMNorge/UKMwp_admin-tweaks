@@ -66,7 +66,7 @@ function UKMwpat_req_render() {
 	require_once('class/Bidragsytere.php');
 	$bidragsytere = new Bidragsytere($post->ID);
 
-	if( in_array( get_option('site_type'), array('kommune','fylke','land') ) ) {
+	if( get_option('pl_id') ) {
 		// Hvilken type sak er dette?
 		$TWIGdata['missingPostType'] = !hasPostType($post->ID);
 		$monstring = new monstring_v2(get_option('pl_id'));
@@ -163,7 +163,7 @@ function UKMwpat_req_save() {
 
 // Skal ikke ha posttype eller artistnavn på nasjonal-side.
 function shouldHavePostTypeAndMentions() {
-	if( false != get_option('site_type') ) {
+	if( !get_option('pl_id') ) {
 		return true;
 	}
 	return false;

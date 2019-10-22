@@ -1,4 +1,6 @@
 <?php
+// Sjekk current_version mot last_update_version i tilfelle 
+// wp-admin/index.php skal oppdateres igjen
 function UKMwpat_logon_check() {
 	global $wp_version;
 	$wpat_version = get_site_option('ukmwpat_logon_version');

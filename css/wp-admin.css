@@ -1,0 +1,152 @@
+
+/* ADMIN BAR */
+
+html,
+html.wp-toolbar, 
+body,
+body.wp-admin {
+	font-size: 13px !important;
+}
+
+html #wpadminbar {
+	background: linear-gradient( 45deg, #fff056, #ff128b);
+	height: 3.5rem;
+}
+html.wp-toolbar {
+	padding-top: 3.5rem;
+}
+@media screen and (max-width: 600px) {
+	html.wp-toolbar {
+		padding-top: .5rem;
+	}
+	html #wpadminbar {
+		margin-top: -.5rem;
+	}
+	
+	html #wpwrap.wp-responsive-open {
+		padding-top: .5rem;
+		margin-top: -.5rem;
+	}
+}
+
+html #wpadminbar #wp-admin-bar-wp-logo a,
+html #wpadminbar #wp-admin-bar-top-secondary {
+	height: 1.9em !important;
+	line-height: 1.9em;
+	vertical-align: center;
+	padding-top: .8em;
+	padding-bottom: 1em;
+}
+html #wpadminbar #wp-admin-bar-top-secondary {
+	margin-top: 0em;
+}
+
+html #wpadminbar #wp-admin-bar-wp-logo a {
+	font-size: 1.6em;
+	text-transform: uppercase;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+	font-weight: 200;
+}
+
+#wpadminbar #UKMlogo {
+	height: 2.1em;
+	margin-right: .5em;
+	margin-top: -1em;
+}
+
+#wpadminbar #wp-admin-bar-wp-logo>.ab-item {
+	padding: .6rem .6rem .4rem .6rem;
+}
+
+#wpadminbar .ab-icon, 
+#wpadminbar .ab-icon:before,
+#wpadminbar .ab-item:after, 
+#wpadminbar .ab-item:before,
+#wpadminbar .ab-item:active,
+#wpadminbar .ab-item:focus,
+#wpadminbar .ab-item:visited,
+#wpadminbar .ab-item:hover {
+   color: #000 !important;
+}
+
+.wp-responsive-open #wpadminbar #wp-admin-bar-menu-toggle a,
+.wp-responsive-open #wpadminbar #wp-admin-bar-menu-toggle .ab-icon:before {
+    background:none !important;
+    color: #fff !important;
+}
+
+#wpadminbar a,
+#wpadminbar .ab-icon,
+#wpadminbar a:hover,
+#wpadminbar a:visited,
+#wpadminbar a:focus {
+    color: #000;
+}
+
+@media screen and (max-width: 782px) {
+	#wpadminbar li#wp-admin-bar-menu-toggle {
+		float:right;
+		margin-top: .3em;
+	}
+
+	#wpadminbar li#wp-admin-bar-wp-logo {
+		display: block;
+	}
+}
+
+
+/* ADMIN MENY */
+
+/* MENYELEMENTER */
+html #adminmenu li.menu-top.current > a, /* første element */
+html #adminmenu li.menu-top.wp-menu-open > a {
+		background-color: #428bca;
+}
+html #adminmenu li.menu-top > a:hover {
+	background-color: #5bc0de;
+}
+
+/* IKONER */
+/* inaktive */
+html #adminmenu li.menu-top div.wp-menu-image::before {
+	color: #428bca;
+}
+html #adminmenu li.menu-top > a:hover div.wp-menu-image::before,
+html #adminmenu li.menu-top:hover div.wp-menu-image::before,
+html #adminmenu li.menu-top:focus div.wp-menu-image::before {
+	color: #fff;
+}
+/* aktive */
+html #adminmenu li.menu-top.current > a div.wp-menu-image::before, /* første element */
+html #adminmenu li.menu-top.wp-menu-open div.wp-menu-image::before {
+	color: #fff;
+}
+
+/* POSISJONERING OG STØRRELSE PÅ DESKTOP */
+@media screen and (min-width: 960px) {
+	#adminmenu div.wp-menu-image {
+		float: none;
+		width: 100%;
+		height: 3em;
+		text-align: center;
+	}
+	#adminmenu div.wp-menu-image::before {
+		font-size: 2em;
+		margin-top: .4em;
+		margin-bottom: .6em;
+		margin-left: -.4em;
+	}
+	#adminmenu div.wp-menu-image img {
+		width: 2em;
+	}
+	
+	#adminmenu div.wp-menu-name {
+		padding: .5em 0 1.2em 0;
+		text-align: center;
+	}
+}
+
+/* Skjul pilen */
+ul#adminmenu a.wp-has-current-submenu:after, ul#adminmenu>li.current>a.current:after {
+	display: none;
+}
