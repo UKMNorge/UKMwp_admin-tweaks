@@ -69,7 +69,7 @@ function UKMwpat_tweak_menu_remove() {
 	unset( $menu[59] ); // separator2
 
 
-	if( get_option('site_type') == 'kommune' || get_option('site_type') == 'fylke' ) {
+	if( get_option('pl_id') ) {
 		remove_submenu_page( 'edit.php', 'edit-tags.php?taxonomy=category' );
 	}
 	remove_submenu_page( 'edit.php', 'edit-tags.php?taxonomy=post_tag' );
