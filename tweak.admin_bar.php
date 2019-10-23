@@ -116,7 +116,7 @@ function UKMwpat_modify_toolbar() {
         [
             'id'    => 'user',
             'title' => '<span class="ab-icon dashicons dashicons-admin-users" style="margin-top: .1em;"></span> Din profil',
-            'href'  => admin_url().'/user/',
+            'href'  => admin_url().'user/',
             'parent'=>'top-secondary'
         ]
     );
