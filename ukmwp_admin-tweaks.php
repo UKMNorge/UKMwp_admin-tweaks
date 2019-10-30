@@ -27,9 +27,20 @@ add_filter('login_message', 'UKMwpat_login_message');
 add_filter('login_redirect', 'UKMwpat_login_rfid', 10, 3);
 add_action('show_user_profile', 'UKMwpat_profile_deactivated_warning');
 add_action('edit_user_profile', 'UKMwpat_profile_deactivated_warning');
+add_filter( 'user_contactmethods', 'UKMwpat_profile_fields' );
+add_filter( "user_user_phone_label", 'UKMwpat_profile_field_phone_description' );
 
+function UKMwpat_profile_field_phone_description( $user ){
+    echo 'Mobilnummer <br />'.
+    '<small>'.
+    'Kontaktpunkt for UKM Norge.<br />'.
+    'OBS: Før du har opprettet arrangement vises dette på UKM.no. '.
+    'Når du har ett eller flere arrangement, vises kontaktpersoner for disse på UKM.no'.
+    '</small>';
+}
 
-
+add_action( 'personal_options_update', 'UKMwpat_profile_fields_save' );
+add_action( 'edit_user_profile_update', 'UKMwpat_profile_fields_save' );
 add_filter('screen_options_show_screen', 'UKMdeactivate_screen_options');
 function UKMdeactivate_screen_options() { 
 	return false;

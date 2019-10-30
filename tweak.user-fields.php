@@ -12,6 +12,9 @@ function UKMwpat_user_remove_controls( $contactmethods ) {
   return $contactmethods;
 }
 
+function UKMwpat_profile_fields( $user_contact ) {
+	return ['user_phone' => 'Mobilnummer'];
+}
 
 function UKMwpat_profile_deactivated_warning( $user ) {
     if( !User::erAktiv($user->ID) ) {
