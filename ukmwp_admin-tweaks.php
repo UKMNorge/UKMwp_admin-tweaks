@@ -39,8 +39,6 @@ function UKMwpat_profile_field_phone_description( $user ){
     '</small>';
 }
 
-add_action( 'personal_options_update', 'UKMwpat_profile_fields_save' );
-add_action( 'edit_user_profile_update', 'UKMwpat_profile_fields_save' );
 add_filter('screen_options_show_screen', 'UKMdeactivate_screen_options');
 function UKMdeactivate_screen_options() { 
 	return false;
