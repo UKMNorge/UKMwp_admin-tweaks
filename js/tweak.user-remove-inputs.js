@@ -12,7 +12,7 @@ jQuery(document).ready(function() {
     jQuery('.wp-heading-inline').hide();
 
 
-    jQuery('h2').each((index, element) => {
+    jQuery('h2').each(function(index, element) {
         switch (jQuery(element).html()) {
             case 'Kontaktinfo':
             case 'Om deg':
