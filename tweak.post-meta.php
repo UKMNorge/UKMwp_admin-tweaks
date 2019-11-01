@@ -79,6 +79,18 @@ function ukm_post_info() {
 	}
 }
 
+function shortString( $str, $length = 14 ) {
+	if( strlen( $str ) > $length ) {
+		$separator = '...';
+		$separatorlength = strlen($separator) ;
+		$maxlength = $length-3;
+		$start = $maxlength / 2 ;
+		$trunc =  strlen($str) - $maxlength;
+		return substr_replace($str, $separator, $start, $trunc);
+	}
+	return $str;
+}
+
 // DELETE FROM RELATED-TABLE
 function UKMwpat_related_delete($pid) {
 	global $blog_id;
