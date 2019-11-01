@@ -135,7 +135,7 @@ function UKMwpat_modify_toolbar() {
 	$wp_admin_bar->add_node( array(
 									'id'    => 'ukm_support',
 									'title' => '<span class="ab-icon dashicons dashicons-sos" style="margin-top: .1em;"></span> Brukerstøtte',
-									'href'  => admin_url().'admin.php?page=UKMwpd_support',
+									'href'  => '/wp-admin/user/admin.php?page=UKMwpd_support',
 									'parent'=>'top-secondary'
 								)
 							);
