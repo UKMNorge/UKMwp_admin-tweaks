@@ -36,6 +36,15 @@ function UKMwpat_req_hook( $ID, $post ) {
 		|| !has_post_thumbnail($post->ID)
 		|| (!hasPostType($post->ID) && shouldHavePostTypeAndMentions())
 	) {
+        /*
+        cho '<pre>';
+        var_dump( $post );
+        echo '<hr />';
+        var_dump($_SERVER);
+        echo '<hr />';
+        var_dump( get_defined_constants() );
+        echo '</pre>';
+        */
 		$newURL = "admin.php?page=recommendedfields&id=".$post->ID;
 		header('Location: '. $newURL);
 		die();
