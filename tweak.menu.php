@@ -28,8 +28,11 @@ function UKMwpat_tweak_menu_remove() {
 	remove_submenu_page('edit.php', 'post-new.php');
 
 	# PAGES = Nettside: sider
-	unset( $menu[20] ); // Fjernet side-redigering
-	add_submenu_page('edit.php', 'Sider', 'Sider', 'edit_pages', 'edit.php?post_type=page');
+    unset( $menu[20] ); // Fjernet side-redigering
+    // Kommune- og fylkessider skal ikke ha sider (enda)
+    if( !in_array(get_option('site_type'), ['kommune','fylke'])) {
+        add_submenu_page('edit.php', 'Sider', 'Sider', 'edit_pages', 'edit.php?post_type=page');
+    }
 	
 	# MEDIA = Nettside: mediebibliotek
 	unset( $menu[10] ); // Fjernet side-redigering
