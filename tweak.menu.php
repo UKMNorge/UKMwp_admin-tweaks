@@ -69,7 +69,7 @@ function UKMwpat_tweak_menu_remove() {
 	unset( $menu[59] ); // separator2
 
 
-	if( get_option('pl_id') ) {
+	if( !in_array(get_option('site_type'), ['arrangor','norge','ungdom','om']) ) {
 		remove_submenu_page( 'edit.php', 'edit-tags.php?taxonomy=category' );
 	}
 	remove_submenu_page( 'edit.php', 'edit-tags.php?taxonomy=post_tag' );
