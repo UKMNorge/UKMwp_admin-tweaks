@@ -29,7 +29,10 @@ function UKMwpat_modify_toolbar() {
 		'view-site',
 		'site-info',
 		'site-name',
-		'edit-site',
+        'edit-site',
+
+        # Vis inlegget (i rediger post)
+        'view',
 
 		# Network admin
 		'network-admin',
