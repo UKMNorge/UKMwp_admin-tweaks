@@ -16,8 +16,8 @@ function UKMwpat_tweak_menu_remove() {
 	global $current_user, $menu, $submenu;
 
 	// RENAME
-	$menu[2][0] = 'Startsiden';
-	$menu[2][6] = 'dashicons-admin-home';#'https://ico.ukm.no/avis-menu.png';
+	$menu[2][0] = 'Arrangement';
+	$menu[2][6] = 'dashicons-buddicons-groups';#'https://ico.ukm.no/avis-menu.png';
 
 
 	## ENDRE HOVEDMENY FRA WP
