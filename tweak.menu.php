@@ -104,9 +104,11 @@ function UKMwpat_tweak_network_menu() {
 	add_submenu_page('settings.php', 'Nettsteder', 'Nettsteder', 'manage_sites', 'sites.php');
 
 	// Flytt "brukere"
-	unset( $menu[10] );
-	add_submenu_page('settings.php', 'Brukere','Brukere','manage_network_users','users.php');
-
+    unset( $menu[10] );
+    if ( is_super_admin() ) {
+        add_submenu_page('settings.php', 'Brukere','Brukere','manage_network_users','users.php');
+    }
+	
 	// Flytt "utvidelser"
 	unset( $menu[20] );
 	add_submenu_page('settings.php', 'Utvidelser', 'Utvidelser', 'manage_network_plugins', 'plugins.php');

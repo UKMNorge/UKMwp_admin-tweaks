@@ -70,7 +70,7 @@ function UKMwpat_modify_toolbar() {
 			[
 				'id'=>'wp-logo',
 				'title' => '<img src="//grafikk.ukm.no/profil/logoer/UKM_logo_sort_0100.png" id="UKMlogo" />'.
-					'Din profil',
+					'Kontrollpanel',
 				'href'=>user_admin_url()
 			]
 		);
@@ -118,7 +118,7 @@ function UKMwpat_modify_toolbar() {
     $wp_admin_bar->add_node(
         [
             'id'    => 'user',
-            'title' => '<span class="ab-icon dashicons dashicons-admin-users" style="margin-top: .1em;"></span> Din profil',
+            'title' => '<span class="ab-icon dashicons dashicons-admin-users" style="margin-top: .1em;"></span>Kontrollpanel',
             'href'  => admin_url().'user/',
             'parent'=>'top-secondary'
         ]
