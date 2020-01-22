@@ -16,14 +16,19 @@ function UKMwpat_tweak_menu_remove() {
 	global $current_user, $menu, $submenu;
 
 	// RENAME
-	$menu[2][0] = 'Arrangement';
-	$menu[2][6] = 'dashicons-buddicons-groups';#'https://ico.ukm.no/avis-menu.png';
+	if( get_option('pl_id') ) {
+        $menu[2][0] = 'Arrangement';
+        $menu[2][6] = 'dashicons-buddicons-groups';
+    } else {
+        $menu[2][0] = 'Startside';
+        $menu[2][6] = 'dashicons-smiley';
+    }
 
 
 	## ENDRE HOVEDMENY FRA WP
 	# POSTS = Nettside
 	$menu[5][0] = 'Nettside';
-	$menu[5][6] = 'dashicons-desktop';#'https://ico.ukm.no/hus-menu.png';
+	$menu[5][6] = 'dashicons-desktop';
 	$submenu['edit.php'][5][0] = 'Nyheter';
 	remove_submenu_page('edit.php', 'post-new.php');
 
