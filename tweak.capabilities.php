@@ -74,7 +74,7 @@ function UKMwpat_add_capabilities($wp_roles) {
 	$contributor->add_cap('upload_files');
 	$contributor->add_cap('ukm_materiell');
 	$contributor->add_cap('ukm_idebank');
-	$contributor->add_cap('ukm_sms');
+	$contributor->remove_cap('ukm_sms');
 
 	# UKM-nettredaktør
 	$author = get_role('author');
@@ -92,7 +92,7 @@ function UKMwpat_add_capabilities($wp_roles) {
 	$editor->add_cap('ukm_playback');
 	$editor->add_cap('ukm_materiell');
 	$editor->add_cap('ukm_idebank');
-    $editor->add_cap('ukm_sms');
+    $editor->remove_cap('ukm_sms');
 	$editor->add_cap('ukm_nominasjon');
     $editor->add_cap('ukm_nettside');
 
