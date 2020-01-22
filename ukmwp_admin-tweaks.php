@@ -8,6 +8,8 @@ Version: 1.0
 Author URI: http://www.ukm-norge.no
 */
 
+// Vendor/autoload contains yaml
+require_once('vendor/autoload.php');
 
 require_once('UKMconfig.inc.php');
 require_once('tweak.logon.php');
