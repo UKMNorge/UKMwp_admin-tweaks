@@ -92,7 +92,7 @@ function UKMwpat_add_capabilities($wp_roles) {
 	$editor->add_cap('ukm_playback');
 	$editor->add_cap('ukm_materiell');
 	$editor->add_cap('ukm_idebank');
-    $editor->remove_cap('ukm_sms');
+        $editor->add_cap('ukm_sms');
 	$editor->add_cap('ukm_nominasjon');
     $editor->add_cap('ukm_nettside');
 
