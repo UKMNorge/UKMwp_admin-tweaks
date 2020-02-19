@@ -52,6 +52,8 @@ add_filter( 'get_avatar' , 'ukm_avatar' , 1 , 5 );
 add_action('add_meta_boxes', 'UKMwpat_add_video_box');
 add_action('save_post', 'ukm_top_video_save');
 
+require_once('tweak.user-fields.php'); # UTENFOR if(s_admin()) da den brukes av glemt passord!
+
 if(is_admin()){
 	require_once('tweak.mediaform.php');
 	require_once('tweak.menu.php');
@@ -60,7 +62,6 @@ if(is_admin()){
 	require_once('tweak.post-meta.php');
 	require_once('tweak.post-layout.php');
 	require_once('tweak.update-services.php');
-	require_once('tweak.user-fields.php');
 	require_once('tweak.multiauthor.php');
 	require_once('tweak.set-option.php');
 	require_once('tweak.post-recommendedfields.php');
