@@ -35,7 +35,7 @@ function UKMwpat_tweak_menu_remove() {
 	# PAGES = Nettside: sider
     unset( $menu[20] ); // Fjernet side-redigering
     // Kommune- og fylkessider skal ikke ha sider (enda)
-    if( !is_super_admin() && !in_array(get_option('site_type'), ['kommune','fylke'])) {
+    if( is_super_admin() || !in_array(get_option('site_type'), ['kommune','fylke'])) {
         add_submenu_page('edit.php', 'Sider', 'Sider', 'edit_pages', 'edit.php?post_type=page');
     }
 	
