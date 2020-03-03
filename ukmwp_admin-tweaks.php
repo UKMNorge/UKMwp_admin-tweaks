@@ -65,7 +65,8 @@ if(is_admin()){
 	require_once('tweak.multiauthor.php');
 	require_once('tweak.set-option.php');
 	require_once('tweak.post-recommendedfields.php');
-	
+    require_once('tweak.gutenberg.php');
+    
 	add_action( 'admin_init', 'UKMwpat_logon_check' );
 
 	## ADD NETWORK UPDATE MENU
@@ -83,8 +84,9 @@ if(is_admin()){
 	wp_enqueue_style('tweak_adminmenu', plugin_dir_url( __FILE__ ).'css/tweak.adminmenu.css');
 
 	## CHANGE POSTS GUI
-	add_action( 'admin_menu', 'UKMwpat_remove_posts_meta_boxes' );
-	add_action('init', 'UKMwpat_change_allowed_tags');
+	add_action( 'admin_menu', 'UKMwpat_remove_posts_meta_boxes',999 );
+    add_action( 'init', 'UKMwpat_remove_post_type_support',100 );
+    add_action('init', 'UKMwpat_change_allowed_tags');
 
 	add_action( 'add_meta_boxes', 'UKMwpat_add_tag_meta_box' );
 	add_action( 'save_post', 'ukmn_meta_box_save' );

@@ -14,7 +14,35 @@ function UKMwpat_remove_posts_meta_boxes() {
 		update_user_option($user->ID, "metaboxhidden_post", array('commentstatusdiv','slugdiv','authordiv'), true);
 	}
 
-	remove_meta_box('tagsdiv-post_tag', 'post', 'normal');
+    if( !is_super_admin( )) {
+        remove_meta_box('trackbacksdiv', 'post', 'normal');
+    }
+    
+	remove_meta_box( 'trackbacksdiv', 'post', 'normal' ); // Trackbacks meta box
+	remove_meta_box( 'postcustom', 'post', 'normal' ); // Custom fields meta box
+	remove_meta_box( 'commentsdiv', 'post', 'normal' ); // Comments meta box
+	remove_meta_box( 'slugdiv', 'post', 'normal' );	// Slug meta box
+	remove_meta_box( 'authordiv', 'post', 'normal' ); // Author meta box
+	remove_meta_box( 'revisionsdiv', 'post', 'normal' ); // Revisions meta box
+	remove_meta_box( 'formatdiv', 'post', 'normal' ); // Post format meta box
+	remove_meta_box( 'commentstatusdiv', 'post', 'normal' ); // Comment status meta box
+	remove_meta_box( 'categorydiv', 'post', 'side' ); // Category meta box
+	remove_meta_box( 'tagsdiv-post_tag', 'post', 'normal' ); // Post tags meta box
+	remove_meta_box( 'pageparentdiv', 'post', 'side' ); // Page attributes meta box
+    
+
+    remove_meta_box('tagsdiv-post_tag', 'post', 'side');
+}
+function UKMwpat_remove_post_type_support() {
+    if( true ){#!is_super_admin( )) {
+        remove_post_type_support( 'post', 'excerpt' );
+    }
+
+    unregister_taxonomy_for_object_type('post_tag', 'post');
+
+    remove_post_type_support( 'post', 'comments' );
+    remove_post_type_support( 'post', 'trackbacks' );    
+    remove_post_type_support( 'post', 'custom-fields' );
 }
 
 function UKMwpat_change_allowed_tags() {
