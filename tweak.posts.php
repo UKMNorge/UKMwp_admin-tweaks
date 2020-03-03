@@ -34,15 +34,14 @@ function UKMwpat_remove_posts_meta_boxes() {
     remove_meta_box('tagsdiv-post_tag', 'post', 'side');
 }
 function UKMwpat_remove_post_type_support() {
-    if( true ){#!is_super_admin( )) {
+    if( !is_super_admin( )) {
         remove_post_type_support( 'post', 'excerpt' );
+        remove_post_type_support( 'post', 'custom-fields' );
     }
 
     unregister_taxonomy_for_object_type('post_tag', 'post');
-
     remove_post_type_support( 'post', 'comments' );
     remove_post_type_support( 'post', 'trackbacks' );    
-    remove_post_type_support( 'post', 'custom-fields' );
 }
 
 function UKMwpat_change_allowed_tags() {
