@@ -12,21 +12,19 @@ function UKMwpat_remove_posts_meta_boxes() {
 	if( !is_super_admin() ) {
 		$user = wp_get_current_user();
 		update_user_option($user->ID, "metaboxhidden_post", array('commentstatusdiv','slugdiv','authordiv'), true);
-	}
-
-    if( !is_super_admin( )) {
+    
         remove_meta_box('trackbacksdiv', 'post', 'normal');
+        remove_meta_box( 'postcustom', 'post', 'normal' ); // Custom fields meta box
+        remove_meta_box( 'categorydiv', 'post', 'side' ); // Category meta box
     }
     
 	remove_meta_box( 'trackbacksdiv', 'post', 'normal' ); // Trackbacks meta box
-	remove_meta_box( 'postcustom', 'post', 'normal' ); // Custom fields meta box
 	remove_meta_box( 'commentsdiv', 'post', 'normal' ); // Comments meta box
 	remove_meta_box( 'slugdiv', 'post', 'normal' );	// Slug meta box
 	remove_meta_box( 'authordiv', 'post', 'normal' ); // Author meta box
-	remove_meta_box( 'revisionsdiv', 'post', 'normal' ); // Revisions meta box
+	#remove_meta_box( 'revisionsdiv', 'post', 'normal' ); // Revisions meta box
 	remove_meta_box( 'formatdiv', 'post', 'normal' ); // Post format meta box
 	remove_meta_box( 'commentstatusdiv', 'post', 'normal' ); // Comment status meta box
-	remove_meta_box( 'categorydiv', 'post', 'side' ); // Category meta box
 	remove_meta_box( 'tagsdiv-post_tag', 'post', 'normal' ); // Post tags meta box
 	remove_meta_box( 'pageparentdiv', 'post', 'side' ); // Page attributes meta box
     
