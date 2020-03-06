@@ -33,7 +33,7 @@ function UKMwpat_remove_posts_meta_boxes() {
 }
 function UKMwpat_remove_post_type_support() {
     if( !is_super_admin( )) {
-        remove_post_type_support( 'post', 'excerpt' );
+        #remove_post_type_support( 'post', 'excerpt' );
         remove_post_type_support( 'post', 'custom-fields' );
     }
 
