@@ -117,69 +117,80 @@ function ukm_post_layout_save() {
 		}
 
 		return false;
-	}
+    }
 
-	### LAGRE TEMPLATE
-	if (get_post_meta($post->ID, 'UKM_block')) {
-		update_post_meta($post->ID, 'UKM_block', $style);
-	}
-	else {
-		add_post_meta($post->ID, 'UKM_block', $style);
-	}
+    $viseng = ['liste'];
+    
+    // VISENG-STYLES
+    if( in_array( $style, $viseng) ) {
+        if( get_post_meta($post->ID, 'UKMviseng')) {
+            update_post_meta($post->ID, 'UKMviseng', $style);
+        } else {
+            add_post_meta($post->ID, 'UKMviseng', $style);
+        }
+    // BLOCK-STYLES
+    } else {
+        ### LAGRE TEMPLATE
+        if (get_post_meta($post->ID, 'UKM_block')) {
+            update_post_meta($post->ID, 'UKM_block', $style);
+        }
+        else {
+            add_post_meta($post->ID, 'UKM_block', $style);
+        }
 
-	### LAGRE ENTEN MENYVALG ELLER BILDEDETALJER
-	if( "sidemedmeny" == $style) {
-		update_post_meta($post->ID, "UKM_nav_menu", $_POST['menuSelect']);
+        ### LAGRE ENTEN MENYVALG ELLER BILDEDETALJER
+        if( "sidemedmeny" == $style) {
+            update_post_meta($post->ID, "UKM_nav_menu", $_POST['menuSelect']);
 
-		// Slett bildedetaljer?
-		delete_post_meta($post->ID, "UKM_att");
-		delete_post_meta($post->ID, "image_xs");
-		delete_post_meta($post->ID, "image_sm");
-		delete_post_meta($post->ID, "image_md");
-		delete_post_meta($post->ID, "image_lg");
-	}
-	else {
+            // Slett bildedetaljer?
+            delete_post_meta($post->ID, "UKM_att");
+            delete_post_meta($post->ID, "image_xs");
+            delete_post_meta($post->ID, "image_sm");
+            delete_post_meta($post->ID, "image_md");
+            delete_post_meta($post->ID, "image_lg");
+        }
+        else {
 
-		$att = $_POST['ukm_post_layout_attachment'];
+            $att = $_POST['ukm_post_layout_attachment'];
 
-		if (!is_numeric($att)) {
-			return false;
-		}
+            if (!is_numeric($att)) {
+                return false;
+            }
 
-		delete_post_meta($post->ID, "UKM_nav_menu");
+            delete_post_meta($post->ID, "UKM_nav_menu");
 
-		$image_xs = wp_get_attachment_url($att, 'thumbnail');
-		$image_sm = wp_get_attachment_url($att, 'medium');
-		$image_md = wp_get_attachment_url($att, 'large');
-		$image_lg = wp_get_attachment_url($att, 'full');
+            $image_xs = wp_get_attachment_url($att, 'thumbnail');
+            $image_sm = wp_get_attachment_url($att, 'medium');
+            $image_md = wp_get_attachment_url($att, 'large');
+            $image_lg = wp_get_attachment_url($att, 'full');
 
-		## DO SAVE
-		if (get_post_meta($post->ID, 'UKM_att'))
-			update_post_meta($post->ID, 'UKM_att', $att);
-		else
-			add_post_meta($post->ID, 'UKM_att', $att);
+            ## DO SAVE
+            if (get_post_meta($post->ID, 'UKM_att'))
+                update_post_meta($post->ID, 'UKM_att', $att);
+            else
+                add_post_meta($post->ID, 'UKM_att', $att);
 
-		if (get_post_meta($post->ID, 'image_xs'))
-			update_post_meta($post->ID, 'image_xs', $image_xs);
-		else 
-			add_post_meta($post->ID, 'image_xs', $image_xs);
-		
-		if (get_post_meta($post->ID, 'image_sm'))
-			update_post_meta($post->ID, 'image_sm', $image_sm);
-		else 
-			add_post_meta($post->ID, 'image_sm', $image_sm);
+            if (get_post_meta($post->ID, 'image_xs'))
+                update_post_meta($post->ID, 'image_xs', $image_xs);
+            else 
+                add_post_meta($post->ID, 'image_xs', $image_xs);
+            
+            if (get_post_meta($post->ID, 'image_sm'))
+                update_post_meta($post->ID, 'image_sm', $image_sm);
+            else 
+                add_post_meta($post->ID, 'image_sm', $image_sm);
 
-		if (get_post_meta($post->ID, 'image_md'))
-			update_post_meta($post->ID, 'image_md', $image_md);
-		else 
-			add_post_meta($post->ID, 'image_md', $image_md);
-		
-		if (get_post_meta($post->ID, 'image_lg'))
-			update_post_meta($post->ID, 'image_lg', $image_lg);
-		else 
-			add_post_meta($post->ID, 'image_lg', $image_lg);
-	}
-
+            if (get_post_meta($post->ID, 'image_md'))
+                update_post_meta($post->ID, 'image_md', $image_md);
+            else 
+                add_post_meta($post->ID, 'image_md', $image_md);
+            
+            if (get_post_meta($post->ID, 'image_lg'))
+                update_post_meta($post->ID, 'image_lg', $image_lg);
+            else 
+                add_post_meta($post->ID, 'image_lg', $image_lg);
+        }
+    }
 	
 	
 	return true;
