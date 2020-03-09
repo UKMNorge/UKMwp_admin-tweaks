@@ -33,41 +33,39 @@ function ukm_post_layout() {
 	$ukm_image_lg = get_post_meta($post->ID, 'image_lg');
 	$ukm_image_lg = $ukm_image_lg[0];
 
-	echo '<div class="form-group">';
-	$select .= '<select name="ukm_post_layout_style" id="ukm_post_layout_style" class="form-control">';
-	$select .= '<option value="delete">Ingen mal</option>';
-	$select .= '<option '. ($meta == 'sidemedmeny' ? 'selected' : '').' value="sidemedmeny">Side med meny</option>';
-	$select .= '<option '. ($meta == 'image_left' ? 'selected' : '').' value="image_left">Bilde til venstre</option>';
-	$select .= '<option '. ($meta == 'image_right' ? 'selected' : '').' value="image_right">Bilde til høyre</option>';
-	$select .= '<option '. ($meta == 'lead' ? 'selected' : '').' value="lead">Tekst til venstre</option>';
-	$select .= '<option '. ($meta == 'lead_center' ? 'selected' : '').' value="lead_center">Tekst sentrert</option>';
-	$select .= '<option '. ($meta == 'liste' ? 'selected' : '').' value="liste">Liste (foreldresiden til liste-elementer)</option>';
-	$select .= '<option '. ($meta == 'list' ? 'selected' : '').' value="list">Liste-element</option>';
-	$select .= '';
-	$select .= '</select>';
+    echo '<div style="width: 98%">';
 
-	echo $select;	
+
+    echo '<select name="ukm_post_layout_style" id="ukm_post_layout_style">'.
+            '<option value="delete">Ingen mal</option>'.
+            '<option '. ($meta == 'sidemedmeny' ? 'selected' : '').' value="sidemedmeny">Side med meny</option>'.
+            '<option '. ($meta == 'image_left' ? 'selected' : '').' value="image_left">Bilde til venstre</option>'.
+            '<option '. ($meta == 'image_right' ? 'selected' : '').' value="image_right">Bilde til høyre</option>'.
+            '<option '. ($meta == 'lead' ? 'selected' : '').' value="lead">Tekst til venstre</option>'.
+            '<option '. ($meta == 'lead_center' ? 'selected' : '').' value="lead_center">Tekst sentrert</option>'.
+            '<option '. ($meta == 'liste' ? 'selected' : '').' value="liste">Side med liste</option>'.
+            '<option '. ($meta == 'list' ? 'selected' : '').' value="list">Liste-element</option>'.
+        '</select>';
+
+    echo '<span style="font-style: italic;">'.
+    'Lagre innlegget for å oppdatere stilen.'.
+    '</span>';
 
 	// Hvis vi har et bilde, vis det her
 	if( in_array($meta, array("image_left", "image_right", "lead", "lead_center")) ) {
-		echo '<image src="'.$ukm_image_xs.'" id="ukm_post_layout_image" style="width: 100%"/>';
+		echo '<image src="'.$ukm_image_xs.'" id="ukm_post_layout_image" style="width: 100%"/><br />';
 	}
 
 	$key = get_post_meta($post->ID, "UKM_nav_menu", true);
 	ukm_post_layout_selectMenu($key, $meta == "sidemedmeny");
 	ukm_post_layout_imageButton();
-	
-	$text = '<br><span style="font-style: italic;">';
-	$text .= 'Lagre innlegget for å oppdatere stilen.';
-	$text .= '</span>';
-	echo $text;
-	echo '<p style="margin-top:1em; float:right;"><a href="nav-menus.php" target="_blank" class="button">Rediger menyer</a></p>';
-	echo '<div class="clearfix"></div>';
-	echo '</div>';
+    ukm_post_layout_icon($meta == 'list');
+    ukm_post_layout_liste($meta=='liste');
+    echo '</div>'.
+        '<script>jQuery( window ).on( "load", function() { jQuery("#ukm_post_layout_style").change() });</script>'
+        ;
 
-	echo '<script>jQuery( window ).on( "load", function() { jQuery("#ukm_post_layout_style").change() });</script>';
-
-	return $select;
+	return true;
 }
 
 function ukm_post_layout_imageButton() {
@@ -87,21 +85,43 @@ function ukm_post_layout_imageButton() {
 }
 
 function ukm_post_layout_selectMenu($currentKey, $visible) {
+    echo '<div id="menuSelect" class="'.($visible ? '' : 'hidden').'">';
 	$menyer = wp_get_nav_menus();
 	if (empty($menyer)) {
-		echo '<span id="menuSelect" class="'.($visible ? '' : 'hidden').'">Det finnes ingen menyer du kan velge.</span>';
+		echo 'Det finnes ingen menyer du kan velge.';
 		return;
 	}
 	echo "<br />";
-	$select = '<select name="menuSelect" id="menuSelect" class="'.($visible ? '' : 'hidden').' form-control">';
-	$select .= '<option value="blank">Ingen meny valgt</option>';
-
-	foreach($menyer as $index => $meny) {
-		$select .= '<option '.($currentKey == $meny->term_id ? 'selected' : '').' value="'.$meny->term_id.'">'.$meny->name.'</option>';	
+    echo '<select name="menuSelect">'.
+        '<option value="blank">Ingen meny valgt</option>';
+	foreach($menyer as $meny) {
+		echo '<option '.($currentKey == $meny->term_id ? 'selected' : '').' value="'.$meny->term_id.'">'.$meny->name.'</option>';	
 	}
-	$select .= '</select>';
-	echo $select;	
+    echo '</select>'.
+        '<p style="margin-top:1em; float:right;"><a href="nav-menus.php" target="_blank" class="button">Rediger menyer</a></p>'.
+        '<div class="clearfix"></div>'.
+    '</div>';	
 }
+
+function ukm_post_layout_icon($visible) {
+    global $post;
+
+    $ikon = get_post_meta($post->ID, 'ikon');
+    if( is_array($ikon) ) {
+        $ikon = $ikon[0];
+    }
+    echo '<div id="ukm_post_layout_ikon" class="mt-3 '.($visible ? '' : 'hidden').'">'.
+        'Skal liste-elementet ha ett ikon? I tilfelle kan du sette inn en emoji her: <br /> '.
+        '<input type="text" style="width: 3em;" name="ukm_post_layout_ikon" value="'. $ikon .'" />'.
+        '</div>';
+}
+
+function ukm_post_layout_liste($visible) {
+    echo '<div id="ukm_post_layout_liste_helper" class="mt-3 '.($visible ? '' : 'hidden').'">'.
+        'For å legge til elementer i listen, må du legge til en side med designmal: liste-element '.
+        'som en underside til denne siden.'.
+        '</div>';
+}    
 
 // Trigges når man lagrer posten
 function ukm_post_layout_save() {
@@ -127,6 +147,17 @@ function ukm_post_layout_save() {
     }
 
     $viseng = ['liste'];
+
+
+    switch( $style ) {
+        case 'list':
+            if( get_post_meta($post->ID, 'ikon') ) {
+                update_post_meta($post->ID, 'ikon', $_POST['ukm_post_layout_ikon']);
+            } else {
+                add_post_meta($post->ID, 'ikon', $_POST['ukm_post_layout_ikon']);
+            }
+        break;
+    }
     
     // VISENG-STYLES
     if( in_array( $style, $viseng) ) {

@@ -1,16 +1,20 @@
-jQuery(document).ready(function() { 
-	jQuery("#ukm_post_layout_style").change(function(clicked) { 
-		console.log(jQuery("#ukm_post_layout_style").val());
-		if (jQuery("#ukm_post_layout_style").val() == "sidemedmeny" || jQuery('#ukm_post_layout_style').val() == 'list') { 
-			jQuery("#imageStuff").addClass("hidden");
-			jQuery("#menuSelect").removeClass("hidden");
-		} else if (jQuery("#ukm_post_layout_style").val() == "delete") {
-			jQuery("#menuSelect").addClass("hidden");
-			jQuery("#imageStuff").addClass("hidden");
-		} 
-		else {
-			jQuery("#imageStuff").removeClass("hidden");
-			jQuery("#menuSelect").addClass("hidden");
-		}
-	}); 
+jQuery(document).ready(function() {
+    jQuery("#ukm_post_layout_style").change(function(clicked) {
+        var selected = jQuery('#ukm_post_layout_style').val();
+
+        jQuery("#imageStuff").addClass("hidden");
+        jQuery("#menuSelect").addClass("hidden");
+        jQuery('#ukm_post_layout_ikon').addClass('hidden');
+        jQuery('#ukm_post_layout_liste_helper').addClass('hidden');
+
+        if (selected == "sidemedmeny") {
+            jQuery("#menuSelect").removeClass("hidden");
+        } else if (selected == 'image_left' || selected == 'image_right') {
+            jQuery("#imageStuff").removeClass("hidden");
+        } else if (selected == 'list') {
+            jQuery('#ukm_post_layout_ikon').removeClass('hidden');
+        } else if (selected == 'liste') {
+            jQuery('#ukm_post_layout_liste_helper').removeClass('hidden');
+        }
+    });
 });
