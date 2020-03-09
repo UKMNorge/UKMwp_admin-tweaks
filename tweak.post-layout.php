@@ -123,6 +123,7 @@ function ukm_post_layout_save() {
     
     // VISENG-STYLES
     if( in_array( $style, $viseng) ) {
+        delete_post_meta($post->ID, 'UKM_block');
         if( get_post_meta($post->ID, 'UKMviseng')) {
             update_post_meta($post->ID, 'UKMviseng', $style);
         } else {
