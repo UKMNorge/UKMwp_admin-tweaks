@@ -12,8 +12,15 @@ function ukm_post_layout() {
 	global $post;
 
 	// Finn current meta-tag
-	$meta = get_post_meta($post->ID, 'UKM_block');
-	$meta = $meta[0];
+    $meta = get_post_meta($post->ID, 'UKM_block');
+    if( is_array($meta)) {
+        $meta = $meta[0];
+    }
+
+    // Hvis det ikke er satt en UKMblock, prøv og se om viseng er støttet her
+    if(!$meta) {
+        $meta = get_post_meta($post->ID, 'UKMviseng');
+    }
 
 	$att = get_post_meta($post->ID, 'UKM_att');
 	$att = $att[0];
