@@ -85,12 +85,14 @@ function ukm_post_layout_imageButton() {
 }
 
 function ukm_post_layout_selectMenu($currentKey, $visible) {
-    echo '<div id="menuSelect" class="'.($visible ? '' : 'hidden').'">';
-	$menyer = wp_get_nav_menus();
+    $menyer = wp_get_nav_menus();
 	if (empty($menyer)) {
-		echo 'Det finnes ingen menyer du kan velge.';
+        echo '<div id="menuSelect" class="'.($visible ? '' : 'hidden').'">'.
+            'Det finnes ingen menyer du kan velge.'.
+            '</div>';
 		return;
 	}
+    echo '<div id="menuSelect" class="'.($visible ? '' : 'hidden').'">';
 	echo "<br />";
     echo '<select name="menuSelect">'.
         '<option value="blank">Ingen meny valgt</option>';
