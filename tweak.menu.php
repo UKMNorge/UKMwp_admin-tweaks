@@ -45,16 +45,17 @@ function UKMwpat_tweak_menu_remove() {
 
 	unset( $menu[65] ); // plugins
 	unset( $menu[80] ); // settings
-	
+    
 	// REMOVE
-	$remove = array(
-					15	=> 'edit-tags.php?taxonomy=link_category',
-					25	=> 'edit-comments.php',
-					60 => 'themes.php',
-					75 => 'tools.php',
-					70 => 'users.php',
-					70 => 'profile.php',
-					);
+	$remove = [
+        15	=> 'edit-tags.php?taxonomy=link_category',
+        25	=> 'edit-comments.php',
+        60 => 'themes.php',
+        75 => 'tools.php',
+        70 => 'users.php',
+        70 => 'profile.php'
+    ];
+
     if( !is_super_admin() ){
         $remove[120]	= 'upload.php';
     }
@@ -82,9 +83,7 @@ function UKMwpat_tweak_menu_remove() {
 	}
 	remove_submenu_page( 'edit.php', 'edit-tags.php?taxonomy=post_tag' );
 	remove_submenu_page( 'index.php', 'my-sites.php' );
-	remove_submenu_page( 'upload.php', 'media-new.php' );	
-
-
+	remove_submenu_page( 'upload.php', 'media-new.php' );
 }
 
 function UKMwpat_tweak_network_menu() {
