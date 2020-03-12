@@ -48,7 +48,7 @@ function UKMwpat_tweak_menu_remove() {
     
 	// REMOVE
 	$remove = [
-        15	=> 'edit-tags.php?taxonomy=link_category',
+        15	=> 'link-manager.php',
         25	=> 'edit-comments.php',
         60 => 'themes.php',
         75 => 'tools.php',
