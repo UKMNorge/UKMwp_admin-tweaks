@@ -119,7 +119,7 @@ function UKMwpat_modify_toolbar()
             [
                 'id'    => 'ukmnorge',
                 'title' => '<span class="ab-icon dashicons dashicons-rest-api" style="margin-top: .1em;"></span> UKM Norge-admin',
-                'href'  => admin_url() . 'wp-admin/network/',
+                'href'  => network_admin_url(),
                 'parent' => 'top-secondary'
             ]
         );
