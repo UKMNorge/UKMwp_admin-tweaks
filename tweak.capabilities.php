@@ -85,6 +85,8 @@ function UKMwpat_add_capabilities($wp_roles) {
 	$author->add_cap('ukm_sms');
     $author->add_cap('publish_posts');
     $author->add_cap('ukm_nettside');
+    $author->add_cap( 'edit_theme_options' );
+
 	
 	# UKM-arrangør
 	$editor = get_role('editor');
@@ -95,6 +97,7 @@ function UKMwpat_add_capabilities($wp_roles) {
         $editor->add_cap('ukm_sms');
 	$editor->add_cap('ukm_nominasjon');
     $editor->add_cap('ukm_nettside');
+    $editor->add_cap( 'edit_theme_options' );
 
 	# Admin
 	$administrator = get_role('administrator');
@@ -105,7 +108,7 @@ function UKMwpat_add_capabilities($wp_roles) {
 	$administrator->add_cap('ukm_sms');
     $administrator->add_cap('ukm_nominasjon');
     $administrator->add_cap('ukm_nettside');
-
+    $administrator->add_cap( 'edit_theme_options' );
 }
 
 //// !!! !!! OBS: HACK !!! !!!
