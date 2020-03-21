@@ -52,8 +52,11 @@ function UKMwpat_tweak_menu_remove() {
         25	=> 'edit-comments.php',
         60 => 'themes.php',
         75 => 'tools.php',
-        70 => 'users.php',
         70 => 'profile.php'
+    ];
+    
+    $remove_round_two = [
+        70 => 'users.php',
     ];
 
     if( !is_super_admin() ){
@@ -70,11 +73,16 @@ function UKMwpat_tweak_menu_remove() {
 		$remove[130]	= 'edit.php?post_type=page';
 	}
 
-
 	foreach( $remove as $id => $file) {
-		if( isset( $menu[ $id ] ) && $menu[ $id ][2] == $file )
-			unset( $menu[ $id ] );	
-	}
+		if( isset( $menu[ $id ] ) && $menu[ $id ][2] == $file ) {
+            unset( $menu[ $id ] );	
+        }
+    }
+    foreach($remove_round_two as $id => $file ) {
+        if( isset( $menu[ $id ] ) && $menu[ $id ][2] == $file ) {
+            unset( $menu[ $id ] );	
+        }
+    }
 	unset( $menu[59] ); // separator2
 
 
