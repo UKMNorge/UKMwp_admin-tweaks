@@ -24,7 +24,6 @@ function UKMwpat_tweak_menu_remove() {
         $menu[2][6] = 'dashicons-smiley';
     }
 
-
 	## ENDRE HOVEDMENY FRA WP
 	# POSTS = Nettside
 	$menu[5][0] = 'Nettside';
@@ -41,7 +40,7 @@ function UKMwpat_tweak_menu_remove() {
 	
 	# MEDIA = Nettside: mediebibliotek
 	unset( $menu[10] ); // Fjernet side-redigering
-	add_submenu_page('edit.php', 'Mediebibliotek', 'Mediebibliotek', 'edit_media', 'upload.php');
+	add_submenu_page('users.php', 'Mediebibliotek', 'Mediebibliotek', 'superadmin', 'upload.php');
 
 	unset( $menu[65] ); // plugins
 	unset( $menu[80] ); // settings
@@ -59,10 +58,6 @@ function UKMwpat_tweak_menu_remove() {
         70 => 'users.php',
     ];
 
-    if( !is_super_admin() ){
-        $remove[120]	= 'upload.php';
-    }
-	
 	## spesial_meny er en setting som gir utvalgte sites tilgang til sider-modulen
 	# funksjonen er innført i 2018, med Sogn og Fjordane + Østfold som testfylker
 	# Innstillingen brukes av 
@@ -85,13 +80,44 @@ function UKMwpat_tweak_menu_remove() {
     }
 	unset( $menu[59] ); // separator2
 
-
 	if( !in_array(get_option('site_type'), ['arrangor','norge','ungdom','om']) ) {
 		remove_submenu_page( 'edit.php', 'edit-tags.php?taxonomy=category' );
 	}
 	remove_submenu_page( 'edit.php', 'edit-tags.php?taxonomy=post_tag' );
 	remove_submenu_page( 'index.php', 'my-sites.php' );
-	remove_submenu_page( 'upload.php', 'media-new.php' );
+    remove_submenu_page( 'upload.php', 'media-new.php' );
+    
+
+    /**
+     * Lag egen WP-meny for superadmins
+     */
+    $page = add_menu_page(
+        'Wordpress',
+        'Wordpress',
+        'superadmin',
+        'users.php',
+        '',
+        'dashicons-wordpress-pink',
+        1000
+    );
+    remove_submenu_page( 'users.php', 'user-new.php' );
+    remove_submenu_page( 'users.php', 'profile.php' );
+    remove_submenu_page( 'users.php', 'users-user-role-editor.php' );
+    // Import / export
+    $page_export = add_submenu_page(
+        'users.php',
+        'Eksporter',
+        'Nyheter: eksporter',
+        'superadmin',
+        'export.php'
+    );
+    $page_import = add_submenu_page(
+        'users.php',
+        'Importer',
+        'Nyheter: importer',
+        'superadmin',
+        'import.php'
+    );
 }
 
 function UKMwpat_tweak_network_menu() {
@@ -134,12 +160,5 @@ function UKMwpat_tweak_network_menu() {
 		$submenu['settings.php'][] = $submenu['index.php'][15];
 		unset( $submenu['index.php'][15] );
 	}
-
-	/*
-	echo "\n\r\n\r  -- MENU -- \n\r\n\r ";
-	var_dump( $menu );
-	echo "\n\r\n\r  -- SUBMENU -- \n\r\n\r ";
-	var_dump( $submenu );
-	*/
 }
 ?>

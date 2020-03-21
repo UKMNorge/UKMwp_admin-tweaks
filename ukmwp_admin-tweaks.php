@@ -80,7 +80,6 @@ if(is_admin()){
 	add_action( 'network_admin_menu', 'UKMwpat_set_option' );
 	
 	add_action('admin_menu', 'UKMwpat_tweak_menu_remove', 300);
-	wp_enqueue_style('tweak_adminmenu', plugin_dir_url( __FILE__ ).'css/tweak.adminmenu.css');
 
 	## CHANGE POSTS GUI
 	add_action( 'admin_menu', 'UKMwpat_remove_posts_meta_boxes',999 );
@@ -143,9 +142,15 @@ add_action('wp_before_admin_bar_render','UKMwpat_modify_toolbar', 10000);
 ## Admin favicon
 add_action( 'admin_head', 'UKMwpat_favicon' );
 
+add_action('admin_enqueue_scripts', 'UKMwpat_load_scripts_and_styles');
 
 
 
 function UKMwpat_favicon() {
 	echo '<link rel="shortcut icon" href="//ico.ukm.no/wp-admin_favicon.ico" />';
+}
+
+function UKMwpat_load_scripts_and_styles() {
+    wp_enqueue_script( 'ukmwpat_adminmenu_js', plugin_dir_url(__FILE__). 'js/tweak.adminmenu.js');
+    wp_enqueue_style('tweak_adminmenu', plugin_dir_url(__FILE__). 'css/tweak.adminmenu.css');
 }

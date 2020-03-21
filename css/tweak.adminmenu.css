@@ -1,6 +1,14 @@
-#adminmenu > li.wp-menu-separator {
-background: #99c8f0 !important;
-height: 1px !important;
-margin-top: 0px !important;
-margin-bottom: 0px !important;
+#adminmenu>li.wp-menu-separator {
+    background: #99c8f0 !important;
+    height: 1px !important;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+html #adminmenu li.menu-top div.dashicons-wordpress-pink.wp-menu-image::before {
+    color: #ff128b !important;
+}
+
+#toplevel_page_users .wp-menu-name {
+    color: #ff128b;
 }
