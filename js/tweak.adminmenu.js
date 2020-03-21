@@ -1,3 +1,3 @@
 jQuery(document).ready(function() {
-    jQuery('.dashicons-wordpress-pink').addClass('dashicons-wordpress');
+    jQuery('.dashicons-wordpress-pink').addClass('dashicons-admin-tools');
 });
