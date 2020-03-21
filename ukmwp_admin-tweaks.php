@@ -80,8 +80,6 @@ if(is_admin()){
 	add_action( 'network_admin_menu', 'UKMwpat_set_option' );
 	
 	add_action('admin_menu', 'UKMwpat_tweak_menu_remove', 300);
-	#add_action('admin_menu', 'UKMwpat_admin_menu_build');
-	#add_action('admin_menu', 'UKMwpat_addSeparators',10000);
 	wp_enqueue_style('tweak_adminmenu', plugin_dir_url( __FILE__ ).'css/tweak.adminmenu.css');
 
 	## CHANGE POSTS GUI
