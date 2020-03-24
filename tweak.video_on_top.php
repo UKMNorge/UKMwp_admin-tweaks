@@ -4,32 +4,34 @@
 // This plugin enables the use of a video as the top-picture in a wordpress news post.
 // Adds a box to the left where UKMTV-link can be copied in, maybe?
 
+use UKMNorge\Database\SQL\Query;
+
 function UKMwpat_add_video_box() {
-	#if (in_array(get_option('site_type'), array('kommune', 'fylke', 'land') ) ) {
-		add_meta_box('ukm_video', 'Video som topp-bilde', 'ukm_top_video', 'post', 'side', 'low');
-	#}
+    $res =add_meta_box(
+        'ukm_video',
+        'Video som topp-bilde',
+        'ukm_top_video',
+        'post',
+        'advanced',
+        'default'
+    );
 }
 
 function ukm_top_video() {
-	#echo '<span>Video som topp-bilde</span>';
-	global $post;
+    global $post;
 	$selected = get_post_meta($post->ID, 'video_on_top', true);
 
     echo 'Bruk denne videoen i stedet for topp-bilde:';
 
     if( get_option('pl_id') ) {
-        require_once('UKM/sql.class.php');
-        require_once('UKM/tv.class.php');
-        require_once('UKM/tv_files.class.php');
-
-        $sql = new SQL("SELECT * FROM `ukm_standalone_video` 
+        $sql = new Query("SELECT * FROM `ukm_standalone_video` 
                     WHERE `pl_id` = '#plid'
                     ORDER BY `video_name` ASC",
                     array('plid' => get_option('pl_id')));
         $res = $sql->run();
         echo '<select name="video_on_top" class="form-control" style="width: 100%;" onChange="check(this);">';
         echo '<option '.(!$selected ? 'selected' : '') .' value="delete">Ingen video</option>';
-        while( $film = SQL::fetch( $res )) {
+        while( $film = Query::fetch( $res )) {
             $TV = new tv(false, $film['cron_id']);
             if($TV->id) {
                 echo '<option '. ($selected == $TV->id ? 'selected' : '').' value="'.$TV->id.'">'.$TV->title.'</option>';
@@ -65,8 +67,6 @@ function ukm_top_video_save() {
 	global $post;
 	if( isset( $_POST['video_on_top'] ) ) {
 		$video_on_top = $_POST['video_on_top'];
-		#var_dump($_POST);
-		#var_dump($video_on_top);
 		if ($video_on_top != 'delete') {
             // Vi har en egendefinert URL
 			if($video_on_top == 'egendefinert' && !empty($_POST['egendefinertURL']) ) {
@@ -83,10 +83,6 @@ function ukm_top_video_save() {
 			delete_post_meta($post->ID, 'video_on_top');
 			delete_post_meta($post->ID, 'video_on_top_URL');
 		}
-	
-		#var_dump(get_post_meta($post->ID, 'video_on_top'));
-		#var_dump($video_on_top);
-		#throw new Exception ('Staaahp', 20007);
 	}
 	return true;
 }

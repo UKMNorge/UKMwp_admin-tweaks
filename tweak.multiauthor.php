@@ -10,7 +10,14 @@
 add_action('save_post', 'UKMwpat_ma_save');
 
 function UKMwpat_add_ma_box() {
-	add_meta_box('ukm_ma', 'Bidragsytere', 'ukm_multiauthor', 'post', 'side', 'high');
+	add_meta_box(
+        'ukm_ma',
+        'Bidragsytere',
+        'ukm_multiauthor',
+        'post',
+        'side',
+        'high'
+    );
 }
 
 function UKMwpat_add_ma_styles($hook) {

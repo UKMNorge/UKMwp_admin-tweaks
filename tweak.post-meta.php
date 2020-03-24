@@ -1,5 +1,11 @@
 <?php
 
+use UKMNorge\Arrangement\Arrangement;
+use UKMNorge\Database\SQL\Delete;
+use UKMNorge\Database\SQL\Query;
+
+require_once('UKM/Autoloader.php');
+
 function UKMwpat_add_tag_meta_box() {
 	if( get_option('pl_id') ) {
 		add_meta_box('ukm_post', 'Innlegget handler om', 'ukm_post_info', 'post', 'side', 'low');
@@ -28,7 +34,7 @@ function ukmn_meta_box_save( $post_id ) {
 		return false;
 	
 	require_once('UKM/related.class.php');		
-	$del = new SQLdel('ukmno_wp_related',
+	$del = new Delete('ukmno_wp_related',
 					  array('blog_id'=>$blog_id,
 					  		'post_id'=>$post->ID)
 					  );
@@ -44,11 +50,9 @@ function ukmn_meta_box_save( $post_id ) {
 
 ## LIST ALL BANDS
 function ukm_post_info() {
-	require_once('UKM/tag.class.php');
 	global $post;
 
-	$pl_id = get_option('pl_id');
-	$monstring = new monstring($pl_id);
+	$monstring = new Arrangement(intval(get_option('pl_id')));
 	$bands = $monstring->innslag_alpha();
 	
 	echo '<label for="ukmn_b_id">'
@@ -59,13 +63,13 @@ function ukm_post_info() {
 		.'<br /><br />';
 
 	$those_tagged=array();
-	$tagged = new SQL("SELECT `b_id` FROM `ukmno_wp_related`
+	$tagged = new Query("SELECT `b_id` FROM `ukmno_wp_related`
 						WHERE `post_type` = 'post'
 						AND `post_id` = '#id'",
 						array('id'=>$post->ID));
 	$tagged = $tagged->run();
 
-	while($t = SQL::fetch($tagged))
+	while($t = Query::fetch($tagged))
 		$those_tagged[] = $t['b_id'];
 
 	if( is_array( $bands ) ) {
@@ -98,7 +102,7 @@ function UKMwpat_related_delete($pid) {
 	if((int)$pid == 0)
 		return false; 
 	
-	$sql = new SQLdel('ukmno_wp_related', array('post_id'=>$pid, 'blog_id'=>$blog_id, 'post_type'=>'post'));
+	$sql = new Delete('ukmno_wp_related', array('post_id'=>$pid, 'blog_id'=>$blog_id, 'post_type'=>'post'));
 	$sql->run();
 }
 ?>

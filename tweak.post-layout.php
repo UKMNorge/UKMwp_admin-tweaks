@@ -5,7 +5,14 @@ Vises for alle sider, siden kun superadmin har tilgang til sider ("pages").
 */
 
 function UKMwpat_add_layout_meta_box() {
-	add_meta_box('ukm_layout', 'Designmal', 'ukm_post_layout', 'page', 'side', 'low');
+	add_meta_box(
+        'ukm_layout',
+        'Designmal',
+        'ukm_post_layout',
+        'page',
+        'side',
+        'low'
+    );
 }
 
 function ukm_post_layout() {

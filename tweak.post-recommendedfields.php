@@ -1,5 +1,9 @@
 <?php
 
+use UKMNorge\Arrangement\Arrangement;
+
+require_once('UKM/Autoloader.php');
+
 function UKMwpat_req_menu_hook() {
 	add_submenu_page( 
 		null,            			// Satt til null vil dette skjule siden fra menyen
@@ -82,7 +86,7 @@ function UKMwpat_req_render() {
 	if( get_option('pl_id') ) {
 		// Hvilken type sak er dette?
 		$TWIGdata['missingPostType'] = !hasPostType($post->ID);
-		$monstring = new monstring_v2(get_option('pl_id'));
+		$monstring = new Arrangement(intval(get_option('pl_id')));
 		$TWIGdata['deltakerliste'] = $monstring->getInnslag()->getAll();
 	}
 
