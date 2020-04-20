@@ -120,7 +120,6 @@ if(is_admin()){
     ## USERS (TABELL)
     add_filter( 'manage_users_columns', 'UKMwpat_modify_user_table', 100 );
     add_filter('manage_users_custom_column', 'UKMwpat_modify_user_column', 100, 3);
-    add_action('edit_user_profile_update', 'UKMwpat_modify_user');
 
 	## PASSWORDS
 	add_filter('allow_password_reset', 'tr_restrict_password_reset');
