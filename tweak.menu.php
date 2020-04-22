@@ -33,10 +33,16 @@ function UKMwpat_tweak_menu_remove() {
 
 	# PAGES = Nettside: sider
     unset( $menu[20] ); // Fjernet side-redigering
-    // Kommune- og fylkessider skal ikke ha sider (enda)
-    if( is_super_admin() || !in_array(get_option('site_type'), ['kommune','fylke'])) {
+    // Kommune- og fylkessider skal ikke ha sider (enda), med mindre spesial_meny er definert
+    if( is_super_admin() || !(in_array(get_option('site_type'), ['kommune','fylke']) && !get_option('spesial_meny')) ) {
         add_submenu_page('edit.php', 'Sider', 'Sider', 'edit_pages', 'edit.php?post_type=page');
     }
+    ## spesial_meny er en setting som gir utvalgte sites tilgang til sider-modulen
+	# funksjonen er innført i 2018, med Sogn og Fjordane + Østfold som testfylker
+	# Innstillingen brukes av 
+	# - UKMresponsive (Wordpress/Controller/monstring/fylke.controller.php
+	# - UKMnettside (controller/forside.controller.php og ukmnettside.php)
+
 	
 	# MEDIA = Nettside: mediebibliotek
 	unset( $menu[10] ); // Fjernet side-redigering
@@ -51,22 +57,13 @@ function UKMwpat_tweak_menu_remove() {
         25	=> 'edit-comments.php',
         60 => 'themes.php',
         75 => 'tools.php',
-        70 => 'profile.php'
+        70 => 'profile.php',
+        130 => 'edit.php?post_type=page'
     ];
     
     $remove_round_two = [
         70 => 'users.php',
     ];
-
-	## spesial_meny er en setting som gir utvalgte sites tilgang til sider-modulen
-	# funksjonen er innført i 2018, med Sogn og Fjordane + Østfold som testfylker
-	# Innstillingen brukes av 
-	# - UKMresponsive (Wordpress/Controller/monstring/fylke.controller.php
-	# - UKMnettside (controller/forside.controller.php og ukmnettside.php)
-	if( is_super_admin() || get_option('spesial_meny') ) {
-	} else {
-		$remove[130]	= 'edit.php?post_type=page';
-	}
 
 	foreach( $remove as $id => $file) {
 		if( isset( $menu[ $id ] ) && $menu[ $id ][2] == $file ) {
