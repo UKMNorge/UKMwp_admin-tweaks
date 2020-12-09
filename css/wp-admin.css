@@ -42,7 +42,12 @@ html #wpadminbar #wp-admin-bar-top-secondary {
     padding-bottom: 1em;
 }
 
-html #wpadminbar #wp-admin-bar-top-secondary {
+html #wpadminbar #wp-admin-bar-site-link a.ab-item {
+    margin-top: 0.75em;
+}
+
+html #wpadminbar #wp-admin-bar-top-secondary
+ {
     margin-top: 0em;
 }
 
