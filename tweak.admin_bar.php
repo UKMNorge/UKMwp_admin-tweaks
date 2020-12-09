@@ -62,6 +62,9 @@ function UKMwpat_modify_toolbar()
 
         # Edit this page
         'edit',
+
+        # Link til program
+        'site-link',
     ];
 
     foreach ($nodes as $node) {
@@ -104,6 +107,14 @@ function UKMwpat_modify_toolbar()
             ]
         );
     }
+    
+    $wp_admin_bar->add_node(
+        [
+            'id'    => 'site-link',
+            'title' => '<span class="ab-icon dashicons dashicons-admin-home" style="margin-top: .1em;"></span>Vis nettsiden',
+            'href'  => admin_url() . '../'
+        ]
+    );
 
     $wp_admin_bar->add_node(
         [
@@ -113,6 +124,8 @@ function UKMwpat_modify_toolbar()
             'parent' => 'top-secondary'
         ]
     );
+
+
 
     if (is_super_admin()) {
         $wp_admin_bar->add_node(
