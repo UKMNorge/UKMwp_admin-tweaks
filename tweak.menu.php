@@ -14,7 +14,7 @@ function UKMwpat_tweak_menu_filter( $current_parent_file ) {
 
 function UKMwpat_tweak_menu_remove() {
 	global $current_user, $menu, $submenu;
-
+	
 	// RENAME
 	if( get_option('pl_id') ) {
         $menu[2][0] = 'Arrangement';
@@ -23,7 +23,7 @@ function UKMwpat_tweak_menu_remove() {
         $menu[2][0] = 'Startside';
         $menu[2][6] = 'dashicons-smiley';
     }
-
+    
 	## ENDRE HOVEDMENY FRA WP
 	# POSTS = Nettside
 	$menu[5][0] = 'Nettside';
@@ -115,6 +115,11 @@ function UKMwpat_tweak_menu_remove() {
         'superadmin',
         'import.php'
     );
+
+    $submenu['edit.php'][16][2] = 'edit.php?page=UKMnettside';
+    $tempEditSm = $submenu['edit.php'][5];
+    $submenu['edit.php'][5] =  $submenu['edit.php'][16];
+    $submenu['edit.php'][16] = $tempEditSm;
 }
 
 function UKMwpat_tweak_network_menu() {
