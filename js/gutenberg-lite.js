@@ -19,7 +19,7 @@ function extendParagraphBlock(settings, name) {
 }
 
 wp.domReady(function() {
-    wp.data.dispatch('core/edit-post').removeEditorPanel('taxonomy-panel-category');
+    //wp.data.dispatch('core/edit-post').removeEditorPanel('taxonomy-panel-category');
     wp.data.dispatch('core/edit-post').removeEditorPanel('taxonomy-panel-post_tag');
     wp.data.dispatch('core/edit-post').removeEditorPanel('post-link');
 });
