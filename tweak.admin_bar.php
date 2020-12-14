@@ -107,14 +107,17 @@ function UKMwpat_modify_toolbar()
             ]
         );
     }
+
     
-    $wp_admin_bar->add_node(
-        [
-            'id'    => 'site-link',
-            'title' => '<span class="ab-icon dashicons dashicons-admin-home" style="margin-top: .1em;"></span>Vis nettsiden',
-            'href'  => admin_url() . '../'
-        ]
-    );
+    if (is_admin() && !is_user_admin() && !is_network_admin()) {
+        $wp_admin_bar->add_node(
+            [
+                'id'    => 'site-link',
+                'title' => '<span class="ab-icon dashicons dashicons-admin-home" style="margin-top: .1em;"></span>Vis nettsiden',
+                'href'  => admin_url() . '../'
+            ]
+        );
+    }   
 
     $wp_admin_bar->add_node(
         [
