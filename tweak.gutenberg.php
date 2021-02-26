@@ -50,7 +50,7 @@ add_filter('allowed_block_types', 'my_plugin_allowed_block_types', 10, 2);
 
 function UKMwpat_gutenberg_mod() {
     wp_enqueue_script(
-        'my-plugin-blacklist-blocks',
+        'ukmnorge-blacklist-blocks',
         plugins_url( 'js/gutenberg-lite.js', __FILE__ ),
         array( 'wp-blocks', 'wp-dom-ready', 'wp-edit-post' )
     );
