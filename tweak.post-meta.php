@@ -8,7 +8,7 @@ require_once('UKM/Autoloader.php');
 
 function UKMwpat_add_tag_meta_box() {
 	if( get_option('pl_id') ) {
-		add_meta_box('ukm_post', 'Innlegget handler om', 'ukm_post_info', 'post', 'side', 'low');
+		#add_meta_box('ukm_post', 'Innlegget handler om', 'ukm_post_info', 'post', 'side', 'low');
 	}
 }
 
