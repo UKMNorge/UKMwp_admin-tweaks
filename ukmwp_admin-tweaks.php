@@ -105,7 +105,7 @@ if(is_admin()){
 
 
 	add_filter('manage_posts_columns', 'UKMwpat_custom_post_columns');
-	wp_enqueue_style('tablefooter_hide', plugin_dir_url( __FILE__ ).'css/tweak.tablefooter_hide.css');
+	wp_enqueue_style('tablefooter_hide', PLUGIN_PATH . 'UKMwp_admin-tweaks/css/tweak.tablefooter_hide.css');
 
 	## CHANGE UPLOAD / MEDIA GUI	
 	add_filter('attachment_fields_to_edit', 'UKMwpat_mediaform', 20);
@@ -126,7 +126,7 @@ if(is_admin()){
 	add_action('login_head', 'tr_remove_reset_link_init');
 	add_filter('login_errors', 'tr_remove_reset_link');
     
-    wp_enqueue_style('tweak_wp_admin', plugin_dir_url( __FILE__ ).'css/wp-admin.css', 100000);
+    wp_enqueue_style('tweak_wp_admin', PLUGIN_PATH . 'UKMwp_admin-tweaks/css/wp-admin.css', 100000);
 }
 
 require_once('tweak.admin_bar.php');
@@ -150,6 +150,6 @@ function UKMwpat_favicon() {
 }
 
 function UKMwpat_load_scripts_and_styles() {
-    wp_enqueue_script( 'ukmwpat_adminmenu_js', plugin_dir_url(__FILE__). 'js/tweak.adminmenu.js');
-    wp_enqueue_style('tweak_adminmenu', plugin_dir_url(__FILE__). 'css/tweak.adminmenu.css');
+    wp_enqueue_script( 'ukmwpat_adminmenu_js', PLUGIN_PATH . 'UKMwp_admin-tweaks/js/tweak.adminmenu.js');
+    wp_enqueue_style('tweak_adminmenu', PLUGIN_PATH . 'UKMwp_admin-tweaks/css/tweak.adminmenu.css');
 }
