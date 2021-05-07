@@ -55,6 +55,12 @@ function UKMwpat_login_redirect( $user_login, $user=null ) {
         exit();
     }
     
+    // Sjekk $_POST['redirect_to'] med regexp for å redirecte    
+    if(isset($_POST['redirect_to']) && preg_match("/" . UKM_HOSTNAME . "\/wp-admin\/user\/index.php\\?post=[0-9]{0,6}$/", $_POST['redirect_to'])) {
+        header("Location: ". $_POST['redirect_to']);
+        exit();
+    }
+
     // Super admins skal til nettverksadmin
     if( is_super_admin($user->ID) ) {
         header("Location: ". get_blogaddress_by_id(1) . 'wp-admin/network/');
