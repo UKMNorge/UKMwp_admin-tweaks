@@ -21,6 +21,7 @@ require_once('tweak.video_on_top.php');
 add_filter('login_head', 'UKMwpat_login');
 // Bytt lost-password-lenken mot mailto:support@ukm.no
 add_action('lostpassword_url', 'UKMWpat_lostpassword' );
+add_filter( 'gettext', 'UKMWpat_change_lost_your_password' );
 
 add_action('wp_login', 'UKMwpat_login_redirect', 10, 2);
 add_filter('login_message', 'UKMwpat_login_message');

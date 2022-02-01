@@ -32,6 +32,19 @@ function UKMwpat_lostpassword() {
 }
 
 /**
+ * Overskriv teksten for glemt passord
+ *
+ * @param [type] $text
+ * @return String glemt passord-streng
+ */
+function UKMwpat_change_lost_your_password ($text) {
+    if ($text == 'Mistet passordet ditt?'){
+        $text = 'Glemt passordet?';
+    }
+    return $text;
+ }
+
+/**
  * Send brukeren til riktig sted etter login (user-center)
  *
  * @param [type] $user_login
