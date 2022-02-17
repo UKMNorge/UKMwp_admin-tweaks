@@ -23,6 +23,24 @@ function UKMwpat_login() {
 }
 
 /**
+ * Endrer url for videresending tilbake til forsiden
+ * 
+ * @return String ukm.no-url
+ */
+function UKMwpat_login_logo_url() {
+    return home_url();
+}
+
+/**
+ * Endrer teksten til UKM-logo
+ * 
+ * @return String ukm.no-url
+ */
+function UKMwpat_login_logo_url_title() {
+    return UKM_HOSTNAME;
+}
+
+/**
  * Overskriv lenken for glemt passord
  * 
  * @return String glemt passord-url

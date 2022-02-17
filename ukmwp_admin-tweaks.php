@@ -19,6 +19,11 @@ require_once('tweak.video_on_top.php');
 
 // Bytt ut WP-logoen med UKM-logoen på innloggingsskjermen
 add_filter('login_head', 'UKMwpat_login');
+
+// Endrer URL til UKM-logoen
+add_filter( 'login_headerurl', 'UKMwpat_login_logo_url' );
+add_filter( 'login_headertext', 'UKMwpat_login_logo_url_title' );
+
 // Bytt lost-password-lenken mot mailto:support@ukm.no
 add_action('lostpassword_url', 'UKMWpat_lostpassword' );
 add_filter( 'gettext', 'UKMWpat_change_lost_your_password' );
