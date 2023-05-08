@@ -42,9 +42,17 @@ function UKMwpat_add_roles() {
 	
 	$capabilities = array('read', 'ukmrfid_reports', 'ukm_sms');
 	add_role( 'ukm_rfid', 'UKM RFID Rapport', $capabilities);
+
+	$capabilities = array('read', 'ukm_deltakere');
+	add_role( 'ukm_deltakere_tilgang', 'Deltakere tilgang', $capabilities);
 }
 
 function UKMwpat_add_capabilities($wp_roles) {
+
+	# Tilgang til kun deltakere bruker
+	$ukm_deltakere_tilgang = get_role('ukm_deltakere_tilgang');
+	$ukm_deltakere_tilgang->add_cap('read');
+	$ukm_deltakere_tilgang->add_cap('ukm_deltakere');
 	
 	# RFID rapport-bruker
 	$ukm_rfid = get_role('ukm_rfid');
@@ -90,6 +98,7 @@ function UKMwpat_add_capabilities($wp_roles) {
 	
 	# UKM-arrangør
 	$editor = get_role('editor');
+	$editor->add_cap('ukm_deltakere');
 	$editor->add_cap('ukm_rapporter');
 	$editor->add_cap('ukm_playback');
 	$editor->add_cap('ukm_materiell');
