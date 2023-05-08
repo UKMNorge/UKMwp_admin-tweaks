@@ -44,7 +44,7 @@ function UKMwpat_add_roles() {
 	add_role( 'ukm_rfid', 'UKM RFID Rapport', $capabilities);
 
 	$capabilities = array('read', 'ukm_deltakere');
-	add_role( 'ukm_deltakere_tilgang', 'Deltakere tilgang', $capabilities);
+	add_role( 'ukm_deltakere_tilgang', 'UKM deltakere tilgang', $capabilities);
 }
 
 function UKMwpat_add_capabilities($wp_roles) {
