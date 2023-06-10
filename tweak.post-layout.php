@@ -20,13 +20,13 @@ function ukm_post_layout() {
 
 	// Finn current meta-tag
     $meta = get_post_meta($post->ID, 'UKM_block');
-    if( is_array($meta)) {
-        $meta = $meta[0];
-    }
 
     // Hvis det ikke er satt en UKMblock, prøv og se om viseng er støttet her
     if(!$meta) {
         $meta = get_post_meta($post->ID, 'UKMviseng');
+    }
+    if( is_array($meta)) {
+        $meta = $meta[0];
     }
 
 	$att = get_post_meta($post->ID, 'UKM_att');
@@ -51,6 +51,7 @@ function ukm_post_layout() {
             '<option '. ($meta == 'lead' ? 'selected' : '').' value="lead">Tekst til venstre</option>'.
             '<option '. ($meta == 'lead_center' ? 'selected' : '').' value="lead_center">Tekst sentrert</option>'.
             '<option '. ($meta == 'liste' ? 'selected' : '').' value="liste">Side med liste</option>'.
+            '<option '. ($meta == 'link-liste' ? 'selected' : '').' value="link-liste">Side med liste av lenker</option>'.
             '<option '. ($meta == 'list' ? 'selected' : '').' value="list">Liste-element</option>'.
         '</select>';
 
@@ -119,10 +120,21 @@ function ukm_post_layout_icon($visible) {
     if( is_array($ikon) ) {
         $ikon = $ikon[0];
     }
+    $lead = get_post_meta($post->ID, 'list_lead');
+    if(is_array($lead)) {
+        $lead = $lead[0];
+    }
     echo '<div id="ukm_post_layout_ikon" class="mt-3 '.($visible ? '' : 'hidden').'">'.
         'Skal liste-elementet ha ett ikon? I tilfelle kan du sette inn en emoji her: <br /> '.
         '<input type="text" style="width: 3em;" name="ukm_post_layout_ikon" value="'. $ikon .'" />'.
-        '</div>';
+        '</div>'.
+        
+        '<div id="ukm_post_layout_lead" class="mt-3 '.($visible ? '' : 'hidden').'">'.
+        'Hvilken tekst skal vises på liste-siden (hvis link-liste): <br /> '.
+        '<textarea rows="3" maxlength="150" name="ukm_post_layout_lead">'. $lead .'</textarea>'.
+        '</div>'
+        
+        ;
 }
 
 function ukm_post_layout_liste($visible) {
@@ -155,7 +167,7 @@ function ukm_post_layout_save() {
 		return false;
     }
 
-    $viseng = ['liste'];
+    $viseng = ['liste', 'link-liste'];
 
 
     switch( $style ) {
@@ -164,6 +176,11 @@ function ukm_post_layout_save() {
                 update_post_meta($post->ID, 'ikon', $_POST['ukm_post_layout_ikon']);
             } else {
                 add_post_meta($post->ID, 'ikon', $_POST['ukm_post_layout_ikon']);
+            }
+            if( get_post_meta($post->ID, 'list_lead') ) {
+                update_post_meta($post->ID, 'list_lead', $_POST['ukm_post_layout_lead']);
+            } else {
+                add_post_meta($post->ID, 'list_lead', $_POST['ukm_post_layout_lead']);
             }
         break;
     }
