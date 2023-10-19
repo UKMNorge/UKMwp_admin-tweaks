@@ -196,10 +196,16 @@ function changeAdminBarInfo() {
     global $wp_admin_bar;
 
     $navn = '';
+    $domClass = '';
 
     if(isset($_GET['omrade']) && isset($_GET['type'])) {
         $kommuneEllerFylke = $_GET['type'] == 'kommune' ? Omrade::getByKommune($_GET['omrade'])->getKommune() : Omrade::getByFylke($_GET['omrade'])->getFylke();
         $navn = $kommuneEllerFylke->getNavn(). ' - admin side';;
+    }
+    elseif(get_option('pl_id')) {
+        $arrangement = new Arrangement(get_option('pl_id'));
+        $navn = get_bloginfo('name') . ' - arrangmenet side </a><a class="vis-nettsiden-link" href="/'. $arrangement->getPath() .'"><span class="ab-icon dashicons dashicons-admin-home" style="margin-top: .1em;"></span><span class="navn">Vis nettsiden</span></a>';
+        $domClass = ' arrangement-side';
     }
     elseif(get_option('site_type') == 'kommune') {
         $kommune = new Kommune(get_option('Kommune'));
@@ -209,10 +215,6 @@ function changeAdminBarInfo() {
         $fylke = Fylker::getById(get_option('Fylke'));
         $navn = $fylke->getNavn(). ' - nettside redigering';
     }
-    elseif(is_network_admin() && get_option('pl_id')) {
-        $arrangement = new Arrangement(get_option('pl_id'));
-        $navn = $arrangement->getNavn(). ' - arrangmenet side';
-    }
     elseif(get_option('pl_id')){
         $navn = 'Arrangement admin side';
     }
@@ -221,7 +223,7 @@ function changeAdminBarInfo() {
         'id'    => 'wp-logo',
         'title' => '<img src="//grafikk.ukm.no/profil/logoer/UKM_logo_sort_0100.png" id="UKMlogo" />' . $navn,
         'href'  => user_admin_url(),
-        'meta'  => array('class' => 'kommune-fylke')
+        'meta'  => array('class' => 'kommune-fylke' . $domClass)
     );
     $wp_admin_bar->add_node($args);
 }
