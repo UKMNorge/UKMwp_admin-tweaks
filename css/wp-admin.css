@@ -17,10 +17,13 @@ html #wpadminbar {
 }
 
 #wp-admin-bar-wp-logo.kommune-fylke {
-    background: linear-gradient( 45deg, #ffffff, #aad2e6, #9bc9df) !important;
+    background: linear-gradient( 45deg, #ffffff, #d6d6d6, #aeaeae) !important;
     width: 100%;
     position: absolute;
     display: flex;
+}
+#wp-admin-bar-wp-logo.kommune-fylke.arrangement-side {
+    background: linear-gradient( 45deg, #ffffff, #aad2e6, #9bc9df) !important;
 }
 #wp-admin-bar-wp-logo.kommune-fylke:hover a {
     background: transparent !important;
@@ -28,6 +31,10 @@ html #wpadminbar {
 }
 #wpadminbar #wp-admin-bar-wp-logo.kommune-fylke>.ab-item {
     padding: 3px 15px;
+}
+#wpadminbar #wp-admin-bar-wp-logo.kommune-fylke>.vis-nettsiden-link {
+    font-size: 15px;
+    padding: 6px;
 }
 
 html.wp-toolbar {
