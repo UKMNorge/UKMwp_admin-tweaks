@@ -26,6 +26,9 @@ html #wpadminbar {
     background: transparent !important;
     color: #333 !important;
 }
+#wpadminbar #wp-admin-bar-wp-logo.kommune-fylke>.ab-item {
+    padding: 3px 15px;
+}
 
 html.wp-toolbar {
     padding-top: 3.5rem;
