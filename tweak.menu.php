@@ -219,7 +219,7 @@ function changeAdminBarInfo() {
 
     $args = array(
         'id'    => 'wp-logo',
-        'title' => '<img src="//grafikk.ukm.no/profil/logoer/UKM_logo_sort_0100.png" id="UKMlogo" />' . $navn . '<div>aa</div>',
+        'title' => '<img src="//grafikk.ukm.no/profil/logoer/UKM_logo_sort_0100.png" id="UKMlogo" />' . $navn,
         'href'  => user_admin_url(),
         'meta'  => array('class' => 'kommune-fylke')
     );
