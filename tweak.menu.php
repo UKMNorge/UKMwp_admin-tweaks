@@ -1,4 +1,11 @@
 <?php
+
+use UKMNorge\Arrangement\Arrangement;
+use UKMNorge\Geografi\Fylker;
+use UKMNorge\Geografi\Kommune;
+use UKMNorge\Nettverk\Omrade;
+
+
 function UKMwpat_tweak_menu_filter( $current_parent_file ) {
 	if( isset( $_GET['debug'] ) ) {
 		echo 'CURRENT_PARENT_FILE: '. $current_parent_file;
@@ -19,14 +26,35 @@ function UKMwpat_tweak_menu_remove() {
 	if( get_option('pl_id') ) {
         $menu[2][0] = 'Arrangement';
         $menu[2][6] = 'dashicons-buddicons-groups';
+
     } else {
-        $menu[2][0] = 'Startside';
-        $menu[2][6] = 'dashicons-smiley';
+        $kommuneEllerFylke = null;
+
+        if(get_option('site_type') == 'kommune') {
+            $kommuneEllerFylke = new Kommune(get_option('Kommune'));
+        }
+        elseif(get_option('site_type') == 'fylke') {
+            $kommuneEllerFylke = Fylker::getById(get_option('Fylke'));
+        }
+
+        if($kommuneEllerFylke != null) {
+            $menu[2][0] = 'Tilbake';
+            $menu[2][6] = 'dashicons-arrow-left-alt';
+            $menu[2][2] = '/wp-admin/user/admin.php?page=UKMnettverket_'. get_option('site_type') .'&omrade='. $kommuneEllerFylke->getId() .'&type='. get_option('site_type');
+        }
+        // echo "<pre>";
+        // var_dump($menu);
+        // echo "</pre>";
+        // die;
     }
+
+    add_action('wp_before_admin_bar_render', 'changeAdminBarInfo', 10001);
+
     
+    $nettsideNavn = get_option('pl_id') ? 'Arrangement ' : (get_option('site_type') == 'kommune' ? 'Kommune ' : (get_option('site_type') == 'fylke' ? 'Fylke ' : ''));
 	## ENDRE HOVEDMENY FRA WP
 	# POSTS = Nettside
-	$menu[5][0] = 'Nettside';
+	$menu[5][0] = $nettsideNavn.'nettside';
 	$menu[5][6] = 'dashicons-desktop';
 	$submenu['edit.php'][5][0] = 'Nyheter';
 	remove_submenu_page('edit.php', 'post-new.php');
@@ -163,4 +191,39 @@ function UKMwpat_tweak_network_menu() {
 		unset( $submenu['index.php'][15] );
 	}
 }
+
+function changeAdminBarInfo() {
+    global $wp_admin_bar;
+
+    $navn = '';
+
+    if(isset($_GET['omrade']) && isset($_GET['type'])) {
+        $kommuneEllerFylke = $_GET['type'] == 'kommune' ? Omrade::getByKommune($_GET['omrade'])->getKommune() : Omrade::getByFylke($_GET['omrade'])->getFylke();
+        $navn = $kommuneEllerFylke->getNavn(). ' - admin side';;
+    }
+    elseif(get_option('site_type') == 'kommune') {
+        $kommune = new Kommune(get_option('Kommune'));
+        $navn = $kommune->getNavn(). ' - nettside redigering';
+    }
+    elseif(get_option('site_type') == 'fylke') {
+        $fylke = Fylker::getById(get_option('Fylke'));
+        $navn = $fylke->getNavn(). ' - nettside redigering';
+    }
+    elseif(is_network_admin() && get_option('pl_id')) {
+        $arrangement = new Arrangement(get_option('pl_id'));
+        $navn = $arrangement->getNavn(). ' - arrangmenet side';
+    }
+    elseif(get_option('pl_id')){
+        $navn = 'Arrangement admin side';
+    }
+
+    $args = array(
+        'id'    => 'wp-logo',
+        'title' => '<img src="//grafikk.ukm.no/profil/logoer/UKM_logo_sort_0100.png" id="UKMlogo" />' . $navn . '<div>aa</div>',
+        'href'  => user_admin_url(),
+        'meta'  => array('class' => 'kommune-fylke')
+    );
+    $wp_admin_bar->add_node($args);
+}
+
 ?>
