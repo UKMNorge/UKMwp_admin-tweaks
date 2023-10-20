@@ -17,13 +17,13 @@ html #wpadminbar {
 }
 
 #wp-admin-bar-wp-logo.kommune-fylke {
-    background: linear-gradient( 45deg, #ffffff, #d6d6d6, #aeaeae) !important;
+    background: linear-gradient( 45deg, var(--color-primary-grey-lightest), var(--color-primary-grey-light), var(--color-primary-grey-medium)) !important;
     width: 100%;
     position: absolute;
     display: flex;
 }
 #wp-admin-bar-wp-logo.kommune-fylke.arrangement-side {
-    background: linear-gradient( 45deg, #ffffff, #aad2e6, #9bc9df) !important;
+    background: linear-gradient( 45deg, var(--color-primary-bla-lightest), var(--color-primary-bla-100), var(--color-primary-bla-200)) !important;
 }
 #wp-admin-bar-wp-logo.kommune-fylke:hover a {
     background: transparent !important;
