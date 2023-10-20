@@ -42,10 +42,6 @@ function UKMwpat_tweak_menu_remove() {
             $menu[2][6] = 'dashicons-arrow-left-alt';
             $menu[2][2] = '/wp-admin/user/admin.php?page=UKMnettverket_'. get_option('site_type') .'&omrade='. $kommuneEllerFylke->getId() .'&type='. get_option('site_type');
         }
-        // echo "<pre>";
-        // var_dump($menu);
-        // echo "</pre>";
-        // die;
     }
 
     add_action('wp_before_admin_bar_render', 'changeAdminBarInfo', 10001);
@@ -192,7 +188,7 @@ function UKMwpat_tweak_network_menu() {
 	}
 }
 
-function changeAdminBarInfo() {
+function changeAdminBarInfo($n=null) {
     global $wp_admin_bar;
 
     $navn = '';
@@ -221,7 +217,7 @@ function changeAdminBarInfo() {
 
     $args = array(
         'id'    => 'wp-logo',
-        'title' => '<img src="//grafikk.ukm.no/profil/logoer/UKM_logo_sort_0100.png" id="UKMlogo" />' . $navn,
+        'title' => '<img src="//grafikk.ukm.no/profil/logoer/UKM_logo_sort_0100.png" id="UKMlogo" />' . (strlen($navn) > 0 ? $navn : $n),
         'href'  => user_admin_url(),
         'meta'  => array('class' => 'kommune-fylke' . $domClass)
     );
