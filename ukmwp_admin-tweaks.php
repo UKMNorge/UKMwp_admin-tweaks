@@ -132,6 +132,7 @@ if(is_admin()){
 	add_action('login_head', 'tr_remove_reset_link_init');
 	add_filter('login_errors', 'tr_remove_reset_link');
     
+	wp_enqueue_style('UKMvideoArrSysStyle', '//assets.' . UKM_HOSTNAME . '//css/arr-sys.css');
     wp_enqueue_style('tweak_wp_admin', PLUGIN_PATH . 'UKMwp_admin-tweaks/css/wp-admin.css', 100000);
 }
 
