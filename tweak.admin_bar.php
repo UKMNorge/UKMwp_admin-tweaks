@@ -75,7 +75,7 @@ function UKMwpat_modify_toolbar()
             [
                 'id' => 'wp-logo',
                 'title' => '<img src="//grafikk.ukm.no/profil/logoer/UKM_logo_sort_0100.png" id="UKMlogo" />' .
-                    'Kontrollpanel',
+                    'Min side',
                 'href' => user_admin_url()
             ]
         );
@@ -110,19 +110,19 @@ function UKMwpat_modify_toolbar()
 
     
     if (is_admin() && !is_user_admin() && !is_network_admin()) {
-        $wp_admin_bar->add_node(
-            [
-                'id'    => 'site-link',
-                'title' => '<span class="ab-icon dashicons dashicons-admin-home" style="margin-top: .1em;"></span>Vis nettsiden',
-                'href'  => admin_url() . '../'
-            ]
-        );
+        // $wp_admin_bar->add_node(
+        //     [
+        //         'id'    => 'site-link',
+        //         'title' => '<span class="ab-icon dashicons dashicons-admin-home" style="margin-top: .1em;"></span>Vis nettsiden',
+        //         'href'  => admin_url() . '../'
+        //     ]
+        // );
     }   
 
     $wp_admin_bar->add_node(
         [
             'id'    => 'user',
-            'title' => '<span class="ab-icon dashicons dashicons-admin-users" style="margin-top: .1em;"></span>Kontrollpanel',
+            'title' => '<span class="ab-icon dashicons dashicons-admin-users" style="margin-top: .1em;"></span>Min side',
             'href'  => admin_url() . 'user/',
             'parent' => 'top-secondary'
         ]
