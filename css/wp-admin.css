@@ -19,8 +19,11 @@ html #wpadminbar {
 #wp-admin-bar-wp-logo.kommune-fylke {
     background: linear-gradient( 45deg, var(--color-primary-grey-lightest), var(--color-primary-grey-light), var(--color-primary-grey-medium)) !important;
     width: 100%;
-    position: absolute;
+    position: absolute !important;
     display: flex;
+}
+#wpadminbar li#wp-admin-bar-menu-toggle {
+    z-index: 999999;
 }
 #wp-admin-bar-wp-logo.kommune-fylke.arrangement-side {
     background: linear-gradient( 45deg, var(--color-primary-bla-lightest), var(--color-primary-bla-100), var(--color-primary-bla-200)) !important;
