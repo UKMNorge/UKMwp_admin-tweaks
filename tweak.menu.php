@@ -24,9 +24,34 @@ function UKMwpat_tweak_menu_remove() {
 	
 	// RENAME
 	if( get_option('pl_id') ) {
+        $arrangement = new Arrangement(get_option('pl_id'));
+        
+        // Arrangement tilbake knapp
+        if($arrangement->getEierType() != 'land') {
+            $menu[-5] = $menu[2];
+            $menu[-5][0] = 'Tilbake';
+            $menu[-5][1] = 'read';
+            $menu[-5][4] =  $menu[-5][4] . ' show-item-always';  
+            
+            if($arrangement->erSingelmonstring() || $arrangement->getEierType() == 'fylke') {
+                $kommuneEllerFylke = $arrangement->getEierType() == 'kommune' ? $arrangement->getKommune() : $arrangement->getFylke();
+                $link = '/wp-admin/user/admin.php?page=UKMnettverket_'. $arrangement->getEierType() .'&omrade='. $kommuneEllerFylke->getId() .'&type='. $arrangement->getEierType();
+                $menu[-5][0] = 'Tilbake til ' . ($arrangement->getEierType() == 'kommune' ? 'kommune' : ($arrangement->getEierType() == 'fylke' ? 'fylke' : ''));
+            } else { 
+                // flere kommuner funnet! Kan ikke gå tilbake til single kommune
+                $link = "javascript:history.go(-1)";
+                if(isset($_SERVER['HTTP_REFERER'])) {
+                    $link = $_SERVER['HTTP_REFERER'];
+                }
+            }
+
+            $menu[-5][2] = $link;
+            $menu[-5][6] = 'dashicons-arrow-left-alt';
+        }
+
         $menu[2][0] = 'Arrangement';
         $menu[2][6] = 'dashicons-buddicons-groups';
-
+        $menu[2][4] = $menu[2][4] . ' show-item-always';        
     } else {
         $kommuneEllerFylke = null;
 
@@ -40,8 +65,11 @@ function UKMwpat_tweak_menu_remove() {
         if($kommuneEllerFylke != null) {
             $menu[2][0] = 'Tilbake';
             $menu[2][6] = 'dashicons-arrow-left-alt';
+            $menu[2][4] = $menu[2][4] . ' show-item-always';        
             $menu[2][2] = '/wp-admin/user/admin.php?page=UKMnettverket_'. get_option('site_type') .'&omrade='. $kommuneEllerFylke->getId() .'&type='. get_option('site_type');
         }
+
+        
     }
 
     add_action('wp_before_admin_bar_render', 'changeAdminBarInfo', 10001);

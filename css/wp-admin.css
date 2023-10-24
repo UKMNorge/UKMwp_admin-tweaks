@@ -43,7 +43,7 @@ html #wpadminbar {
 html.wp-toolbar {
     padding-top: 3.5rem;
 }
-#menu-dashboard {
+#menu-dashboard:not(.show-item-always) {
     visibility: hidden;
     display: none;
 }
