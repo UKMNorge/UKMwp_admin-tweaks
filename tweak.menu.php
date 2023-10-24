@@ -36,7 +36,7 @@ function UKMwpat_tweak_menu_remove() {
             if($arrangement->erSingelmonstring() || $arrangement->getEierType() == 'fylke') {
                 $kommuneEllerFylke = $arrangement->getEierType() == 'kommune' ? $arrangement->getKommune() : $arrangement->getFylke();
                 $link = '/wp-admin/user/admin.php?page=UKMnettverket_'. $arrangement->getEierType() .'&omrade='. $kommuneEllerFylke->getId() .'&type='. $arrangement->getEierType();
-                $menu[-5][0] = 'Tilbake til ' . ($arrangement->getEierType() == 'kommune' ? 'kommune' : ($arrangement->getEierType() == 'fylke' ? 'fylke' : ''));
+                $menu[-5][0] = ($arrangement->getEierType() == 'kommune' ? $arrangement->getKommune()->getNavn() : ($arrangement->getEierType() == 'fylke' ? $arrangement->getFylke()->getNavn() : 'Tilbake'));
             } else { 
                 // flere kommuner funnet! Kan ikke gå tilbake til single kommune
                 $link = "javascript:history.go(-1)";
