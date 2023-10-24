@@ -43,6 +43,14 @@ html #wpadminbar {
 html.wp-toolbar {
     padding-top: 3.5rem;
 }
+#menu-dashboard {
+    visibility: hidden;
+    display: none;
+}
+#adminmenu {
+    margin-top: -1px;
+    border-top: none;
+}
 
 @media screen and (max-width: 600px) {
     html.wp-toolbar {
