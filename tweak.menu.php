@@ -200,7 +200,7 @@ function changeAdminBarInfo($n=null) {
     }
     elseif(get_option('pl_id')) {
         $arrangement = new Arrangement(get_option('pl_id'));
-        $navn = get_bloginfo('name') . ' - arrangmenet side </a><a class="vis-nettsiden-link" href="/'. $arrangement->getPath() .'"><span class="ab-icon dashicons dashicons-admin-home" style="margin-top: .1em;"></span><span class="navn">Vis nettsiden</span></a>';
+        $navn = get_bloginfo('name') . ' - arrangement side </a><a class="vis-nettsiden-link" href="/'. $arrangement->getPath() .'"><span class="ab-icon dashicons dashicons-admin-home" style="margin-top: .1em;"></span><span class="navn">Vis nettsiden</span></a>';
         $domClass = ' arrangement-side';
     }
     elseif(get_option('site_type') == 'kommune') {
