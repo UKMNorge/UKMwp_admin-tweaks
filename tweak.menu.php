@@ -182,7 +182,8 @@ function UKMwpat_tweak_network_menu() {
 
 	$menu[2][$_title] = 'Nettverket';
 	$menu[2][$_icon] = 'dashicons-rest-api';#https://ico.ukm.no/map-menu.png';
-
+	$menu[2][4] = $menu[2][4] . ' show-item-always';
+    
 	$menu[25][$_title] = 'Wordpress';
 	$menu[25][$_icon] = 'dashicons-wordpress';
 
