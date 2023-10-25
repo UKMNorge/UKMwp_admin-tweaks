@@ -35,6 +35,14 @@ add_action('show_user_profile', 'UKMwpat_profile_deactivated_warning');
 add_action('edit_user_profile', 'UKMwpat_profile_deactivated_warning');
 add_filter( 'user_contactmethods', 'UKMwpat_profile_fields' );
 add_filter( "user_user_phone_label", 'UKMwpat_profile_field_phone_description' );
+add_filter('manage_edit-wp-application-passwords_columns', 'custom_hide_application_password_columns');
+
+function custom_hide_application_password_columns($columns) {
+    // Remove the 'Actions' column to hide application passwords.
+    unset($columns['actions']);
+    return $columns;
+}
+
 
 function UKMwpat_profile_field_phone_description( $user ){
     echo 'Mobilnummer <br />'.
