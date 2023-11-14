@@ -87,7 +87,7 @@ function UKMwpat_login_redirect( $user_login, $user=null ) {
     }
     
     // Sjekk $_POST['redirect_to'] med regexp for å redirecte
-    $regexRedirect = UKM_HOSTNAME == 'ukm.no' ? "/^https:\/\/ukm\.no\/wp-admin\/.*$/" : "/^https:\/\/ukm\.dev\/wp-admin\/.*$/";
+    $regexRedirect = UKM_HOSTNAME == 'ukm.no' ? "/^https:\/\/ukm\.no\/.*$/" : "/^https:\/\/ukm\.dev\/.*$/";
     if(isset($_POST['redirect_to']) && preg_match($regexRedirect, $_POST['redirect_to']) && $_POST['redirect_to'] != 'https://'. UKM_HOSTNAME .'/wp-admin/') {
         header("Location: ". $_POST['redirect_to']);
         exit();
