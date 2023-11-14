@@ -86,8 +86,9 @@ function UKMwpat_login_redirect( $user_login, $user=null ) {
         exit();
     }
     
-    // Sjekk $_POST['redirect_to'] med regexp for å redirecte    
-    if(isset($_POST['redirect_to']) && preg_match("/" . UKM_HOSTNAME . "\/wp-admin\/user\/index.php\\?post=[0-9]{0,6}$/", $_POST['redirect_to'])) {
+    // Sjekk $_POST['redirect_to'] med regexp for å redirecte
+    $regexRedirect = UKM_HOSTNAME == 'ukm.no' ? "/^https:\/\/ukm\.no\/wp-admin\/.*$/" : "/^https:\/\/ukm\.dev\/wp-admin\/.*$/";
+    if(isset($_POST['redirect_to']) && preg_match($regexRedirect, $_POST['redirect_to']) && $_POST['redirect_to'] != 'https://'. UKM_HOSTNAME .'/wp-admin/') {
         header("Location: ". $_POST['redirect_to']);
         exit();
     }
