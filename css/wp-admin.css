@@ -215,5 +215,5 @@ ul#adminmenu>li.current>a.current:after {
 
 /* Skjul Get involved knappen */
 #wpadminbar li.hover>.ab-sub-wrapper,#wpadminbar.nojs li:hover>.ab-sub-wrapper {
-    display: none
+    display: none;
 }
