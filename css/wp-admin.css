@@ -212,3 +212,8 @@ ul#adminmenu a.wp-has-current-submenu:after,
 ul#adminmenu>li.current>a.current:after {
     display: none;
 }
+
+/* Skjul Get involved knappen */
+#wpadminbar li.hover>.ab-sub-wrapper,#wpadminbar.nojs li:hover>.ab-sub-wrapper {
+    display: none;
+}
