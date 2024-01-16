@@ -130,7 +130,7 @@ if(is_admin()){
     add_filter('manage_users_custom_column', 'UKMwpat_modify_user_column', 100, 3);
 
 	## PASSWORDS
-	add_filter('allow_password_reset', 'tr_restrict_password_reset');
+	// add_filter('allow_password_reset', 'tr_restrict_password_reset');
 	add_action('login_head', 'tr_remove_reset_link_init');
 	add_filter('login_errors', 'tr_remove_reset_link');
     
