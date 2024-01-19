@@ -16,6 +16,7 @@ jQuery(document).ready(function() {
         switch (jQuery(element).html()) {
             case 'Kontaktinfo':
             case 'Om deg':
+            case 'Om brukeren':
             case 'Navn':
                 jQuery(element).remove();
                 break;
