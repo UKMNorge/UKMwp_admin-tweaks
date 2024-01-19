@@ -12,3 +12,7 @@ html #adminmenu li.menu-top div.dashicons-wordpress-pink.wp-menu-image::before {
 #toplevel_page_users .wp-menu-name {
     color: #ff128b;
 }
+.form-table .user-description-wrap {
+    visibility: hidden !important;
+    display: none !important;
+}

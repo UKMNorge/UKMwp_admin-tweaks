@@ -33,7 +33,7 @@ add_filter('login_message', 'UKMwpat_login_message');
 add_filter('login_redirect', 'UKMwpat_login_rfid', 10, 3);
 add_action('show_user_profile', 'UKMwpat_profile_deactivated_warning');
 add_action('edit_user_profile', 'UKMwpat_profile_deactivated_warning');
-add_filter( 'user_contactmethods', 'UKMwpat_profile_fields' );
+// add_filter( 'user_contactmethods', 'UKMwpat_profile_fields' );
 add_filter( "user_user_phone_label", 'UKMwpat_profile_field_phone_description' );
 add_filter('wp_is_application_passwords_available', '__return_false');
 
@@ -122,7 +122,7 @@ if(is_admin()){
 	add_filter('upload_mimes', 'UKMwpat_upload_mimes');
 	
 	## USERS (EDIT FORM)
-	add_filter('user_contactmethods','UKMwpat_user_remove_controls',10,1);
+	// add_filter('user_contactmethods','UKMwpat_user_remove_controls',10,1);
     add_action( 'admin_enqueue_scripts', 'UKMwpat_users_form' );
     
     ## USERS (TABELL)
@@ -162,3 +162,15 @@ function UKMwpat_load_scripts_and_styles() {
     wp_enqueue_style('tweak_adminmenu', PLUGIN_PATH . 'UKMwp_admin-tweaks/css/tweak.adminmenu.css');
 	wp_enqueue_style('UKMArrSysStyle');
 }
+
+
+
+
+// Prevent WordPress from saving the biography data because biography
+function prevent_biography_save($userId) {
+    if (isset($_POST['description'])) {
+        unset($_POST['description']);
+    }
+}
+add_action('personal_options_update', 'prevent_biography_save');
+add_action('edit_user_profile_update', 'prevent_biography_save');
