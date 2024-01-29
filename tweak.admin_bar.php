@@ -162,7 +162,7 @@ function UKMwpat_modify_toolbar()
             ]
         );
 
-        wp_reset_postdata();
+        
 
         $args = array(
             'post_type'      => 'page', // Adjust to your custom post type if needed
@@ -175,6 +175,8 @@ function UKMwpat_modify_toolbar()
 
         if ($child_posts_query->have_posts()) {
             while ($child_posts_query->have_posts()) {
+                $child_posts_query->the_post();
+
                 $post_id = get_the_ID();
                 $postPathUnderside = null;
 
@@ -191,8 +193,6 @@ function UKMwpat_modify_toolbar()
                         'href'   => $postPathUnderside ? $postPathUnderside : network_admin_url('site-info.php?id=' . get_current_blog_id()),
                     ]
                 );
-                
-                $child_posts_query->the_post();
             }
 
             wp_reset_postdata();
