@@ -34,17 +34,21 @@ add_filter('login_redirect', 'UKMwpat_login_rfid', 10, 3);
 add_action('show_user_profile', 'UKMwpat_profile_deactivated_warning');
 add_action('edit_user_profile', 'UKMwpat_profile_deactivated_warning');
 // add_filter( 'user_contactmethods', 'UKMwpat_profile_fields' );
+add_filter( "user_contactmethods", 'display_user_phone_number' );
 add_filter( "user_user_phone_label", 'UKMwpat_profile_field_phone_description' );
 add_filter('wp_is_application_passwords_available', '__return_false');
 
 
+// Display user phone number in user profiles
+function display_user_phone_number($user_contactmethods) {
+	$user_contactmethods['user_phone'] = 'Mobilnummer';
+    return $user_contactmethods;
+}
+
 function UKMwpat_profile_field_phone_description( $user ){
     echo 'Mobilnummer <br />'.
     '<small>'.
-    'Kontaktpunkt for UKM Norge.<br />'.
-    'OBS: Før du har opprettet arrangement vises dette på UKM.no. '.
-    'Når du har ett eller flere arrangement, vises kontaktpersoner for disse på UKM.no'.
-    '</small>';
+    'Kontaktpunkt for UKM Norge';
 }
 
 add_filter('screen_options_show_screen', 'UKMdeactivate_screen_options');
