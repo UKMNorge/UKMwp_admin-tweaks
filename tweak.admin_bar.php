@@ -170,32 +170,35 @@ function UKMwpat_modify_toolbar()
             'posts_per_page' => -1, // Retrieve all posts
         );
         
-        // Henter subsider
-        $child_posts_query = new WP_Query($args);
+        // Hvis vi ikke er i nettverksadmin
+        if (!is_network_admin()) {        
+            // Henter subsider
+            $child_posts_query = new WP_Query($args);
 
-        if ($child_posts_query->have_posts()) {
-            while ($child_posts_query->have_posts()) {
-                $child_posts_query->the_post();
+            if ($child_posts_query->have_posts()) {
+                while ($child_posts_query->have_posts()) {
+                    $child_posts_query->the_post();
 
-                $post_id = get_the_ID();
-                $postPathUnderside = null;
+                    $post_id = get_the_ID();
+                    $postPathUnderside = null;
 
-                if($post_id) {
-                    $current_post = get_post($post_id);
-                    $postPathUnderside = admin_url() . '/post.php/?post='. $current_post->ID .'&action=edit';
+                    if($post_id) {
+                        $current_post = get_post($post_id);
+                        $postPathUnderside = admin_url() . '/post.php/?post='. $current_post->ID .'&action=edit';
+                    }
+                    
+                    $wp_admin_bar->add_node(
+                        [
+                            'parent' => 'edit-site',
+                            'id'     => 'edit-undersite' . get_the_ID(),
+                            'title' => '<span>'.  get_the_title() .'</span>',
+                            'href'   => $postPathUnderside ? $postPathUnderside : network_admin_url('site-info.php?id=' . get_current_blog_id()),
+                        ]
+                    );
                 }
-                
-                $wp_admin_bar->add_node(
-                    [
-                        'parent' => 'edit-site',
-                        'id'     => 'edit-undersite' . get_the_ID(),
-                        'title' => '<span>'.  get_the_title() .'</span>',
-                        'href'   => $postPathUnderside ? $postPathUnderside : network_admin_url('site-info.php?id=' . get_current_blog_id()),
-                    ]
-                );
-            }
 
-            wp_reset_postdata();
+                wp_reset_postdata();
+            }
         }
 
     } else {
