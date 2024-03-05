@@ -178,3 +178,36 @@ function prevent_biography_save($userId) {
 }
 add_action('personal_options_update', 'prevent_biography_save');
 add_action('edit_user_profile_update', 'prevent_biography_save');
+
+
+// Add page edit capability to editor role
+function add_page_edit_capability_to_editor_role() {
+    $editor_role = get_role('editor');
+    $editor_role->add_cap('edit_pages');
+    $editor_role->add_cap('edit_others_pages');
+    $editor_role->add_cap('publish_pages');
+}
+add_action('init', 'add_page_edit_capability_to_editor_role');
+
+// Prevent access to WordPress pages created by UKM by other users
+function prevent_access_to_wordpress_pages_created_by_ukm() {
+	if(is_super_admin()) {
+		return;
+	}
+
+	// Sjekk hvis det er admin og at det er på redigering av en side
+    if (is_admin() && isset($_GET['post']) && isset($_GET['action']) && $_GET['action'] === 'edit') {
+		$post_id = $_GET['post'];
+		$current_post = get_post($post_id);
+		
+		// Liste me sider som opprettes av systemet og kan ikke redigeres fra brukere
+		$excluded_page_slugs = array('bilder', 'kontaktpersoner', 'forside', 'nyheter', 'pameldte', 'program', 'lokalmonstringer', 'deltakerprogram', 'testside');
+
+		// Hvis brukeren prøver å redigere en system side
+		if ($current_post && in_array(get_post_field('post_name', $current_post), $excluded_page_slugs)) {
+			throw new Exception("Du har ikke tilgang til denne siden. '". get_post_field('post_name', $current_post) ."' brukes i systemet og kan ikke redigeres. Kontakt support@ukm.no for mer informasjon!");
+            exit;
+        }
+    }
+}
+add_action('admin_init', 'prevent_access_to_wordpress_pages_created_by_ukm');
