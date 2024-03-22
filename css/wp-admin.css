@@ -13,7 +13,7 @@ body.wp-admin {
 
 html #wpadminbar {
     background: linear-gradient( 45deg, #fff056, #ff128b);
-    height: 3.5rem;
+    height: 50px;
 }
 
 #wp-admin-bar-wp-logo.kommune-fylke {
@@ -114,9 +114,25 @@ html #wpadminbar #wp-admin-bar-wp-logo a {
 .wp-responsive-open #wpadminbar #wp-admin-bar-menu-toggle a,
 .wp-responsive-open #wpadminbar #wp-admin-bar-menu-toggle .ab-icon:before {
     background: none !important;
-    color: #fff !important;
+    /* color: #fff !important; */
 }
+#wpadminbar #wp-admin-bar-menu-toggle a {
+    height: 32px !important;
+    width: 43px !important;
+    display: flex !important;
+}
+#wpadminbar #wp-admin-bar-menu-toggle a .ab-icon {
+    padding: 6px 3px !important;
+    display: flex !important;
+    margin: auto;
+}
+#wpadminbar #wp-admin-bar-menu-toggle a .ab-icon {
+    height: 20px !important;
+    width: 40px !important;
+}
+#wpadminbar #wp-admin-bar-menu-toggle a .ab-icon::before {
 
+}
 #wpadminbar a,
 #wpadminbar .ab-icon,
 #wpadminbar a:hover,
@@ -125,16 +141,31 @@ html #wpadminbar #wp-admin-bar-wp-logo a {
     color: #000;
 }
 
+#wpadminbar #wp-admin-bar-menu-toggle .ab-icon:before {
+    content: "\f345";
+    font-size: 22px !important;
+    position: absolute;
+    top: 0;
+    width: 40px;
+    height: 30px;
+    font: normal 40px/35px dashicons;
+}
+
 @media screen and (max-width: 782px) {
     #wpadminbar li#wp-admin-bar-menu-toggle {
-        float: right;
-        margin-top: .3em;
+        float: left;
+        margin: 10px 15px;
+    }
+    #wp-admin-bar-menu-toggle {
+        display: block;
     }
     #wpadminbar li#wp-admin-bar-wp-logo {
         display: block;
     }
 }
-
+#wp-admin-bar-wp-logo {
+    height: 50px;;
+}
 
 /* ADMIN MENY */
 
@@ -216,4 +247,61 @@ ul#adminmenu>li.current>a.current:after {
 /* Skjul Get involved knappen */
 #wpadminbar li.hover>.ab-sub-wrapper,#wpadminbar.nojs li:hover>.ab-sub-wrapper {
     display: none;
+}
+
+/* Dropdown bruker */
+#arrangorBrukerMenu {
+    position: absolute;
+    left: -150px;
+    margin-top: 4px;
+    width: 150px;
+    box-shadow: 0px 0px 5px 2px #9a9a9a4f !important;
+    border-radius: 10px !important;
+    width: 200px;
+    overflow: hidden;
+}
+#arrangorBrukerMenu .mainpage .dropdown-item.drop-item {
+    padding: 8px 16px !important;
+}
+#buttonBrukerMenu {
+    height: 30px;
+}
+#buttonBrukerMenu button {
+    background: transparent;
+    height: 32px !important;
+    width: 23px !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 10px !important;
+    border-radius: var(--radius-normal);
+    transition: all .1s;
+}
+#wp-admin-bar-menu-toggle .ab-item {
+    border-radius: var(--radius-normal);
+    transition: all .1s;
+}
+#buttonBrukerMenu button:hover,
+#wpadminbar #wp-admin-bar-menu-toggle a:hover {
+    background-color: #fff !important;
+    transition: all .1s;
+}
+#buttonBrukerMenu button .hamburger-inner {
+    background-color: #000000 !important;
+    width: 100% !important;
+    height: 3px;
+    border-radius: 10px !important;
+    margin: 5px 0;
+}
+#wp-admin-bar-logout {
+    margin-right: 15px !important;
+    display: inline-block !important;
+}
+#wp-admin-bar-logout:hover .ab-item {
+    background: transparent !important;
+}
+#wp-admin-bar-logout .ab-item {
+    padding: 0 !important;
+}
+#arrangorBrukerMenu .mainpage .drop-item:hover {
+    background: var(--color-primary-grey-lightest) !important;
 }

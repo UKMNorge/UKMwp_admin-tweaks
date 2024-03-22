@@ -119,14 +119,14 @@ function UKMwpat_modify_toolbar()
         // );
     }   
 
-    $wp_admin_bar->add_node(
-        [
-            'id'    => 'user',
-            'title' => '<span class="ab-icon dashicons dashicons-admin-users" style="margin-top: .1em;"></span>Min side',
-            'href'  => admin_url() . 'user/',
-            'parent' => 'top-secondary'
-        ]
-    );
+    // $wp_admin_bar->add_node(
+    //     [
+    //         'id'    => 'user',
+    //         'title' => '<span class="ab-icon dashicons dashicons-admin-users" style="margin-top: .1em;"></span>Min side',
+    //         'href'  => admin_url() . 'user/',
+    //         'parent' => 'top-secondary'
+    //     ]
+    // );
 
 
 
@@ -202,19 +202,45 @@ function UKMwpat_modify_toolbar()
         }
 
     } else {
-        $wp_admin_bar->add_node(
-            array(
-                'id'    => 'ukm_support',
-                'title' => '<span class="ab-icon dashicons dashicons-sos" style="margin-top: .1em;"></span> Brukerstøtte',
-                'href'  => '/wp-admin/user/admin.php?page=UKMwpd_support',
-                'parent' => 'top-secondary'
-            )
-        );
+        // $wp_admin_bar->add_node(
+        //     array(
+        //         'id'    => 'ukm_support',
+        //         'title' => '<span class="ab-icon dashicons dashicons-sos" style="margin-top: .1em;"></span> Brukerstøtte',
+        //         'href'  => '/wp-admin/user/admin.php?page=UKMwpd_support',
+        //         'parent' => 'top-secondary'
+        //     )
+        // );
     }
+
+    $logout_url = wp_nonce_url('/wp-login.php?action=logout', 'log-out');
     $wp_admin_bar->add_node(
         [
             'id'        => 'logout', // id of the existing child node
-            'title'        => '<span class="ab-icon dashicons dashicons-no-alt" style="margin-top: .13em;"></span> Logg ut &nbsp;',
+            'href' => '',
+            'title'        => '
+            <div id="buttonBrukerMenu" class="active">
+                <button class="hamburger-button hamburger nav-item dropdown" style="background: transparent" id="login-meny" href="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="hamburger-inner"></div>
+                    <div class="hamburger-inner"></div>
+                </button>
+                <div id="arrangorBrukerMenu" class="hamburger-menu dropdown-menu dropdown-menu-right as-card-1" aria-labelledby="DropdownLoginLink">
+                    <div class="mainpage">
+                            <a href="//'. UKM_HOSTNAME .'/wp-admin/user/" class="dropdown-item drop-item">
+                                Min side
+                            </a>
+                            <a href="//'. UKM_HOSTNAME .'/wp-admin/user/profile.php" class="dropdown-item drop-item">
+                                Min profil
+                            </a>
+                            <a href="//'. UKM_HOSTNAME .'/wp-admin/user/admin.php?page=UKMwpd_support" class="dropdown-item drop-item">
+                                Brukerstøtte
+                            </a>
+                            <a href="'. esc_url($logout_url) .'" class="dropdown-item drop-item">
+                                Logg ut
+                            </a>
+                        </div>
+                    </div>
+            </div>
+            ',
             'parent'    => 'top-secondary',
         ]
     );
