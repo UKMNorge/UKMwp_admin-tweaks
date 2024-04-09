@@ -237,7 +237,7 @@ html #wpadminbar #wp-admin-bar-wp-logo a {
     }
     .min-side-main-div, .main-side-left {
         padding-left: 0 !important;
-        padding-left: 0 !important;
+        padding-right: 0 !important;
     }
     .min-side-main-div, .main-side-left {
         /* reverse display */
