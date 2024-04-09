@@ -72,7 +72,7 @@ html.wp-toolbar {
         padding-top: .5rem;
     }
     html #wpadminbar {
-        margin-top: -.5rem;
+        margin-top: -.5rem !important;
     }
     html #wpwrap.wp-responsive-open {
         padding-top: .5rem;
@@ -227,6 +227,19 @@ html #wpadminbar #wp-admin-bar-wp-logo a {
         font-size: 17px;
     }
 }
+@media screen and (max-width: 960px) {
+    .velkommen-til-minside {
+        display: none;
+    }
+    .min-side-main-div, .main-side-left {
+        /* reverse display */
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    #upcomingEvents {
+        margin-top: calc(2*var(--initial-space-box));
+    }
+}
 .komm-fyl-arr-div .title-at-ukmlogo {
     margin-bottom: 0px !important;
 }
@@ -236,7 +249,6 @@ html #wpadminbar #wp-admin-bar-wp-logo a {
 #wp-admin-bar-wp-logo {
     height: 50px;;
 }
-
 /* ADMIN MENY */
 
 
