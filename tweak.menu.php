@@ -243,11 +243,13 @@ function changeAdminBarInfo($n=null) {
     elseif(get_option('pl_id')){
         $navn = 'Arrangement admin side';
     }
+    else {
+        $navn = 'UKM Norge';
+    }
 
     $args = array(
         'id'    => 'wp-logo',
-        'title' => '<img src="//grafikk.ukm.no/profil/logoer/UKM_logo_sort_0100.png" id="UKMlogo" />' . (strlen($navn) > 0 ? $navn : $n),
-        'href'  => user_admin_url(),
+        'title' => '<div class="komm-fyl-arr-div"><img src="//grafikk.ukm.no/profil/logoer/UKM_logo_sort_0100.png" id="UKMlogo" /><span class="title-at-ukmlogo">' . (strlen($navn) > 0 ? $navn : $n) .'</span></div>',
         'meta'  => array('class' => 'kommune-fylke' . $domClass)
     );
     $wp_admin_bar->add_node($args);

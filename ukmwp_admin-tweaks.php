@@ -165,6 +165,8 @@ function UKMwpat_load_scripts_and_styles() {
     wp_enqueue_script( 'ukmwpat_adminmenu_js', PLUGIN_PATH . 'UKMwp_admin-tweaks/js/tweak.adminmenu.js');
     wp_enqueue_style('tweak_adminmenu', PLUGIN_PATH . 'UKMwp_admin-tweaks/css/tweak.adminmenu.css');
 	wp_enqueue_style('UKMArrSysStyle');
+	wp_enqueue_style('WPbootstrap3_css', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
+	wp_enqueue_script('WPbootstrap3_js', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js');
 }
 
 
