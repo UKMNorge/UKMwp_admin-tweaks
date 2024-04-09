@@ -75,7 +75,7 @@ function UKMwpat_modify_toolbar()
             [
                 'id' => 'wp-logo',
                 'title' => '<img src="//grafikk.ukm.no/profil/logoer/UKM_logo_sort_0100.png" id="UKMlogo" />' .
-                    'Min side',
+                    '<span class="title-at-ukmlogo">Min side</span>',
                 'href' => user_admin_url()
             ]
         );
@@ -84,7 +84,7 @@ function UKMwpat_modify_toolbar()
             [
                 'id' => 'wp-logo',
                 'title' => '<img src="//grafikk.ukm.no/profil/logoer/UKM_logo_sort_0100.png" id="UKMlogo" />' .
-                    'UKM Norge-admin',
+                    '<span class="title-at-ukmlogo">UKM Norge-admin</span>',
                 'href' => network_admin_url()
             ]
         );
@@ -92,8 +92,8 @@ function UKMwpat_modify_toolbar()
         $wp_admin_bar->add_node(
             [
                 'id' => 'wp-logo',
-                'title' => '<img src="//grafikk.ukm.no/profil/logoer/UKM_logo_sort_0100.png" id="UKMlogo"  />' .
-                    get_bloginfo('name'),
+                'title' => '<div><img src="//grafikk.ukm.no/profil/logoer/UKM_logo_sort_0100.png" id="UKMlogo"  />' .
+                    '<span class="title-at-ukmlogo">'. get_bloginfo('name') .'</span>',
                 'href' => admin_url()
             ]
         );
@@ -102,7 +102,7 @@ function UKMwpat_modify_toolbar()
             [
                 'id' => 'wp-logo',
                 'title' => '<img src="//grafikk.ukm.no/profil/logoer/UKM_logo_hvit_0100.png" id="UKMlogo" style="width: 2.7em;margin-top: -.4em;margin-right: .5em;" />' .
-                    get_bloginfo('name'),
+                    '<span class="title-at-ukmlogo">'. get_bloginfo('name') .'</span>',
                 'href' => admin_url()
             ]
         );
@@ -219,6 +219,9 @@ function UKMwpat_modify_toolbar()
             'href' => '',
             'title'        => '
             <div id="buttonBrukerMenu" class="active">
+               
+              
+
                 <button class="hamburger-button hamburger nav-item dropdown" style="background: transparent" id="login-meny" href="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="hamburger-inner"></div>
                     <div class="hamburger-inner"></div>

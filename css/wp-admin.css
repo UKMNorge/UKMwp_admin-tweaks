@@ -32,12 +32,27 @@ html #wpadminbar {
     background: transparent !important;
     color: #333 !important;
 }
-#wpadminbar #wp-admin-bar-wp-logo.kommune-fylke>.ab-item {
+#wpadminbar #wp-admin-bar-wp-logo.kommune-fylke .ab-item {
     padding: 3px 15px;
 }
-#wpadminbar #wp-admin-bar-wp-logo.kommune-fylke>.vis-nettsiden-link {
+#wpadminbar #wp-admin-bar-wp-logo.kommune-fylke .vis-nettsiden-link {
     font-size: 15px;
     padding: 6px;
+    height: auto !important;
+    display: flex;
+}
+#wpadminbar #wp-admin-bar-wp-logo.kommune-fylke .vis-nettsiden-link .dashicons {
+    margin: auto !important;
+}
+#wpadminbar #wp-admin-bar-wp-logo.kommune-fylke .vis-nettsiden-link .navn {
+    margin: auto;
+    margin-left: 5px;
+}
+#wpadminbar #wp-admin-bar-wp-logo.kommune-fylke .vis-nettsiden-link:hover {
+    background-color: #fff !important;
+}
+#adminmenuback, #adminmenuwrap{
+    margin-top: 0 !important;
 }
 
 html.wp-toolbar {
@@ -89,15 +104,40 @@ html #wpadminbar #wp-admin-bar-wp-logo a {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
     font-weight: 200;
 }
+#wp-admin-bar-wp-logo.arrangement-side>.ab-item {
+    display: none !important;
+}
+#wp-admin-bar-wp-logo.arrangement-side .komm-fyl-arr-div .ab-item  {
+    display: flex;
+}
 
 #wpadminbar #UKMlogo {
     height: 2.1em;
-    margin-right: .5em;
-    margin-top: -1em;
+    margin: auto;
+}
+
+#wpadminbar .title-at-ukmlogo {
+    font-size: 18px;
+    margin: auto;
+    margin-bottom: 3px;
+    margin-left: 10px;
+    max-height: 40px;
+}
+.title-at-ukmlogo {
+    overflow: hidden;
 }
 
 #wpadminbar #wp-admin-bar-wp-logo>.ab-item {
     padding: .6rem .6rem .4rem .6rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 100% !important;
+    display: flex;
+    padding-left: 15px;
+}
+#wpadminbar #wp-admin-bar-wp-logo.kommune-fylke .ab-item {
+    background-color: transparent;
+    height: auto !important;
 }
 
 #wpadminbar .ab-icon,
@@ -117,9 +157,10 @@ html #wpadminbar #wp-admin-bar-wp-logo a {
     /* color: #fff !important; */
 }
 #wpadminbar #wp-admin-bar-menu-toggle a {
-    height: 32px !important;
+    height: 30px !important;
     width: 43px !important;
     display: flex !important;
+    overflow: hidden;
 }
 #wpadminbar #wp-admin-bar-menu-toggle a .ab-icon {
     padding: 6px 3px !important;
@@ -130,9 +171,11 @@ html #wpadminbar #wp-admin-bar-wp-logo a {
     height: 20px !important;
     width: 40px !important;
 }
-#wpadminbar #wp-admin-bar-menu-toggle a .ab-icon::before {
-
-}
+#wpadminbar #wp-admin-bar-menu-toggle .ab-item[aria-expanded="true"] .ab-icon::before {
+    transform: scaleX(-1);
+    transition: .1s;
+    left: 0 !important;
+}   
 #wpadminbar a,
 #wpadminbar .ab-icon,
 #wpadminbar a:hover,
@@ -145,10 +188,12 @@ html #wpadminbar #wp-admin-bar-wp-logo a {
     content: "\f345";
     font-size: 22px !important;
     position: absolute;
-    top: 0;
+    top: -2px;
     width: 40px;
     height: 30px;
     font: normal 40px/35px dashicons;
+    transition: .1s;
+    left: 2px !important;
 }
 
 @media screen and (max-width: 782px) {
@@ -162,6 +207,31 @@ html #wpadminbar #wp-admin-bar-wp-logo a {
     #wpadminbar li#wp-admin-bar-wp-logo {
         display: block;
     }
+    .komm-fyl-arr-div {
+        margin-left: 50px !important;
+    }
+    .komm-fyl-arr-div #UKMlogo {
+        height: 2.1em;
+        margin: 7px auto !important;
+    }
+    .komm-fyl-arr-div .title-at-ukmlogo {
+        display: none !important;
+    }
+    #wpadminbar #wp-admin-bar-wp-logo.kommune-fylke .vis-nettsiden-link .dashicons {
+        display: none;
+    }
+    #wpadminbar #wp-admin-bar-wp-logo.kommune-fylke .vis-nettsiden-link .navn {
+        margin: auto 0;
+    }
+    .news .header a {
+        font-size: 17px;
+    }
+}
+.komm-fyl-arr-div .title-at-ukmlogo {
+    margin-bottom: 0px !important;
+}
+.komm-fyl-arr-div {
+    display: flex;
 }
 #wp-admin-bar-wp-logo {
     height: 50px;;
@@ -304,4 +374,7 @@ ul#adminmenu>li.current>a.current:after {
 }
 #arrangorBrukerMenu .mainpage .drop-item:hover {
     background: var(--color-primary-grey-lightest) !important;
+}
+.news .header a {
+    word-break: break-word;
 }
