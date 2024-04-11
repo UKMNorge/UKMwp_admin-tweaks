@@ -67,8 +67,14 @@ html.wp-toolbar {
     display: none;
 }
 #adminmenu {
-    margin-top: -1px;
+    margin-top: 3px;
     border-top: none;
+}
+.news-item-inner, .min-side-nyheter-row {
+    padding: 7px;
+}
+.col-xs-6.news-item {
+    padding: 0;
 }
 
 @media screen and (max-width: 600px) {
@@ -81,6 +87,9 @@ html.wp-toolbar {
     html #wpwrap.wp-responsive-open {
         padding-top: .5rem;
         margin-top: -.5rem;
+    }
+    #adminmenu {
+        margin-top: -3px;
     }
 }
 
@@ -230,6 +239,9 @@ html #wpadminbar #wp-admin-bar-wp-logo a {
     .news .header a {
         font-size: 17px;
     }
+    .auto-fold #wpcontent {
+        padding-left: 0;
+    }
 }
 @media screen and (max-width: 960px) {
     .velkommen-til-minside {
@@ -248,6 +260,9 @@ html #wpadminbar #wp-admin-bar-wp-logo a {
         margin-top: calc(2*var(--initial-space-box));
     }
 }
+.row {
+    margin-left: -15px !important;
+}
 .komm-fyl-arr-div .title-at-ukmlogo {
     margin-bottom: 0px !important;
 }
@@ -256,6 +271,9 @@ html #wpadminbar #wp-admin-bar-wp-logo a {
 }
 #wp-admin-bar-wp-logo {
     height: 50px;;
+}
+.siste-nyheter-minside {
+
 }
 
 /* ADMIN MENY */
