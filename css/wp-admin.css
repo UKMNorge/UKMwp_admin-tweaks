@@ -83,6 +83,9 @@ html.wp-toolbar {
 .news-item-inner, .min-side-nyheter-row {
     padding: 7px;
 }
+.news-item-inner, .news {
+    overflow: hidden;
+}
 .col-xs-6.news-item {
     padding: 0;
 }
@@ -290,6 +293,7 @@ html #wpadminbar #wp-admin-bar-wp-logo a {
 .news-image-div {
     position: relative;
     display: flex;
+    margin: -8px;
 }
 .news-image-div img {
     margin: auto;
