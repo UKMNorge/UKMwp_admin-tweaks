@@ -92,6 +92,11 @@ html.wp-toolbar {
         margin-top: -3px;
     }
 }
+@media screen and (max-width: 500px) {
+    .news-item-inner .news .story .meta {
+        display: grid !important;
+    }
+}
 
 html #wpadminbar #wp-admin-bar-wp-logo a,
 html #wpadminbar #wp-admin-bar-top-secondary {
@@ -276,11 +281,18 @@ html #wpadminbar #wp-admin-bar-wp-logo a {
     position: relative;
     display: flex;
 }
-.news-image-div img, .news-item-inner .news .story .meta {
+.news-image-div img {
     margin: auto;
     width: 100%;
-    display: grid;
+    border: none !important;
+}
+.news-item-inner .news .story .meta {
+    background: var(--color-primary-grey-lightest);
+    padding: var(--initial-space-box) !important;
+    margin: auto;
+    width: 100%;
     border: none;
+    display: block;
 }
 
 /* ADMIN MENY */
