@@ -16,8 +16,15 @@ body.wp-admin {
 }
 
 html #wpadminbar {
-    background: linear-gradient( 45deg, #fff056, #ff128b);
+    margin-top: -.5rem !important;
+    background: #fff;
+    /* border: solid 1px; */
+    border-top-right-radius: 0 !important;
+    border-top-left-radius: 0 !important;
     height: 50px;
+    box-shadow: 0 2px 7px #00000014;
+    background-color: #fff;
+    border-radius: var(--radius-minimal);
 }
 
 #wp-admin-bar-wp-logo.kommune-fylke {
@@ -67,8 +74,11 @@ html.wp-toolbar {
     display: none;
 }
 #adminmenu {
-    margin-top: 3px;
+    margin-top: -2px;
     border-top: none;
+}
+#adminmenu>li.wp-menu-separator {
+    display: none;
 }
 .news-item-inner, .min-side-nyheter-row {
     padding: 7px;
@@ -293,6 +303,9 @@ html #wpadminbar #wp-admin-bar-wp-logo a {
     width: 100%;
     border: none;
     display: block;
+}
+.ab-sub-wrapper {
+    display: none !important;
 }
 
 /* ADMIN MENY */
