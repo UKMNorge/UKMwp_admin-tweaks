@@ -272,8 +272,15 @@ html #wpadminbar #wp-admin-bar-wp-logo a {
 #wp-admin-bar-wp-logo {
     height: 50px;;
 }
-.siste-nyheter-minside {
-
+.news-image-div {
+    position: relative;
+    display: flex;
+}
+.news-image-div img, .news-item-inner .news .story .meta {
+    margin: auto;
+    width: 100%;
+    display: grid;
+    border: none;
 }
 
 /* ADMIN MENY */
