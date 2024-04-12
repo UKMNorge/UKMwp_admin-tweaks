@@ -255,7 +255,10 @@ html #wpadminbar #wp-admin-bar-wp-logo a {
         margin: auto 0;
     }
     .news .header a {
-        font-size: 17px;
+        font-size: 15px;
+    }
+    .news .header {
+        margin-top: var(--initial-space-box);
     }
     .auto-fold #wpcontent {
         padding-left: 0;
