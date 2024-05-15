@@ -302,6 +302,7 @@ html #wpadminbar #wp-admin-bar-wp-logo a {
     margin: auto;
     width: 100%;
     border: none !important;
+    max-width: 500px;
 }
 .news-item-inner .news .story .meta {
     background: var(--color-primary-grey-lightest);
