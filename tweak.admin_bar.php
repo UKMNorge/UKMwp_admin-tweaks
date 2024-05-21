@@ -248,6 +248,15 @@ function UKMwpat_modify_toolbar()
         ]
     );
 
+    // Search arrangørsystemet
+    $wp_admin_bar->add_node(
+        [
+            'parent' => 'top-secondary',
+            'id'     => 'edit-site-test',
+            'title' => '<div id="searchArrSysVue"></div>',
+        ]
+    );
+
 
     // TODO: should be moved to a class
     function set_node_title($id, $new_title)
