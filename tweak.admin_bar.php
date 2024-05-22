@@ -252,7 +252,7 @@ function UKMwpat_modify_toolbar()
     $wp_admin_bar->add_node(
         [
             'parent' => 'top-secondary',
-            'id'     => 'edit-site-test',
+            'id'     => 'search-arrangorsystemet',
             'title' => '<div id="searchArrSysVue"></div>',
         ]
     );
