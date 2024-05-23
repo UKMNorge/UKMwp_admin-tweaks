@@ -126,7 +126,7 @@ html #wpadminbar #wp-admin-bar-site-link a.ab-item {
 
 html #wpadminbar #wp-admin-bar-top-secondary
  {
-    margin-top: 0em;
+    margin-top: -2px;
 }
 
 html #wpadminbar #wp-admin-bar-wp-logo a {
