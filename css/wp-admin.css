@@ -281,8 +281,8 @@ html #wpadminbar #wp-admin-bar-wp-logo a {
     }
     .min-side-main-div, .main-side-left {
         /* reverse display */
-        display: flex;
-        flex-direction: column-reverse;
+        /* display: flex; */
+        /* flex-direction: column-reverse; */
     }
     #upcomingEvents {
         margin-top: calc(2*var(--initial-space-box));
