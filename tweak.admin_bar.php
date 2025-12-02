@@ -228,13 +228,13 @@ function UKMwpat_modify_toolbar()
                 </button>
                 <div id="arrangorBrukerMenu" class="hamburger-menu dropdown-menu dropdown-menu-right as-card-1" aria-labelledby="DropdownLoginLink">
                     <div class="mainpage">
-                            <a href="//'. UKM_HOSTNAME .'/wp-admin/user/" class="dropdown-item drop-item">
+                            <a href="//'. UKM_HOSTNAME_SUBDOMAIN .'/wp-admin/user/" class="dropdown-item drop-item">
                                 Min side
                             </a>
-                            <a href="//'. UKM_HOSTNAME .'/wp-admin/user/profile.php" class="dropdown-item drop-item">
+                            <a href="//'. UKM_HOSTNAME_SUBDOMAIN .'/wp-admin/user/profile.php" class="dropdown-item drop-item">
                                 Min profil
                             </a>
-                            <a href="//'. UKM_HOSTNAME .'/wp-admin/user/admin.php?page=UKMwpd_support" class="dropdown-item drop-item">
+                            <a href="//'. UKM_HOSTNAME_SUBDOMAIN .'/wp-admin/user/admin.php?page=UKMwpd_support" class="dropdown-item drop-item">
                                 Brukerstøtte
                             </a>
                             <a href="'. esc_url($logout_url) .'" class="dropdown-item drop-item">
