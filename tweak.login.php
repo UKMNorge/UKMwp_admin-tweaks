@@ -46,7 +46,7 @@ function UKMwpat_login_logo_url_title() {
  * @return String glemt passord-url
  */
 function UKMwpat_lostpassword() {
-	return '//'.UKM_HOSTNAME.'/glemt-passord/';
+	return '//'.UKM_HOSTNAME_SUBDOMAIN.'/glemt-passord/';
 }
 
 /**
