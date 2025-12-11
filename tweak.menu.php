@@ -49,7 +49,7 @@ function UKMwpat_tweak_menu_remove() {
             $menu[-5][6] = 'dashicons-arrow-left-alt';
         }
 
-        $menu[2][0] = 'Arrangement';
+        $menu[2][0] = 'Arrangementinfo';
         $menu[2][6] = 'dashicons-buddicons-groups';
         $menu[2][4] = $menu[2][4] . ' show-item-always';        
     } else {
@@ -75,20 +75,45 @@ function UKMwpat_tweak_menu_remove() {
     add_action('wp_before_admin_bar_render', 'changeAdminBarInfo', 10001);
 
     
-    $nettsideNavn = get_option('pl_id') ? 'Arrangement ' : (get_option('site_type') == 'kommune' ? 'Kommune ' : (get_option('site_type') == 'fylke' ? 'Fylke ' : ''));
+    // $nettsideNavn = get_option('pl_id') ? 'Arrangement ' : (get_option('site_type') == 'kommune' ? 'Kommune ' : (get_option('site_type') == 'fylke' ? 'Fylke ' : ''));
 	## ENDRE HOVEDMENY FRA WP
 	# POSTS = Nettside
-	$menu[5][0] = $nettsideNavn.'nettside';
+	$menu[5][0] = "Media";
+	$menu[5][1] = "edit.php";
+	$menu[5][2] = "edit.php";
 	$menu[5][6] = 'dashicons-desktop';
 	$submenu['edit.php'][5][0] = 'Nyheter';
 	remove_submenu_page('edit.php', 'post-new.php');
 
+    // echo '<pre style="position: relative; z-index: 9999;">';
+    // var_dump($menu);
+    // echo '</pre>';
+    // echo '<hr>';
+    // echo '<pre style="position: relative; z-index: 9999;">';
+    // var_dump($submenu);
+    // echo '</pre>';
+
+    unset($submenu['edit.php'][5]); // Fjernet kategorier
+    
+    // $menu[7][0] = 'Media NEW';
+    // $menu[7][6] = 'dashicons-desktop';
+
+    // unset($submenu['edit.php']);
+    // echo '<pre>';
+    // // var_dump($menu);
+    // echo '</pre><hr>';
+    
+    // echo '<pre>';
+    // // var_dump($submenu['edit.php']);
+    // echo '</pre>';
+    // remove_submenu_page('edit.php', 'edit.php');
+
 	# PAGES = Nettside: sider
     unset( $menu[20] ); // Fjernet side-redigering
     // Kommune- og fylkessider skal ikke ha sider (enda), med mindre spesial_meny er definert
-    if( is_super_admin() || !(in_array(get_option('site_type'), ['kommune','fylke']) && !get_option('spesial_meny')) ) {
-        add_submenu_page('edit.php', 'Sider', 'Sider', 'edit_pages', 'edit.php?post_type=page');
-    }
+    // if( is_super_admin() || !(in_array(get_option('site_type'), ['kommune','fylke']) && !get_option('spesial_meny')) ) {
+    //     add_submenu_page('edit.php', 'Sider', 'Sider', 'edit_pages', 'edit.php?post_type=page');
+    // }
     ## spesial_meny er en setting som gir utvalgte sites tilgang til sider-modulen
 	# funksjonen er innført i 2018, med Sogn og Fjordane + Østfold som testfylker
 	# Innstillingen brukes av 
@@ -168,10 +193,10 @@ function UKMwpat_tweak_menu_remove() {
         'import.php'
     );
 
-    $submenu['edit.php'][16][2] = 'edit.php?page=UKMnettside';
-    $tempEditSm = $submenu['edit.php'][5];
-    $submenu['edit.php'][5] =  $submenu['edit.php'][16];
-    $submenu['edit.php'][16] = $tempEditSm;
+    // $submenu['edit.php'][16][2] = 'edit.php?page=UKMnettside';
+    // $tempEditSm = $submenu['edit.php'][5];
+    // $submenu['edit.php'][5] =  $submenu['edit.php'][16];
+    // $submenu['edit.php'][16] = $tempEditSm;
 }
 
 function UKMwpat_tweak_network_menu() {
