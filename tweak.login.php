@@ -13,7 +13,7 @@ require_once('UKM/Autoloader.php');
 function UKMwpat_login() {
 	echo "<style type=\"text/css\">
 		h1 a {
-            background-image:url('https://grafikk.ukm.no/profil/logoer/UKM_logo_sort_0300.png') !important; 
+            background-image:url('//assets.ukm.dev/img/UKM_logo_sort.png') !important; 
             background-size: 140px 80px !important;
             min-height: 80px;
             min-width: 160px;

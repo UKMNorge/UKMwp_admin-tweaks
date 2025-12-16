@@ -74,7 +74,7 @@ function UKMwpat_modify_toolbar()
         $wp_admin_bar->add_node(
             [
                 'id' => 'wp-logo',
-                'title' => '<img src="//grafikk.ukm.no/profil/logoer/UKM_logo_sort_0100.png" id="UKMlogo" />' .
+                'title' => '<img src="//assets.ukm.dev/img/UKM_logo_sort.png" id="UKMlogo" />' .
                     '<span class="title-at-ukmlogo">Min side</span>',
                 'href' => user_admin_url()
             ]
@@ -83,7 +83,7 @@ function UKMwpat_modify_toolbar()
         $wp_admin_bar->add_node(
             [
                 'id' => 'wp-logo',
-                'title' => '<img src="//grafikk.ukm.no/profil/logoer/UKM_logo_sort_0100.png" id="UKMlogo" />' .
+                'title' => '<img src="//assets.ukm.dev/img/UKM_logo_sort.png" id="UKMlogo" />' .
                     '<span class="title-at-ukmlogo">UKM Norge-admin</span>',
                 'href' => network_admin_url()
             ]
@@ -92,7 +92,7 @@ function UKMwpat_modify_toolbar()
         $wp_admin_bar->add_node(
             [
                 'id' => 'wp-logo',
-                'title' => '<div><img src="//grafikk.ukm.no/profil/logoer/UKM_logo_sort_0100.png" id="UKMlogo"  />' .
+                'title' => '<div><img src="//assets.ukm.dev/img/UKM_logo_sort.png" id="UKMlogo"  />' .
                     '<span class="title-at-ukmlogo">'. get_bloginfo('name') .'</span>',
                 'href' => admin_url()
             ]
