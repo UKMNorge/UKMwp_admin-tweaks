@@ -14,7 +14,7 @@ function UKMwpat_login() {
 	echo "<style type=\"text/css\">
 		h1 a {
             background-image:url('//assets.ukm.no/img/UKM_logo_sort.png') !important; 
-            background-size: 140px 80px !important;
+            background-size: 110px auto !important;
             min-height: 80px;
             min-width: 160px;
             margin:0 auto;
