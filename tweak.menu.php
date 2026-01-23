@@ -79,8 +79,8 @@ function UKMwpat_tweak_menu_remove() {
 	## ENDRE HOVEDMENY FRA WP
 	# POSTS = Nettside
 	$menu[5][0] = "Media";
-	$menu[5][1] = "edit.php";
-	$menu[5][2] = "edit.php";
+	// $menu[5][1] = "edit.php";
+	// $menu[5][2] = "edit.php";
 	$menu[5][6] = 'dashicons-desktop';
 	remove_submenu_page('edit.php', 'post-new.php');
 

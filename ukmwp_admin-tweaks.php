@@ -244,7 +244,8 @@ add_filter('submenu_file', function ($submenu_file) {
 
 // Adding somthing to the top of the Posts admin page only
 add_action('admin_notices', function() {
-    if ($GLOBALS['pagenow'] === 'edit.php' && ($_GET['post_type'] ?? 'post') === 'post') {
+	// var_dump($_GET['post_type'] === 'post'));
+    if ($GLOBALS['pagenow'] === 'edit.php' && ($_GET['post_type'] ?? '') === 'post') {
 	    echo '
 		<div style="width: fit-content; background: var(--as-color-primary-warning-light); border: 2px solid var(--as-color-primary-warning-medium);" class="nosh-impt as-card-2 as-margin-top-space-2 as-margin-space-bottom-4 as-padding-space-2">
 			<h2 class="nom as-margin-bottom-space-2">Deltakerinfo</h2>
