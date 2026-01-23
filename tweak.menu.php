@@ -82,7 +82,6 @@ function UKMwpat_tweak_menu_remove() {
 	$menu[5][1] = "edit.php";
 	$menu[5][2] = "edit.php";
 	$menu[5][6] = 'dashicons-desktop';
-	$submenu['edit.php'][5][0] = 'Nyheter';
 	remove_submenu_page('edit.php', 'post-new.php');
 
     // echo '<pre style="position: relative; z-index: 9999;">';
@@ -92,6 +91,19 @@ function UKMwpat_tweak_menu_remove() {
     // echo '<pre style="position: relative; z-index: 9999;">';
     // var_dump($submenu);
     // echo '</pre>';
+    // Top-level menu: Deltakerinfo (separate from Media)
+    add_menu_page(
+        'Deltakerinfo',
+        'Deltakerinfo',
+        'edit_posts',
+        'ukm_deltakerinfo',
+        '__return_null',
+        'dashicons-email',
+        6
+    );
+	// $submenu['edit.php'][6][0] = 'Deltakerinfow';
+	// $submenu['edit.php'][6][1] = 'Deltakerinfo';
+
 
     unset($submenu['edit.php'][5]); // Fjernet kategorier
     

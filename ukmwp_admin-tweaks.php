@@ -163,7 +163,9 @@ function UKMwpat_favicon() {
 
 function UKMwpat_load_scripts_and_styles() {
     wp_enqueue_script( 'ukmwpat_adminmenu_js', PLUGIN_PATH . 'UKMwp_admin-tweaks/js/tweak.adminmenu.js');
+    wp_enqueue_script( 'ukmwpat_deltakerinfo_js', PLUGIN_PATH . 'UKMwp_admin-tweaks/js/tweak.deltakerinfo.js');
     wp_enqueue_style('tweak_adminmenu', PLUGIN_PATH . 'UKMwp_admin-tweaks/css/tweak.adminmenu.css');
+    wp_enqueue_style('tweak_posteditor', PLUGIN_PATH . 'UKMwp_admin-tweaks/css/tweak.posteditor.css');
 	wp_enqueue_style('UKMArrSysStyle');
 	wp_enqueue_style('WPbootstrap3_css', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
 	wp_enqueue_script('WPbootstrap3_js', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js');
@@ -213,3 +215,73 @@ function prevent_access_to_wordpress_pages_created_by_ukm() {
     }
 }
 add_action('admin_init', 'prevent_access_to_wordpress_pages_created_by_ukm');
+
+
+add_action('admin_init', function () {
+    if (!is_admin()) return;
+
+    // Works for site admin, network admin, user admin
+    if (isset($_GET['page']) && $_GET['page'] === 'ukm_deltakerinfo') {
+        wp_safe_redirect( self_admin_url('edit.php?post_type=post') );
+        exit;
+    }
+});
+
+add_filter('parent_file', function ($parent_file) {
+    // When viewing Posts list, highlight our custom menu instead of Media
+    if ($GLOBALS['pagenow'] === 'edit.php' && ($_GET['post_type'] ?? 'post') === 'post') {
+        return 'ukm_deltakerinfo';
+    }
+    return $parent_file;
+});
+
+add_filter('submenu_file', function ($submenu_file) {
+    if ($GLOBALS['pagenow'] === 'edit.php' && ($_GET['post_type'] ?? 'post') === 'post') {
+        return 'ukm_deltakerinfo';
+    }
+    return $submenu_file;
+});
+
+// Adding somthing to the top of the Posts admin page only
+add_action('admin_notices', function() {
+    if ($GLOBALS['pagenow'] === 'edit.php' && ($_GET['post_type'] ?? 'post') === 'post') {
+	    echo '
+		<div style="width: fit-content; background: var(--as-color-primary-warning-light); border: 2px solid var(--as-color-primary-warning-medium);" class="nosh-impt as-card-2 as-margin-top-space-2 as-margin-space-bottom-4 as-padding-space-2">
+			<h2 class="nom as-margin-bottom-space-2">Deltakerinfo</h2>
+			<section class="deltakerinfo-innlegg">
+			<h4>I denne seksjonen kan du publisere innlegg direkte til deltakerne.</h4>
+
+			<h5>Innleggene:</h5>
+			<ul style="list-style-type: disc; margin-left: 20px;">
+				<li>Vises kun på «Min side» hos deltakeren</li>
+				<li>Er ikke synlige på den offentlige nettsiden</li>
+				<li>Brukes til intern informasjon, beskjeder eller oppdateringer knyttet til arrangementet</li>
+			</ul>
+
+			<h5><strong>⚠️ Viktig:</strong></h5>
+			<p>
+				Arrangørene som publiserer innleggene er selv ansvarlige for å informere deltakerne om at det finnes nye innlegg.
+				Klikk på <b>Send varsling</b> under hvert innlegg for å sende en SMS til alle deltakere med informasjon om det nye innlegget.
+			</p>
+			</section>
+		</div>
+		';
+	}
+});
+
+add_filter('post_row_actions', 'add_custom_row_action', 10, 2);
+function add_custom_row_action($actions, $post) {
+
+    // Only for posts (change to your CPT slug if needed)
+    if ($post->post_type !== 'post') {
+        return $actions;
+    }
+
+    // Add your custom link
+    $actions['my_action'] = sprintf(
+        '<a class="send-varsling-fra-innlegg" post-id="%d">Send varsling</a>',
+        $post->ID
+    );
+
+    return $actions;
+}

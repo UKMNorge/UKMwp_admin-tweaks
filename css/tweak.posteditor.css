@@ -1,0 +1,19 @@
+.components-panel__row.edit-post-post-url,
+.block-editor-post-preview__dropdown,
+.edit-post-layout__metaboxes,
+.edit-post-meta-boxes-area.is-side,
+.button-link.editinline,
+.column-title .row-actions .view,
+.components-button[aria-label="View Post"],
+.components-panel__row {
+    visibility: hidden !important;
+    display: none !important;
+}
+
+.send-varsling-fra-innlegg {
+    cursor: pointer;
+}
+
+.status-trash .has-row-actions .send-varsling-fra-innlegg {
+    display: none;
+}
