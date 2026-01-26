@@ -5,6 +5,8 @@
 .button-link.editinline,
 .column-title .row-actions .view,
 .components-button[aria-label="View Post"],
+.editor-post-publish-panel__content,
+.editor-post-featured-image,
 .components-panel__row {
     visibility: hidden !important;
     display: none !important;
