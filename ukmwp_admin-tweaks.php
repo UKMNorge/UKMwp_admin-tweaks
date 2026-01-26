@@ -265,6 +265,8 @@ add_action('admin_notices', function() {
 				Klikk på <b>Send varsling</b> under hvert innlegg for å sende en SMS til alle deltakere med informasjon om det nye innlegget.
 			</p>
 			</section>
+
+			<p><b>Husk</b> at innleggene er tilgjengelige for alle som har tilgang til lenken, <b>så unngå sensitiv informasjon</b>. Ønsker du å dele sensitiv informasjon, vennligst bruk SMS-modulen og ta kontakt med deltakeren direkte.</p>
 		</div>
 		';
 	}
