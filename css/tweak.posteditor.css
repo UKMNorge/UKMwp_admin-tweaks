@@ -7,6 +7,7 @@
 .components-button[aria-label="View Post"],
 .editor-post-publish-panel__content,
 .editor-post-featured-image,
+.components-panel__body:not(.edit-post-post-status),
 .components-panel__row {
     visibility: hidden !important;
     display: none !important;
