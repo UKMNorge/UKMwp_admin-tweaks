@@ -91,16 +91,55 @@ function UKMwpat_tweak_menu_remove() {
     // echo '<pre style="position: relative; z-index: 9999;">';
     // var_dump($submenu);
     // echo '</pre>';
-    // Top-level menu: Deltakerinfo (separate from Media)
-    add_menu_page(
-        'Deltakerinfo',
-        'Deltakerinfo',
-        'edit_posts',
-        'ukm_deltakerinfo',
-        '__return_null',
-        'dashicons-email',
-        6
-    );
+    // Kommunikasjon meny. Children (UKMskjema) register earlier on admin_menu.
+    // The top item links straight at Skjemaer. A redirect via admin_url() leaves
+    // the current site and hits a dashboard the user is not a member of.
+    if (!empty($submenu['ukm_kommunikasjon'])) {
+        add_menu_page(
+            'Kommunikasjon',
+            'Kommunikasjon',
+            'editor',
+            'ukm_kommunikasjon',
+            '__return_null',
+            'dashicons-megaphone',
+            7
+        );
+
+        add_submenu_page(
+            'ukm_kommunikasjon',
+            'Deltakerinfo',
+            'Deltakerinfo',
+            'edit_posts',
+            'edit.php',
+            '',
+            0
+        );
+
+        // Slug must be the admin URL. UKMSMS_gui is a callback, not a file,
+        // and this item is moved off parent ukm_kommunikasjon below, so
+        // WordPress would otherwise link to /wp-admin/UKMSMS_gui.
+        add_submenu_page(
+            'ukm_kommunikasjon',
+            'SMS',
+            'SMS',
+            'editor',
+            'admin.php?page=UKMSMS_gui'
+        );
+
+        $parent_link = 'admin.php?page=UKMskjema';
+        foreach ($menu as $index => $item) {
+            if (($item[2] ?? '') === 'ukm_kommunikasjon') {
+                $menu[$index][2] = $parent_link;
+                break;
+            }
+        }
+        $submenu[$parent_link] = $submenu['ukm_kommunikasjon'];
+        unset($submenu['ukm_kommunikasjon']);
+
+        global $_parent_pages;
+        $_parent_pages['UKMskjema'] = $parent_link;
+    }
+
 	// $submenu['edit.php'][6][0] = 'Deltakerinfow';
 	// $submenu['edit.php'][6][1] = 'Deltakerinfo';
 
@@ -210,6 +249,19 @@ function UKMwpat_tweak_menu_remove() {
     // $submenu['edit.php'][5] =  $submenu['edit.php'][16];
     // $submenu['edit.php'][16] = $tempEditSm;
 }
+
+/**
+ * UKMSMS_menu runs after this reparent and recreates $submenu['ukm_kommunikasjon']
+ * for slug UKMSMS_gui. menu-header.php calls get_admin_page_parent() after the
+ * parent_file filter, so that orphan becomes the open menu and Kommunikasjon
+ * stays closed. The page hook is already resolved by admin_head; drop the leftover
+ * before the menu is rendered.
+ */
+function UKMwpat_tweak_menu_drop_sms_orphan() {
+    global $submenu;
+    unset($submenu['ukm_kommunikasjon']);
+}
+add_action('admin_head', 'UKMwpat_tweak_menu_drop_sms_orphan', 0);
 
 function UKMwpat_tweak_network_menu() {
 	global $menu, $submenu;

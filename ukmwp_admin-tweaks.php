@@ -228,16 +228,35 @@ add_action('admin_init', function () {
 });
 
 add_filter('parent_file', function ($parent_file) {
-    // When viewing Posts list, highlight our custom menu instead of Media
-    if ($GLOBALS['pagenow'] === 'edit.php' && ($_GET['post_type'] ?? 'post') === 'post') {
-        return 'ukm_deltakerinfo';
+    $post_type = $_GET['post_type'] ?? 'post';
+    // When viewing Posts or Innlegg, highlight Kommunikasjon instead of Media
+    if ($GLOBALS['pagenow'] === 'edit.php' && in_array($post_type, ['post', 'innlegg'], true)) {
+        return 'admin.php?page=UKMskjema';
+    }
+    if ($GLOBALS['pagenow'] === 'admin.php' && ($_GET['page'] ?? '') === 'UKMSMS_gui') {
+        return 'admin.php?page=UKMskjema';
     }
     return $parent_file;
 });
 
 add_filter('submenu_file', function ($submenu_file) {
-    if ($GLOBALS['pagenow'] === 'edit.php' && ($_GET['post_type'] ?? 'post') === 'post') {
-        return 'ukm_deltakerinfo';
+    if ($GLOBALS['pagenow'] === 'admin.php' && ($_GET['page'] ?? '') === 'UKMSMS_gui') {
+        return 'admin.php?page=UKMSMS_gui';
+    }
+    // Parent slug is admin.php?page=UKMskjema. WordPress strips the query,
+    // sees that admin.php exists, and will not mark UKMskjema current on its own.
+    if ($GLOBALS['pagenow'] === 'admin.php' && ($_GET['page'] ?? '') === 'UKMskjema') {
+        return 'UKMskjema';
+    }
+    if ($GLOBALS['pagenow'] !== 'edit.php') {
+        return $submenu_file;
+    }
+    $post_type = $_GET['post_type'] ?? 'post';
+    if ($post_type === 'post') {
+        return 'edit.php';
+    }
+    if ($post_type === 'innlegg') {
+        return 'edit.php?post_type=innlegg';
     }
     return $submenu_file;
 });
