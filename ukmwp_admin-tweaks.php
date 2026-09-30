@@ -225,16 +225,21 @@ add_action('admin_init', function () {
         wp_safe_redirect( self_admin_url('edit.php?post_type=post') );
         exit;
     }
+    // Bare Kommunikasjon parent. self_admin_url stays on this site; admin_url() does not.
+    if (isset($_GET['page']) && $_GET['page'] === 'ukm_kommunikasjon') {
+        wp_safe_redirect( self_admin_url('edit.php') );
+        exit;
+    }
 });
 
 add_filter('parent_file', function ($parent_file) {
     $post_type = $_GET['post_type'] ?? 'post';
     // When viewing Posts or Innlegg, highlight Kommunikasjon instead of Media
     if ($GLOBALS['pagenow'] === 'edit.php' && in_array($post_type, ['post', 'innlegg'], true)) {
-        return 'admin.php?page=UKMskjema';
+        return UKMwpat_kommunikasjon_parent_slug();
     }
     if ($GLOBALS['pagenow'] === 'admin.php' && ($_GET['page'] ?? '') === 'UKMSMS_gui') {
-        return 'admin.php?page=UKMskjema';
+        return UKMwpat_kommunikasjon_parent_slug();
     }
     return $parent_file;
 });

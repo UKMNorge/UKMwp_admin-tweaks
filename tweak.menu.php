@@ -91,33 +91,35 @@ function UKMwpat_tweak_menu_remove() {
     // echo '<pre style="position: relative; z-index: 9999;">';
     // var_dump($submenu);
     // echo '</pre>';
-    // Kommunikasjon meny. Children (UKMskjema) register earlier on admin_menu.
-    // The top item links straight at Skjemaer. A redirect via admin_url() leaves
-    // the current site and hits a dashboard the user is not a member of.
-    if (!empty($submenu['ukm_kommunikasjon'])) {
-        add_menu_page(
-            'Kommunikasjon',
-            'Kommunikasjon',
-            'editor',
-            'ukm_kommunikasjon',
-            '__return_null',
-            'dashicons-megaphone',
-            7
-        );
+    // Kommunikasjon is registered here, not by its children. UKMskjema (priority 101)
+    // may already have attached Skjemaer. The slug contains a query string so
+    // get_admin_page_parent() does not hand Posts back to Media. A redirect via
+    // admin_url() leaves the current site and hits a dashboard the user is not a member of.
+    add_menu_page(
+        'Kommunikasjon',
+        'Kommunikasjon',
+        'editor',
+        'ukm_kommunikasjon',
+        '__return_null',
+        'dashicons-megaphone',
+        7
+    );
 
-        add_submenu_page(
-            'ukm_kommunikasjon',
-            'Deltakerinfo',
-            'Deltakerinfo',
-            'edit_posts',
-            'edit.php',
-            '',
-            0
-        );
+    add_submenu_page(
+        'ukm_kommunikasjon',
+        'Deltakerinfo',
+        'Deltakerinfo',
+        'edit_posts',
+        'edit.php',
+        '',
+        0
+    );
 
-        // Slug must be the admin URL. UKMSMS_gui is a callback, not a file,
-        // and this item is moved off parent ukm_kommunikasjon below, so
-        // WordPress would otherwise link to /wp-admin/UKMSMS_gui.
+    // Slug must be the admin URL. UKMSMS_gui is a callback, not a file,
+    // and this item is moved off parent ukm_kommunikasjon below, so
+    // WordPress would otherwise link to /wp-admin/UKMSMS_gui.
+    // UKMSMS_menu runs later and would add a second item; the orphan drop removes that one.
+    if (function_exists('UKMSMS_gui')) {
         add_submenu_page(
             'ukm_kommunikasjon',
             'SMS',
@@ -125,17 +127,25 @@ function UKMwpat_tweak_menu_remove() {
             'editor',
             'admin.php?page=UKMSMS_gui'
         );
+    }
 
-        $parent_link = 'admin.php?page=UKMskjema';
-        foreach ($menu as $index => $item) {
-            if (($item[2] ?? '') === 'ukm_kommunikasjon') {
-                $menu[$index][2] = $parent_link;
-                break;
-            }
+    // The first child inserted under an existing parent is copied from the parent.
+    // That copy opens a blank screen, so drop it. The top item then follows Deltakerinfo.
+    remove_submenu_page('ukm_kommunikasjon', 'ukm_kommunikasjon');
+
+    $parent_link = UKMwpat_kommunikasjon_parent_slug();
+    foreach ($menu as $index => $item) {
+        if (($item[2] ?? '') === 'ukm_kommunikasjon') {
+            $menu[$index][2] = $parent_link;
+            break;
         }
+    }
+    if (!empty($submenu['ukm_kommunikasjon'])) {
         $submenu[$parent_link] = $submenu['ukm_kommunikasjon'];
         unset($submenu['ukm_kommunikasjon']);
+    }
 
+    if (class_exists('UKMskjema', false)) {
         global $_parent_pages;
         $_parent_pages['UKMskjema'] = $parent_link;
     }
@@ -248,6 +258,17 @@ function UKMwpat_tweak_menu_remove() {
     // $tempEditSm = $submenu['edit.php'][5];
     // $submenu['edit.php'][5] =  $submenu['edit.php'][16];
     // $submenu['edit.php'][16] = $tempEditSm;
+}
+
+/**
+ * Parent slug for Kommunikasjon. Skjemaer when that plugin is loaded, otherwise
+ * a stable slug owned by this plugin. The query string keeps get_admin_page_parent()
+ * from moving Posts back under Media.
+ */
+function UKMwpat_kommunikasjon_parent_slug() {
+    return class_exists('UKMskjema', false)
+        ? 'admin.php?page=UKMskjema'
+        : 'admin.php?page=ukm_kommunikasjon';
 }
 
 /**
