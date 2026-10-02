@@ -108,7 +108,7 @@ function UKMwpat_tweak_menu_remove() {
     add_submenu_page(
         'ukm_kommunikasjon',
         'Deltakerinfo',
-        'Deltakerinfo',
+        'Gi info til deltakere',
         'edit_posts',
         'edit.php',
         '',
