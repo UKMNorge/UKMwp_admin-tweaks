@@ -14,6 +14,12 @@
     display: none !important;
 }
 
+/* Show publiseringsdato på post editor */
+.components-panel__row.edit-post-post-schedule {
+    visibility: visible !important;
+    display: block !important;
+}
+
 .send-varsling-fra-innlegg {
     cursor: pointer;
 }
