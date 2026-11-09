@@ -261,14 +261,13 @@ function UKMwpat_tweak_menu_remove() {
 }
 
 /**
- * Parent slug for Kommunikasjon. Skjemaer when that plugin is loaded, otherwise
- * a stable slug owned by this plugin. The query string keeps get_admin_page_parent()
- * from moving Posts back under Media.
+ * Parent slug for Kommunikasjon. Same URL as the first child, Gi info til deltakere.
+ * Bare edit.php is the Posts screen without a post type, so the top item would not
+ * open that child. The query string keeps get_admin_page_parent() from moving
+ * Posts back under Media.
  */
 function UKMwpat_kommunikasjon_parent_slug() {
-    return class_exists('UKMskjema', false)
-        ? 'admin.php?page=UKMskjema'
-        : 'admin.php?page=ukm_kommunikasjon';
+    return 'edit.php?post_type=post';
 }
 
 /**

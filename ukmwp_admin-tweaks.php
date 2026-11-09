@@ -226,8 +226,9 @@ add_action('admin_init', function () {
         exit;
     }
     // Bare Kommunikasjon parent. self_admin_url stays on this site; admin_url() does not.
+    // Must include post_type=post so this lands on the same screen as Gi info til deltakere.
     if (isset($_GET['page']) && $_GET['page'] === 'ukm_kommunikasjon') {
-        wp_safe_redirect( self_admin_url('edit.php') );
+        wp_safe_redirect( self_admin_url('edit.php?post_type=post') );
         exit;
     }
 });
@@ -248,8 +249,8 @@ add_filter('submenu_file', function ($submenu_file) {
     if ($GLOBALS['pagenow'] === 'admin.php' && ($_GET['page'] ?? '') === 'UKMSMS_gui') {
         return 'admin.php?page=UKMSMS_gui';
     }
-    // Parent slug is admin.php?page=UKMskjema. WordPress strips the query,
-    // sees that admin.php exists, and will not mark UKMskjema current on its own.
+    // WordPress strips the query, sees that admin.php exists, and will not
+    // mark UKMskjema current on its own.
     if ($GLOBALS['pagenow'] === 'admin.php' && ($_GET['page'] ?? '') === 'UKMskjema') {
         return 'UKMskjema';
     }
@@ -258,7 +259,7 @@ add_filter('submenu_file', function ($submenu_file) {
     }
     $post_type = $_GET['post_type'] ?? 'post';
     if ($post_type === 'post') {
-        return 'edit.php';
+        return 'edit.php?post_type=post';
     }
     if ($post_type === 'innlegg') {
         return 'edit.php?post_type=innlegg';
