@@ -110,7 +110,7 @@ function UKMwpat_tweak_menu_remove() {
         'Deltakerinfo',
         'Gi info til deltakere',
         'edit_posts',
-        'edit.php',
+        'edit.php?post_type=post',
         '',
         0
     );
